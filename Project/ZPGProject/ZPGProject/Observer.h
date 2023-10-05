@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <functional>
 
 enum class MessageType {
 	MouseButtonPressed,
@@ -8,18 +9,18 @@ enum class MessageType {
 	KeyPressed,
 	KeyReleased,
 	KeyHeld,
-	MouseMove
-};
-
-struct Observer {
-	virtual void notify(MessageType messageType, void* object) = 0;
+	MouseMove,
+	WindowResize,
+	WindowFocusChange,
+	WindowVisibleChange,
+	ScrollOffsetChange
 };
 
 class Observable {
-	std::vector<Observer*> observers;
+	using observerFuntion = void(MessageType messageType, void* object);
+	std::vector <observerFuntion*> observers;
 public:
-	void add(Observer& obs);
-	void remove(Observer& obs);
-	void notify(MessageType messageType, void* obj) const;
-
+	void add(observerFuntion* obs);
+	void remove(observerFuntion* obs);
+	void notify(MessageType messageType, void* obj);
 };

@@ -30,10 +30,10 @@ Model::Model(std::vector<float> vd, VertexDataFormat df) {
 }
 
 void Model::addTransforms() {
-	tc->resetTransformMatrix();
-	tc->addRotationTransform(rotation);
-	tc->addTranlateTransform(position);
-	tc->addScaleTransform(scale);
+	//tc->resetTransformMatrix();
+	//tc->addRotationTransform(rotation);
+	//tc->addTranlateTransform(position);
+	//tc->addScaleTransform(scale);
 }
 
 GLuint Model::getVertexCount()

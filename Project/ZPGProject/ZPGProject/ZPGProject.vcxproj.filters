@@ -51,14 +51,14 @@
     <ClCompile Include="RotationTransform.h">
       <Filter>Hlavičkové soubory\Transforms</Filter>
     </ClCompile>
-    <ClCompile Include="Observer.cpp">
-      <Filter>Zdrojové soubory</Filter>
-    </ClCompile>
     <ClCompile Include="CallbackManager.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
     <ClCompile Include="DefaultScene.cpp">
       <Filter>Zdrojové soubory\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer.cpp">
+      <Filter>Zdrojové soubory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

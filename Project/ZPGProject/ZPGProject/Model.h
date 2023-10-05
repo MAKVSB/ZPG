@@ -28,9 +28,9 @@ public:
 	std::vector<float> vertexData;
 
 	//translate local coords to global coords
-	glm::vec3 position = glm::vec3(0, 0, 0);
-	glm::vec3 rotation = glm::vec3(0, 0, 0);
-	glm::vec3 scale = glm::vec3(1);
+	glm::vec3* position = new glm::vec3(0, 0, 0);
+	glm::vec3* rotation = new glm::vec3(0, 0, 0);
+	glm::vec3* scale = new glm::vec3(1);
 
 	GLuint getVertexCount();
 	void addTransforms();

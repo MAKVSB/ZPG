@@ -3,43 +3,101 @@
 
 #include "CallbackManager.h"
 
+CallbackManager* CallbackManager::observableCallback = nullptr;
+GLFWwindow* CallbackManager::window = nullptr;
+
 void CallbackManager::cbError(int error, const char* description) {
 	fputs(description, stderr);
 }
 
 void CallbackManager::cbKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
-		printf("key_callback [%d,%d,%d,%d] \n", key, scancode, action, mods);
+	CBKeyData cbData = CBKeyData{ key, mods };
+	switch (action)
+	{
+	case GLFW_PRESS:
+		if (key == GLFW_KEY_ESCAPE) glfwSetWindowShouldClose(window, GL_TRUE);
+		observableCallback->notify(MessageType::KeyPressed, &cbData);
+		break;
+	case GLFW_REPEAT:
+		observableCallback->notify(MessageType::KeyHeld, &cbData);
+		break;
+	case GLFW_RELEASE:
+		observableCallback->notify(MessageType::KeyReleased, &cbData);
+		break;
+	}
+}
+
+void CallbackManager::cbButton(GLFWwindow* window, int button, int action, int mods) {
+	CBButtonData cbData = CBButtonData{ button, mods };
+	switch (action)
+	{
+	case GLFW_PRESS:
+		observableCallback->notify(MessageType::MouseButtonPressed, &cbData);
+		break;
+	case GLFW_RELEASE:
+		observableCallback->notify(MessageType::MouseButtonReleased, &cbData);
+		break;
+	}
 }
 
 void CallbackManager::cbCursor(GLFWwindow* window, double x, double y) {
-	printf("cursor_callback \n");
+	CBCursorData cbData = CBCursorData{ x, y };
+	observableCallback->notify(MessageType::MouseMove, &cbData);
 }
-
-void CallbackManager::cbButton(GLFWwindow* window, int button, int action, int mode) {
-	if (action == GLFW_PRESS) printf("button_callback [%d,%d,%d]\n", button, action, mode);
-}
-
-void CallbackManager::cbWindowFocus(GLFWwindow* window, int focused) { printf("window_focus_callback \n"); }
-
-void CallbackManager::cbIconify(GLFWwindow* window, int iconified) { printf("window_iconify_callback \n"); }
 
 void CallbackManager::cbResize(GLFWwindow* window, int width, int height) {
-	printf("resize %d, %d \n", width, height);
+	CBResizeData cbData = CBResizeData{ width, height };
+	observableCallback->notify(MessageType::WindowResize, &cbData);
 	glViewport(0, 0, width, height);
 }
 
+void CallbackManager::cbScroll(GLFWwindow* window, double xoffset, double yoffset)
+{
+	CBScrollData cbData = CBScrollData{ xoffset, yoffset };
+	observableCallback->notify(MessageType::ScrollOffsetChange, &cbData);
+}
+
+void CallbackManager::cbWindowFocus(GLFWwindow* window, int focused) { 
+	CBFocusData cbData = CBFocusData{ (bool)focused };
+	observableCallback->notify(MessageType::WindowFocusChange, &cbData);
+}
+
+void CallbackManager::cbIconify(GLFWwindow* window, int iconified) {
+	CBIconifyData cbData = CBIconifyData{ (bool)iconified };
+	observableCallback->notify(MessageType::WindowVisibleChange, &cbData);
+	printf("window_iconify_callback \n");
+}
+
+
 void CallbackManager::registerCallbacks(GLFWwindow* window) {
-	glfwSetErrorCallback(CallbackManager::cbError);
-	glfwSetKeyCallback(window, CallbackManager::cbKey);
-	glfwSetCursorPosCallback(window, CallbackManager::cbCursor);
-	glfwSetMouseButtonCallback(window, CallbackManager::cbButton);
-	glfwSetWindowFocusCallback(window, CallbackManager::cbWindowFocus);
-	glfwSetWindowIconifyCallback(window, CallbackManager::cbIconify);
-	glfwSetWindowSizeCallback(window, CallbackManager::cbResize);
+	glfwSetErrorCallback(cbError);
+	glfwSetKeyCallback(window, cbKey);
+	glfwSetCursorPosCallback(window, cbCursor);
+	glfwSetMouseButtonCallback(window, cbButton);
+	glfwSetWindowFocusCallback(window, cbWindowFocus);
+	glfwSetWindowIconifyCallback(window, cbIconify);
+	glfwSetWindowSizeCallback(window, cbResize);
+	glfwSetScrollCallback(window, cbScroll);
+}
+
+void CallbackManager::unregisterCallbacks(GLFWwindow* window) {
+	glfwSetErrorCallback(nullptr);
+	glfwSetKeyCallback(window, nullptr);
+	glfwSetCursorPosCallback(window, nullptr);
+	glfwSetMouseButtonCallback(window, nullptr);
+	glfwSetWindowFocusCallback(window, nullptr);
+	glfwSetWindowIconifyCallback(window, nullptr);
+	glfwSetWindowSizeCallback(window, nullptr);
+	glfwSetScrollCallback(window, nullptr);
+}
+
+CallbackManager::~CallbackManager() {
+	unregisterCallbacks(window);
+	observableCallback = nullptr;
+	window = nullptr;
 }
 
 CallbackManager::CallbackManager(GLFWwindow* window) {
+	observableCallback = this;
 	registerCallbacks(window);
 }

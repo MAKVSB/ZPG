@@ -1,5 +1,7 @@
 #pragma once
-class CallbackManager
+
+#include "Observer.h"
+class CallbackManager : public Observable
 {
 private:
 	static void cbError(int error, const char* description);
@@ -16,9 +18,50 @@ private:
 
 	static void cbResize(GLFWwindow* window, int width, int height);
 
+	static void cbScroll(GLFWwindow* window, double xoffset, double yoffset);
+
+
 	static void registerCallbacks(GLFWwindow* window);
+	static void unregisterCallbacks(GLFWwindow* window);
 
 public:
+	struct CBKeyData {
+		int key;
+		int mods;
+	};
+
+	struct CBButtonData {
+		int button;
+		int mods;
+	};
+
+	struct CBCursorData {
+		double x;
+		double y;
+	};
+
+	struct CBResizeData {
+		int width;
+		int height;
+	};
+
+	struct CBIconifyData {
+		bool visible;
+	};
+
+	struct CBFocusData {
+		bool focused;
+	};
+
+	struct CBScrollData {
+		double x;
+		double y;
+	};
+
+	static CallbackManager* observableCallback;
+	static GLFWwindow* window;
+
 	CallbackManager(GLFWwindow* window);
+	~CallbackManager();
 };
 

@@ -29,15 +29,15 @@ public:
 		transformList.clear();
 	}
 
-	void addRotationTransform(glm::vec3 vec = glm::vec3(1)) {
+	void addRotationTransform(glm::vec3* vec) {
 		transformList.emplace_back(new RotationTransform(vec));
 	}
 
-	void addTranlateTransform(glm::vec3 vec = glm::vec3(1)) {
+	void addTranlateTransform(glm::vec3* vec) {
 		transformList.emplace_back(new TranslationTransform(vec));
 	}
 
-	void addScaleTransform(glm::vec3 vec = glm::vec3(1)) {
+	void addScaleTransform(glm::vec3* vec) {
 		transformList.emplace_back(new ScaleTransform(vec));
 	}
 };
