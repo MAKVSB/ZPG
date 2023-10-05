@@ -1,8 +1,8 @@
 #pragma once
+#include "GlobalInclude.h"
+
 #include <iostream>
 #include <list>
-
-#include <GL/glew.h>
 
 #include "shader.h"
 
@@ -18,4 +18,6 @@ public:
 	bool check();
 	void use();
 	void addShader(GLenum shaderType, const char* shaderFile);
+	void uploadUniformLocation(std::string uniformName, glm::mat4 M);
+
 };

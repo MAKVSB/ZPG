@@ -37,3 +37,11 @@ bool ShaderProgram::check() {
 void ShaderProgram::use() {
 	glUseProgram(shaderProgram);
 }
+
+void ShaderProgram::uploadUniformLocation(std::string uniformName, glm::mat4 M) {
+	GLint dataLocation = glGetUniformLocation(shaderProgram, uniformName.c_str());
+	if (dataLocation == -1) {
+		std::cout << "WARNING: shader parameter location \"" << uniformName << "\" not found in shader " << shaderProgram << std::endl;
+	}
+	glUniformMatrix4fv(dataLocation, 1, GL_FALSE, &M[0][0]);
+}

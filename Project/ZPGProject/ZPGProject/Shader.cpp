@@ -9,6 +9,7 @@ std::string Shader::ReadShaderFile(const char* filePath)
     if (sourceFile.is_open())
         sourceCode = std::string(std::istreambuf_iterator<char>(sourceFile),
             std::istreambuf_iterator<char>());
+    sourceFile.close();
     return sourceCode;
 }
 
@@ -23,4 +24,5 @@ Shader::Shader(GLenum shaderType, const char* shaderFile) {
 
 void Shader::compile() {
 	glCompileShader(shader);
+
 }

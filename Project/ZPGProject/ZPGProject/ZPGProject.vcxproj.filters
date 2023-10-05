@@ -22,6 +22,15 @@
     <Filter Include="Hlavičkové soubory\Models">
       <UniqueIdentifier>{6c3ea153-7424-4da1-bd34-7ada84802acf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Hlavičkové soubory\Transforms">
+      <UniqueIdentifier>{1a14e816-98d0-467d-bffe-084a8dd14c9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hlavičkové soubory\Scene">
+      <UniqueIdentifier>{385e4254-a835-444b-80b8-767f3378e4ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Zdrojové soubory\Scene">
+      <UniqueIdentifier>{cecc5c48-b471-4998-97e0-24c3f3530252}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -38,6 +47,18 @@
     </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Zdrojové soubory\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="RotationTransform.h">
+      <Filter>Hlavičkové soubory\Transforms</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
+    <ClCompile Include="CallbackManager.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultScene.cpp">
+      <Filter>Zdrojové soubory\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -59,18 +80,45 @@
     <ClInclude Include="Triangle.h">
       <Filter>Hlavičkové soubory\Models</Filter>
     </ClInclude>
+    <ClInclude Include="TranslationTransform.h">
+      <Filter>Hlavičkové soubory\Transforms</Filter>
+    </ClInclude>
+    <ClInclude Include="ScaleTransform.h">
+      <Filter>Hlavičkové soubory\Transforms</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Hlavičkové soubory\Transforms</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComp.h">
+      <Filter>Hlavičkové soubory\Transforms</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalInclude.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="CallbackManager.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Hlavičkové soubory\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultScene.h">
+      <Filter>Hlavičkové soubory\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex_shader.glsl">
       <Filter>Soubory zdrojů</Filter>
     </None>
-    <None Include="fragment_shader.glsl">
+    <None Include="fragment_shader_color_static.glsl">
       <Filter>Soubory zdrojů</Filter>
     </None>
     <None Include="vertex_shader_positional_color.glsl">
       <Filter>Soubory zdrojů</Filter>
     </None>
-    <None Include="fragment_shader_positional_color.glsl">
+    <None Include="fragment_shader_color_positional.glsl">
       <Filter>Soubory zdrojů</Filter>
     </None>
   </ItemGroup>

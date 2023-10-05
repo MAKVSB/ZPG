@@ -24,20 +24,30 @@ Model::Model(std::vector<float> vd, VertexDataFormat df) {
 	case POS_COLOR:
 		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)0);
 		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)(4 * sizeof(float)));
+		vertexLength = 8;
 		break;
 	}
 }
 
-GLuint Model::getVertexCount()
-{
-	return vertexData.size() / 8;
+void Model::addTransforms() {
+	tc->resetTransformMatrix();
+	tc->addRotationTransform(rotation);
+	tc->addTranlateTransform(position);
+	tc->addScaleTransform(scale);
 }
 
+GLuint Model::getVertexCount()
+{
+	return vertexData.size() / vertexLength;
+}
 
 void Model::draw() {
+	addTransforms();
 	shader->use();
+	shader->uploadUniformLocation("modelMatrix", tc->transform());
 
 	glBindVertexArray(VAO);
+
 	// draw triangles
 	glDrawArrays(renderType, 0, getVertexCount()); //mode,first,count
 }

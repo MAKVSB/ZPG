@@ -1,9 +1,11 @@
 #version 330
 
-layout(location=0) in vec4 vp;
+layout(location=0) in vec3 vp;
+uniform mat4 modelMatrix;
+
 out vec4 fragColor;
 
 void main () {
-     gl_Position = vp;
-     fragColor = vp;
+     gl_Position = modelMatrix * vec4(vp, 1.0);
+     fragColor = modelMatrix * vec4(vp, 1.0);
 };

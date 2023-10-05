@@ -134,22 +134,35 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="CallbackManager.cpp" />
+    <ClCompile Include="DefaultScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Observer.cpp" />
+    <ClCompile Include="RotationTransform.h" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="CallbackManager.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="DefaultScene.h" />
+    <ClInclude Include="GlobalInclude.h" />
+    <ClInclude Include="Observer.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="TransformComp.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="ScaleTransform.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="Transform.h" />
+    <ClInclude Include="TranslationTransform.h" />
     <ClInclude Include="Triangle.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragment_shader.glsl" />
-    <None Include="fragment_shader_positional_color.glsl" />
+    <None Include="fragment_shader_color_positional.glsl" />
+    <None Include="fragment_shader_color_static.glsl" />
     <None Include="vertex_shader.glsl" />
     <None Include="vertex_shader_positional_color.glsl" />
   </ItemGroup>

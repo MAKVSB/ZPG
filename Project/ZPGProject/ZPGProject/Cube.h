@@ -1,6 +1,7 @@
+#pragma once
 #include <vector>
 
-std::vector<float> cubeVertexData = {
+static std::vector<float> cubeVertexData = {
 	// back 
 	-.5f, -.5f, .5f, 1, 1.0f, .0f, .0f, 1,
 	-.5f, .5f, .5f, 1, 1.0f, .0f, .0f, 1,
@@ -14,14 +15,14 @@ std::vector<float> cubeVertexData = {
 	-.5f, -.5f, -.5f, 1, .0f, 1.0f, .0f, 1,
 	-.5f, .5f, -.5f, 1, .0f, .5f, .0f, 1,
 	-.5f, -.5f, -.5f, 1, .0f, .5f, .0f, 1,
-	-.5f, .5f, -.5f, 1, .0f, .5f, .0f, 1,
+	-.5f, .5f, .5f, 1, .0f, .5f, .0f, 1,
 	// right
 	.5f, -.5f, .5f, 1, .0f, .0f, 1.0f, 1,
 	.5f, .5f, .5f, 1, .0f, .0f, 1.0f, 1,
 	.5f, -.5f, -.5f, 1, .0f, .0f, 1.0f, 1,
 	.5f, .5f, -.5f, 1, .0f, .0f, .5f, 1,
 	.5f, -.5f, -.5f, 1, .0f, .0f, .5f, 1,
-	.5f, .5f, -.5f, 1, .0f, .0f, .5f, 1,
+	.5f, .5f, .5f, 1, .0f, .0f, .5f, 1,
 	// top
 	.5f, .5f, .5f, 1, 1.0f, 1.0f, .0f, 1,
 	- .5f, .5f, .5f, 1, 1.0f, 1.0f, .0f, 1,

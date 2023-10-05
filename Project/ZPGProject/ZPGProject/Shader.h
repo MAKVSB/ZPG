@@ -1,11 +1,11 @@
 #pragma once
+#include "GlobalInclude.h"
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
 
 #include <string.h>
-
-#include <GL/glew.h>
 
 class Shader
 {
