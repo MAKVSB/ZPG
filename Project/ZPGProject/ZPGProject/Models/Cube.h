@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-const std::vector<float> cubeVertexData = {
+const float cubeVertexData[288] = {
 	// back 
 	-.5f, -.5f, .5f, 1, 1.0f, .0f, .0f, 1,
 	-.5f, .5f, .5f, 1, 1.0f, .0f, .0f, 1,

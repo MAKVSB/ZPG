@@ -1,7 +1,6 @@
 #pragma once
-#include <vector>
 
-const std::vector<float> triangleVertexData = {
+const float triangleVertexData[144] = {
 	// back 
 	-.5f, -.5f, .5f, 1, 1.0f, .0f, .0f, 1,
 	.0f, .5f, .0f, 1, 1.0f, .0f, .0f, 1,

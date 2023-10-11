@@ -11,7 +11,7 @@
 #include <thread>
 
 #include "ShaderProgram/ShaderProgram.h"
-#include "Model.h"
+#include "Model/Model.h"
 
 #include "Scene/Scene.h"
 #include "Scene/DefaultScene.h"

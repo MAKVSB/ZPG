@@ -17,7 +17,9 @@ enum class MessageType {
 	ScrollOffsetChange,
 
 	//camera messages
-	CameraStateChange,
+	CameraProjectionChange,
+	CameraViewChange,
+	CameraChanged,
 };
 
 class Observer {

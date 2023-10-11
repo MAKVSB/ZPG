@@ -6,6 +6,16 @@ ShaderProgram::ShaderProgram() {
 	shaderProgram = glCreateProgram();
 }
 
+void ShaderProgram::setCamera(Camera* cmr)
+{
+	if (camera != nullptr) {
+		camera->remove(this);
+	}
+	camera = cmr;
+	camera->add(this);
+	listen(MessageType::CameraChanged, nullptr);
+}
+
 void ShaderProgram::addShader(GLenum shaderType, const char* shaderFile) {
 	shaders.push_back(new Shader(shaderType, shaderFile));
 }
@@ -27,7 +37,9 @@ bool ShaderProgram::check() {
 		glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLogLength);
 		GLchar* strInfoLog = new GLchar[infoLogLength + 1];
 		glGetProgramInfoLog(shaderProgram, infoLogLength, NULL, strInfoLog);
-		fprintf(stderr, "Linker failure: %s\n", strInfoLog);
+		while (true) {
+			fprintf(stderr, "Linker failure: %d %s\n", shaderProgram, strInfoLog);
+		}
 		delete[] strInfoLog;
 		return false;
 	}
@@ -38,10 +50,27 @@ void ShaderProgram::use() {
 	glUseProgram(shaderProgram);
 }
 
-void ShaderProgram::uploadUniformLocation(std::string uniformName, glm::mat4 M) {
+void ShaderProgram::unuse()
+{
+	glUseProgram(0);
+}
+
+void ShaderProgram::uploadUniformMatrix(std::string uniformName, glm::mat4 M) {
+	use();
 	GLint dataLocation = glGetUniformLocation(shaderProgram, uniformName.c_str());
 	if (dataLocation == -1) {
 		std::cout << "WARNING: shader parameter location \"" << uniformName << "\" not found in shader " << shaderProgram << std::endl;
 	}
 	glUniformMatrix4fv(dataLocation, 1, GL_FALSE, &M[0][0]);
+	unuse();
+}
+
+void ShaderProgram::listen(MessageType messageType, void* object)
+{
+	if (messageType == MessageType::CameraProjectionChange || messageType == MessageType::CameraChanged) {
+		uploadUniformMatrix("projectionMatrix", camera->getProjectionMartix());
+	}
+	if (messageType == MessageType::CameraViewChange || messageType == MessageType::CameraChanged) {
+		uploadUniformMatrix("viewMatrix", camera->getViewMatrix());
+	}
 }

@@ -137,7 +137,8 @@
     <ClCompile Include="CallbackManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Model\ModelLoader.cpp" />
+    <ClCompile Include="Model\Model.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Scene\DefaultScene.cpp" />
     <ClCompile Include="ShaderProgram\Shader.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="CallbackManager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GlobalInclude.h" />
+    <ClInclude Include="Model\ModelLoader.h" />
     <ClInclude Include="Models\Cube.h" />
     <ClInclude Include="Models\plain.h" />
     <ClInclude Include="Models\sphere.h" />
@@ -159,7 +161,7 @@
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="ShaderProgram\Shader.h" />
     <ClInclude Include="ShaderProgram\ShaderProgram.h" />
-    <ClInclude Include="Model.h" />
+    <ClInclude Include="Model\Model.h" />
     <ClInclude Include="Transforms\RotationTransform.h" />
     <ClInclude Include="Transforms\ScaleTransform.h" />
     <ClInclude Include="Transforms\Transform.h" />

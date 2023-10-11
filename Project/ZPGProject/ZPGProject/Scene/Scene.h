@@ -3,7 +3,8 @@
 #include <map>
 #include <list>
 #include "ShaderProgram/ShaderProgram.h"
-#include "Model.h"
+#include "Model/Model.h"
+#include "Model/ModelLoader.h"
 #include "Camera.h"
 
 class Scene

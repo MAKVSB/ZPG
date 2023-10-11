@@ -45,7 +45,10 @@ void Application::initialization() {
 	float ratio = width / (float)height;
 	glViewport(0, 0, width, height);
 
+
+	//custom
 	glEnable(GL_DEPTH_TEST);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	//init required singletons
 	CallbackManager::init(window);

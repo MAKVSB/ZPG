@@ -1,5 +1,7 @@
 #pragma once
 
+#include <map>
+
 #include "Observer.h"
 class CallbackManager : public Observable
 {
