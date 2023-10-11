@@ -7,7 +7,7 @@
 #include "CallbackManager.h"
 
 enum ProjectionEnum {
-	Ortho,
+	Orthogonal,
 	Perspective,
 	None
 };
@@ -32,7 +32,7 @@ private:
 	glm::vec2 screenSize;
 	glm::vec2 screenCenter;
 	glm::vec3 position = glm::vec3(0, 0, 2);
-	glm::vec3 direction = glm::vec3(0, 0, -1);
+	glm::vec3 rotation = glm::vec3(0, 0, -1);
 	glm::vec3 up = glm::vec3(0, 1, 0);
 	float fov = 45;
 

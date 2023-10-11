@@ -3,6 +3,7 @@
 #include <map>
 #include <list>
 #include "ShaderProgram/ShaderProgram.h"
+#include "ShaderProgram/ShaderBuilder.h"
 #include "Model/Model.h"
 #include "Model/ModelLoader.h"
 #include "Camera.h"

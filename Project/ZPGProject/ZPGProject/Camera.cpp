@@ -1,14 +1,14 @@
 #include "Camera.h"
 
 glm::mat4 Camera::getViewMatrix() {
-	return glm::lookAt(position, position + direction, up);
+	return glm::lookAt(position, position + rotation, up);
 }
 
 glm::mat4 Camera::getProjectionMartix() {
 	if (activeProjection == Perspective) {
 		return glm::perspective(fov, screenSize.x / screenSize.y, 0.1f, 100.0f);
 	}
-	else if (activeProjection == Ortho) {
+	else if (activeProjection == Orthogonal) {
 		return glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.0f, 100.0f);
 	}
 	else {
@@ -45,6 +45,24 @@ void Camera::listen(MessageType messageType, void* object)
 	if (messageType == MessageType::KeyPressed) {
 		CallbackManager::CBKeyData* dataStruct = static_cast<CallbackManager::CBKeyData*>(object);
 		keypressMap[dataStruct->key] = dataStruct->mods + 1;
+
+		if (dataStruct->key == GLFW_KEY_P) {
+			switch (activeProjection)
+			{
+			case Perspective:
+				activeProjection = Orthogonal;
+				break;
+			case Orthogonal:
+				activeProjection = None;
+				break;
+			case None:
+				activeProjection = Perspective;
+				break;
+			default:
+				break;
+			}
+			this->notify(MessageType::CameraProjectionChange, nullptr);
+		}
 	}
 	if (messageType == MessageType::KeyReleased) {
 		CallbackManager::CBKeyData* dataStruct = static_cast<CallbackManager::CBKeyData*>(object);
@@ -63,7 +81,7 @@ void Camera::listen(MessageType messageType, void* object)
 		dir.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 		dir.y = sin(glm::radians(pitch));
 		dir.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-		direction = glm::normalize(dir);
+		rotation = glm::normalize(dir);
 		this->notify(MessageType::CameraViewChange, nullptr);
 	}
 }
@@ -74,11 +92,11 @@ void Camera::tick(double deltaTime)
 	float realSpeed = camSpeed * (float)deltaTime;
 
 	if (keypressMap[GLFW_KEY_W] > 0) {
-		position += realSpeed * direction;
+		position += realSpeed * rotation;
 		changed = true;
 	}
 	if (keypressMap[GLFW_KEY_S] > 0) {
-		position -= realSpeed * direction;
+		position -= realSpeed * rotation;
 		changed = true;
 	}
 	if (keypressMap[GLFW_KEY_SPACE] > 0) {
@@ -90,7 +108,7 @@ void Camera::tick(double deltaTime)
 		changed = true;
 	}
 	if (keypressMap[GLFW_KEY_D] > 0 || keypressMap[GLFW_KEY_A] > 0) {
-		glm::vec3 cameraRight = glm::normalize(glm::cross(direction, up)); // Calculate the right vector
+		glm::vec3 cameraRight = glm::normalize(glm::cross(rotation, up));
 		if (keypressMap[GLFW_KEY_D] > 0) {
 			position += realSpeed * cameraRight;
 		}
@@ -99,6 +117,5 @@ void Camera::tick(double deltaTime)
 		}
 		changed = true;
 	}
-
 	if (changed) this->notify(MessageType::CameraViewChange, nullptr);
 }

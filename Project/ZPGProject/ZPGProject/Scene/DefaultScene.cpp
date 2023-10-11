@@ -36,21 +36,19 @@ DefaultScene::DefaultScene(GLFWwindow* window) : Scene(window) {
 
 void DefaultScene::createShaders()
 {
-	ShaderProgram* firstShader = new ShaderProgram();
-	firstShader->addShader(GL_VERTEX_SHADER, "Shaders/vertex_shader_transformative.glsl");
-	firstShader->addShader(GL_FRAGMENT_SHADER, "Shaders/fragment_shader_color_static.glsl");
-	firstShader->compile();
-	firstShader->check();
-	firstShader->setCamera(camera);
-	shaderPrograms[std::string("firstShader")] = firstShader;
+	shaderPrograms[std::string("firstShader")] = (new ShaderBuilder())
+		->name("firstShader")
+		->addShader(GL_VERTEX_SHADER, "Shaders/vertex_shader_transformative.glsl")
+		->addShader(GL_FRAGMENT_SHADER, "Shaders/fragment_shader_color_static.glsl")
+		->compileAndCheck()
+		->setCamera(camera);
 
-	ShaderProgram* secondShader = new ShaderProgram();
-	secondShader->addShader(GL_VERTEX_SHADER, "Shaders/vertex_shader_positional_color.glsl");
-	secondShader->addShader(GL_FRAGMENT_SHADER, "Shaders/fragment_shader_color_positional.glsl");
-	secondShader->compile();
-	secondShader->check();
-	secondShader->setCamera(camera);
-	shaderPrograms[std::string("secondShader")] = secondShader;
+	shaderPrograms[std::string("secondShader")] = (new ShaderBuilder())
+		->name("secondShader")
+		->addShader(GL_VERTEX_SHADER, "Shaders/vertex_shader_positional_color.glsl")
+		->addShader(GL_FRAGMENT_SHADER, "Shaders/fragment_shader_color_positional.glsl")
+		->compileAndCheck()
+		->setCamera(camera);
 }
 
 void DefaultScene::createModels()

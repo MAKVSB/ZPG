@@ -42,10 +42,9 @@ GLuint Model::getVertexCount()
 void Model::draw() {
 	shader->uploadUniformMatrix("modelMatrix", tc->transform());
 
-	shader->use();
-	glBindVertexArray(VAO);
-
-	// draw triangles
-	glDrawArrays(renderType, 0, getVertexCount()); //mode,first,count
-	shader->unuse();
+	shader->useWrapper([&]() {
+		glBindVertexArray(VAO);
+		// draw triangles
+		glDrawArrays(renderType, 0, getVertexCount()); //mode,first,count
+	});
 }

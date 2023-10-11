@@ -6,7 +6,7 @@ ShaderProgram::ShaderProgram() {
 	shaderProgram = glCreateProgram();
 }
 
-void ShaderProgram::setCamera(Camera* cmr)
+ShaderProgram* ShaderProgram::setCamera(Camera* cmr)
 {
 	if (camera != nullptr) {
 		camera->remove(this);
@@ -14,6 +14,7 @@ void ShaderProgram::setCamera(Camera* cmr)
 	camera = cmr;
 	camera->add(this);
 	listen(MessageType::CameraChanged, nullptr);
+	return this;
 }
 
 void ShaderProgram::addShader(GLenum shaderType, const char* shaderFile) {
@@ -28,19 +29,15 @@ void ShaderProgram::compile() {
 	glLinkProgram(shaderProgram);
 }
 
-bool ShaderProgram::check() {
+bool ShaderProgram::check(GLchar* &errorMessage) {
 	GLint status;
 	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &status);
 	if (status == GL_FALSE)
 	{
 		GLint infoLogLength;
 		glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLogLength);
-		GLchar* strInfoLog = new GLchar[infoLogLength + 1];
-		glGetProgramInfoLog(shaderProgram, infoLogLength, NULL, strInfoLog);
-		while (true) {
-			fprintf(stderr, "Linker failure: %d %s\n", shaderProgram, strInfoLog);
-		}
-		delete[] strInfoLog;
+		errorMessage = new GLchar[infoLogLength + 1];
+		glGetProgramInfoLog(shaderProgram, infoLogLength, NULL, errorMessage);
 		return false;
 	}
 	return true;
