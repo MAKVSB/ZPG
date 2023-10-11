@@ -133,9 +133,6 @@
     <None Include="Shaders\fragment_shader_color_static.glsl">
       <Filter>Soubory zdrojů</Filter>
     </None>
-    <None Include="Shaders\vertex_shader.glsl">
-      <Filter>Soubory zdrojů</Filter>
-    </None>
     <None Include="Shaders\vertex_shader_positional_color.glsl">
       <Filter>Soubory zdrojů</Filter>
     </None>

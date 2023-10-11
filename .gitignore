@@ -48,6 +48,6 @@ Thumbs.db
 *.mov
 *.wmv
 
-Project/ZPGProject/.vs/
+.vs/
 Project/ZPGProject/ZPGProject/Debug
 Project/ZPGProject/Debug

@@ -169,7 +169,6 @@
   <ItemGroup>
     <None Include="Shaders\fragment_shader_color_positional.glsl" />
     <None Include="Shaders\fragment_shader_color_static.glsl" />
-    <None Include="Shaders\vertex_shader.glsl" />
     <None Include="Shaders\vertex_shader_positional_color.glsl" />
     <None Include="Shaders\vertex_shader_transformative.glsl" />
   </ItemGroup>
