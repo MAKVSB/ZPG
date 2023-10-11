@@ -21,19 +21,17 @@ Model::Model(std::vector<float> vd, VertexDataFormat df) {
 
 	switch (dataFormat)
 	{
-	case POS_COLOR:
-		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)0);
-		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)(4 * sizeof(float)));
+	case POS4_COL4:
 		vertexLength = 8;
+		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, vertexLength * sizeof(float), (GLvoid*)0);
+		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, vertexLength * sizeof(float), (GLvoid*)(4 * sizeof(float)));
+		break;
+	case POS3_NOR3:
+		vertexLength = 6;
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, vertexLength * sizeof(float), (GLvoid*)0);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, vertexLength * sizeof(float), (GLvoid*)(3 * sizeof(float)));
 		break;
 	}
-}
-
-void Model::addTransforms() {
-	//tc->resetTransformMatrix();
-	//tc->addRotationTransform(rotation);
-	//tc->addTranlateTransform(position);
-	//tc->addScaleTransform(scale);
 }
 
 GLuint Model::getVertexCount()
@@ -42,7 +40,6 @@ GLuint Model::getVertexCount()
 }
 
 void Model::draw() {
-	addTransforms();
 	shader->use();
 	shader->uploadUniformLocation("modelMatrix", tc->transform());
 

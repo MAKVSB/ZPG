@@ -42,55 +42,31 @@
     <ClCompile Include="Model.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderProgram.cpp">
-      <Filter>Zdrojové soubory\ShaderProgram</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Zdrojové soubory\ShaderProgram</Filter>
-    </ClCompile>
-    <ClCompile Include="RotationTransform.h">
-      <Filter>Hlavičkové soubory\Transforms</Filter>
-    </ClCompile>
     <ClCompile Include="CallbackManager.cpp">
       <Filter>Zdrojové soubory</Filter>
-    </ClCompile>
-    <ClCompile Include="DefaultScene.cpp">
-      <Filter>Zdrojové soubory\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Observer.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\DefaultScene.cpp">
+      <Filter>Zdrojové soubory\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderProgram\Shader.cpp">
+      <Filter>Zdrojové soubory\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderProgram\ShaderProgram.cpp">
+      <Filter>Zdrojové soubory\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ShaderProgram.h">
-      <Filter>Hlavičkové soubory\ShaderProgram</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Hlavičkové soubory\ShaderProgram</Filter>
-    </ClInclude>
     <ClInclude Include="Application.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>Hlavičkové soubory</Filter>
-    </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>Hlavičkové soubory\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Triangle.h">
-      <Filter>Hlavičkové soubory\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="TranslationTransform.h">
-      <Filter>Hlavičkové soubory\Transforms</Filter>
-    </ClInclude>
-    <ClInclude Include="ScaleTransform.h">
-      <Filter>Hlavičkové soubory\Transforms</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Hlavičkové soubory\Transforms</Filter>
-    </ClInclude>
-    <ClInclude Include="TransformComp.h">
-      <Filter>Hlavičkové soubory\Transforms</Filter>
     </ClInclude>
     <ClInclude Include="GlobalInclude.h">
       <Filter>Hlavičkové soubory</Filter>
@@ -101,24 +77,69 @@
     <ClInclude Include="CallbackManager.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
+    <ClInclude Include="Models\Cube.h">
+      <Filter>Hlavičkové soubory\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\Triangle.h">
+      <Filter>Hlavičkové soubory\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\DefaultScene.h">
       <Filter>Hlavičkové soubory\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="DefaultScene.h">
+    <ClInclude Include="Scene\Scene.h">
       <Filter>Hlavičkové soubory\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderProgram\Shader.h">
+      <Filter>Hlavičkové soubory\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderProgram\ShaderProgram.h">
+      <Filter>Hlavičkové soubory\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="Transforms\RotationTransform.h">
+      <Filter>Hlavičkové soubory\Transforms</Filter>
+    </ClInclude>
+    <ClInclude Include="Transforms\ScaleTransform.h">
+      <Filter>Hlavičkové soubory\Transforms</Filter>
+    </ClInclude>
+    <ClInclude Include="Transforms\Transform.h">
+      <Filter>Hlavičkové soubory\Transforms</Filter>
+    </ClInclude>
+    <ClInclude Include="Transforms\TransformComp.h">
+      <Filter>Hlavičkové soubory\Transforms</Filter>
+    </ClInclude>
+    <ClInclude Include="Transforms\TranslationTransform.h">
+      <Filter>Hlavičkové soubory\Transforms</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\plain.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\sphere.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\suzi_flat.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\suzi_smooth.h">
+      <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="vertex_shader.glsl">
+    <None Include="Shaders\fragment_shader_color_positional.glsl">
       <Filter>Soubory zdrojů</Filter>
     </None>
-    <None Include="fragment_shader_color_static.glsl">
+    <None Include="Shaders\fragment_shader_color_static.glsl">
       <Filter>Soubory zdrojů</Filter>
     </None>
-    <None Include="vertex_shader_positional_color.glsl">
+    <None Include="Shaders\vertex_shader.glsl">
       <Filter>Soubory zdrojů</Filter>
     </None>
-    <None Include="fragment_shader_color_positional.glsl">
+    <None Include="Shaders\vertex_shader_positional_color.glsl">
+      <Filter>Soubory zdrojů</Filter>
+    </None>
+    <None Include="Shaders\vertex_shader_transformative.glsl">
       <Filter>Soubory zdrojů</Filter>
     </None>
   </ItemGroup>

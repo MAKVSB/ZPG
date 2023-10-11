@@ -4,6 +4,8 @@
 class CallbackManager : public Observable
 {
 private:
+	static CallbackManager* instance;
+
 	static void cbError(int error, const char* description);
 
 	static void cbKey(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -20,9 +22,13 @@ private:
 
 	static void cbScroll(GLFWwindow* window, double xoffset, double yoffset);
 
-
 	static void registerCallbacks(GLFWwindow* window);
 	static void unregisterCallbacks(GLFWwindow* window);
+
+	CallbackManager(GLFWwindow* window);
+	~CallbackManager();
+
+	static GLFWwindow* window;
 
 public:
 	struct CBKeyData {
@@ -58,10 +64,19 @@ public:
 		double y;
 	};
 
-	static CallbackManager* observableCallback;
-	static GLFWwindow* window;
+	static CallbackManager* init(GLFWwindow* window) {
+		if (instance == nullptr) {
+			instance = new CallbackManager(window);
+		}
+		return instance;
+	}
 
-	CallbackManager(GLFWwindow* window);
-	~CallbackManager();
+	static CallbackManager* getInstance() {
+		return instance;
+	}
+
+	static void destroy() {
+		delete instance;
+	}
 };
 

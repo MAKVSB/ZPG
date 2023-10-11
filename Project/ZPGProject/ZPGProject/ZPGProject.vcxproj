@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\School\5Sem\zpg\Project\Lib\glew-2.1.0\include;C:\School\5Sem\zpg\Project\Lib\glfw-3.3.8.bin.WIN32\include;C:\School\5Sem\zpg\Project\Lib\glm-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\School\5Sem\zpg\Project\ZPGProject\ZPGProject;C:\School\5Sem\zpg\Project\Lib\glew-2.1.0\include;C:\School\5Sem\zpg\Project\Lib\glfw-3.3.8.bin.WIN32\include;C:\School\5Sem\zpg\Project\Lib\glm-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,36 +135,43 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="CallbackManager.cpp" />
-    <ClCompile Include="DefaultScene.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Observer.cpp" />
-    <ClCompile Include="RotationTransform.h" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="Scene\DefaultScene.cpp" />
+    <ClCompile Include="ShaderProgram\Shader.cpp" />
+    <ClCompile Include="ShaderProgram\ShaderProgram.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="CallbackManager.h" />
-    <ClInclude Include="Cube.h" />
-    <ClInclude Include="DefaultScene.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="GlobalInclude.h" />
+    <ClInclude Include="Models\Cube.h" />
+    <ClInclude Include="Models\plain.h" />
+    <ClInclude Include="Models\sphere.h" />
+    <ClInclude Include="Models\suzi_flat.h" />
+    <ClInclude Include="Models\suzi_smooth.h" />
+    <ClInclude Include="Models\Triangle.h" />
     <ClInclude Include="Observer.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="TransformComp.h" />
+    <ClInclude Include="Scene\DefaultScene.h" />
+    <ClInclude Include="Scene\Scene.h" />
+    <ClInclude Include="ShaderProgram\Shader.h" />
+    <ClInclude Include="ShaderProgram\ShaderProgram.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="ScaleTransform.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="ShaderProgram.h" />
-    <ClInclude Include="Transform.h" />
-    <ClInclude Include="TranslationTransform.h" />
-    <ClInclude Include="Triangle.h" />
+    <ClInclude Include="Transforms\RotationTransform.h" />
+    <ClInclude Include="Transforms\ScaleTransform.h" />
+    <ClInclude Include="Transforms\Transform.h" />
+    <ClInclude Include="Transforms\TransformComp.h" />
+    <ClInclude Include="Transforms\TranslationTransform.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragment_shader_color_positional.glsl" />
-    <None Include="fragment_shader_color_static.glsl" />
-    <None Include="vertex_shader.glsl" />
-    <None Include="vertex_shader_positional_color.glsl" />
+    <None Include="Shaders\fragment_shader_color_positional.glsl" />
+    <None Include="Shaders\fragment_shader_color_static.glsl" />
+    <None Include="Shaders\vertex_shader.glsl" />
+    <None Include="Shaders\vertex_shader_positional_color.glsl" />
+    <None Include="Shaders\vertex_shader_transformative.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,6 +3,7 @@
 #include <functional>
 
 enum class MessageType {
+	//window callbacks
 	MouseButtonPressed,
 	MouseButtonReleased,
 	MouseButtonHeld,
@@ -13,14 +14,21 @@ enum class MessageType {
 	WindowResize,
 	WindowFocusChange,
 	WindowVisibleChange,
-	ScrollOffsetChange
+	ScrollOffsetChange,
+
+	//camera messages
+	CameraStateChange,
+};
+
+class Observer {
+public:
+	virtual void listen(MessageType messageType, void* object) = 0;
 };
 
 class Observable {
-	using observerFuntion = void(MessageType messageType, void* object);
-	std::vector <observerFuntion*> observers;
+	std::vector <Observer*> observers;
 public:
-	void add(observerFuntion* obs);
-	void remove(observerFuntion* obs);
+	void add(Observer* obs);
+	void remove(Observer* obs);
 	void notify(MessageType messageType, void* obj);
 };

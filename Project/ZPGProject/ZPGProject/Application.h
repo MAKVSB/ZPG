@@ -8,12 +8,15 @@
 #include <stdio.h>
 #include <map>
 #include <list>
+#include <thread>
 
-#include "ShaderProgram.h"
+#include "ShaderProgram/ShaderProgram.h"
 #include "Model.h"
 
-#include "Scene.h"
-#include "DefaultScene.h"
+#include "Scene/Scene.h"
+#include "Scene/DefaultScene.h"
+
+#include "CallbackManager.h"
 
 class Application
 {

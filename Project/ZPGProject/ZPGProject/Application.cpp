@@ -46,18 +46,29 @@ void Application::initialization() {
 	glViewport(0, 0, width, height);
 
 	glEnable(GL_DEPTH_TEST);
+
+	//init required singletons
+	CallbackManager::init(window);
+	
 }
 
 void Application::run() {
 	double lastTickStartTime = glfwGetTime();
 	Scene* defaultScene = new DefaultScene(window);
-
 	//main vykreslovací while
 	while (!glfwWindowShouldClose(window)) {
 		double deltaTime = glfwGetTime() - lastTickStartTime;
 		lastTickStartTime = glfwGetTime();
 
 		defaultScene->tick(deltaTime);
+		//double drawingTime = glfwGetTime() - lastTickStartTime;
+		//int fpsLimitSleepTime = (int)((1000 / 60 - drawingTime)*1000);
+		//printf("fpslimiter %d\n", fpsLimitSleepTime);
+		std::this_thread::sleep_for(std::chrono::milliseconds(5));
+		// update other events like input handling
+		glfwPollEvents();
+		// put the stuff we’ve been drawing onto the display
+		glfwSwapBuffers(window);
 	}
 
 	glfwDestroyWindow(window);

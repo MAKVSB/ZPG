@@ -2,11 +2,11 @@
 
 #include <functional>
 
-void Observable::add(observerFuntion* obs) {
+void Observable::add(Observer* obs) {
 	observers.push_back(obs);
 }
 
-void Observable::remove(observerFuntion* obs) {
+void Observable::remove(Observer* obs) {
 	observers.erase(
 		std::remove(observers.begin(), observers.end(), obs),
 		observers.end()
@@ -16,6 +16,6 @@ void Observable::remove(observerFuntion* obs) {
 void Observable::notify(MessageType messageType, void* obj)
 {
 	for (auto& obs : observers) {
-		obs(messageType, obj);
+		obs->listen(messageType, obj);
 	}
 }

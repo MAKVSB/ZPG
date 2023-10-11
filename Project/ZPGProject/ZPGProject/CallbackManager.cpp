@@ -2,8 +2,7 @@
 #include "GlobalInclude.h"
 
 #include "CallbackManager.h"
-
-CallbackManager* CallbackManager::observableCallback = nullptr;
+CallbackManager* CallbackManager::instance = nullptr;
 GLFWwindow* CallbackManager::window = nullptr;
 
 void CallbackManager::cbError(int error, const char* description) {
@@ -16,13 +15,13 @@ void CallbackManager::cbKey(GLFWwindow* window, int key, int scancode, int actio
 	{
 	case GLFW_PRESS:
 		if (key == GLFW_KEY_ESCAPE) glfwSetWindowShouldClose(window, GL_TRUE);
-		observableCallback->notify(MessageType::KeyPressed, &cbData);
+		instance->notify(MessageType::KeyPressed, &cbData);
 		break;
 	case GLFW_REPEAT:
-		observableCallback->notify(MessageType::KeyHeld, &cbData);
+		instance->notify(MessageType::KeyHeld, &cbData);
 		break;
 	case GLFW_RELEASE:
-		observableCallback->notify(MessageType::KeyReleased, &cbData);
+		instance->notify(MessageType::KeyReleased, &cbData);
 		break;
 	}
 }
@@ -32,39 +31,39 @@ void CallbackManager::cbButton(GLFWwindow* window, int button, int action, int m
 	switch (action)
 	{
 	case GLFW_PRESS:
-		observableCallback->notify(MessageType::MouseButtonPressed, &cbData);
+		instance->notify(MessageType::MouseButtonPressed, &cbData);
 		break;
 	case GLFW_RELEASE:
-		observableCallback->notify(MessageType::MouseButtonReleased, &cbData);
+		instance->notify(MessageType::MouseButtonReleased, &cbData);
 		break;
 	}
 }
 
 void CallbackManager::cbCursor(GLFWwindow* window, double x, double y) {
 	CBCursorData cbData = CBCursorData{ x, y };
-	observableCallback->notify(MessageType::MouseMove, &cbData);
+	instance->notify(MessageType::MouseMove, &cbData);
 }
 
 void CallbackManager::cbResize(GLFWwindow* window, int width, int height) {
 	CBResizeData cbData = CBResizeData{ width, height };
-	observableCallback->notify(MessageType::WindowResize, &cbData);
+	instance->notify(MessageType::WindowResize, &cbData);
 	glViewport(0, 0, width, height);
 }
 
 void CallbackManager::cbScroll(GLFWwindow* window, double xoffset, double yoffset)
 {
 	CBScrollData cbData = CBScrollData{ xoffset, yoffset };
-	observableCallback->notify(MessageType::ScrollOffsetChange, &cbData);
+	instance->notify(MessageType::ScrollOffsetChange, &cbData);
 }
 
 void CallbackManager::cbWindowFocus(GLFWwindow* window, int focused) { 
 	CBFocusData cbData = CBFocusData{ (bool)focused };
-	observableCallback->notify(MessageType::WindowFocusChange, &cbData);
+	instance->notify(MessageType::WindowFocusChange, &cbData);
 }
 
 void CallbackManager::cbIconify(GLFWwindow* window, int iconified) {
 	CBIconifyData cbData = CBIconifyData{ (bool)iconified };
-	observableCallback->notify(MessageType::WindowVisibleChange, &cbData);
+	instance->notify(MessageType::WindowVisibleChange, &cbData);
 	printf("window_iconify_callback \n");
 }
 
@@ -93,11 +92,11 @@ void CallbackManager::unregisterCallbacks(GLFWwindow* window) {
 
 CallbackManager::~CallbackManager() {
 	unregisterCallbacks(window);
-	observableCallback = nullptr;
+	instance = nullptr;
 	window = nullptr;
 }
 
 CallbackManager::CallbackManager(GLFWwindow* window) {
-	observableCallback = this;
+	CallbackManager::window = window;
 	registerCallbacks(window);
 }
