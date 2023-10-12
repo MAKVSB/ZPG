@@ -6,7 +6,7 @@ glm::mat4 Camera::getViewMatrix() {
 
 glm::mat4 Camera::getProjectionMartix() {
 	if (activeProjection == Perspective) {
-		return glm::perspective(fov, screenSize.x / screenSize.y, 0.1f, 100.0f);
+		return glm::perspective(fov, (float)screenSize.x / (float)screenSize.y, 0.1f, 100.0f);
 	}
 	else if (activeProjection == Orthogonal) {
 		return glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.0f, 100.0f);
@@ -26,7 +26,7 @@ Camera::Camera(GLFWwindow* wndw)
 	glfwSetCursorPos(window, screenCenter.x, screenCenter.y);
 }
 
-void Camera::setScreenSize(float x, float y, bool notify)
+void Camera::setScreenSize(int x, int y, bool notify)
 {
 	screenSize.x = x;
 	screenSize.y = y;
@@ -72,10 +72,10 @@ void Camera::listen(MessageType messageType, void* object)
 		CallbackManager::CBCursorData* dataStruct = static_cast<CallbackManager::CBCursorData*>(object);
 		glfwSetCursorPos(window, screenCenter.x, screenCenter.y);
 
-		yaw += (dataStruct->x - screenCenter.x) * camSensitivity;
-		pitch += (screenCenter.y - dataStruct->y) * camSensitivity;
+		yaw += ((float)dataStruct->x - screenCenter.x) * camSensitivity;
+		pitch += (screenCenter.y - (float)dataStruct->y) * camSensitivity;
 		//clamp values to prevent lock
-		pitch = std::max(-89.9, std::min(pitch, 89.9));
+		pitch = std::max(-89.9f, std::min(pitch, 89.9f));
 
 		glm::vec3 dir;
 		dir.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
@@ -88,6 +88,7 @@ void Camera::listen(MessageType messageType, void* object)
 
 void Camera::tick(double deltaTime)
 {
+	GameObject::tick(deltaTime);
 	bool changed = false;
 	float realSpeed = camSpeed * (float)deltaTime;
 
@@ -118,4 +119,8 @@ void Camera::tick(double deltaTime)
 		changed = true;
 	}
 	if (changed) this->notify(MessageType::CameraViewChange, nullptr);
+}
+
+void Camera::draw() {
+	GameObject::draw();
 }

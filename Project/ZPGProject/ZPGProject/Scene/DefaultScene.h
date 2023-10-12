@@ -8,7 +8,7 @@
 #include "Models/suzi_smooth.h"
 #include "Observer.h"
 
-class DefaultScene : public Scene, public Observer
+class DefaultScene : public Scene
 {
 protected:
 	void createShaders();
@@ -17,7 +17,6 @@ public:
 	DefaultScene(GLFWwindow* window);
 	
 	void tick(double deltaTime);
-
-	void listen(MessageType messageType, void* object);
+	void draw();
 };
 

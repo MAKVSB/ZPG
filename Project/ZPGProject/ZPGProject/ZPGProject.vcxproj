@@ -137,6 +137,8 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="CallbackManager.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Scene\DefaultScene\HouseObjectGroup.cpp" />
+    <ClCompile Include="Model\GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model\ModelLoader.cpp" />
     <ClCompile Include="Model\Model.cpp" />
@@ -150,6 +152,9 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="CallbackManager.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Model\ModelBuilder.h" />
+    <ClInclude Include="Scene\DefaultScene\HouseObjectGroup.h" />
+    <ClInclude Include="Model\GameObject.h" />
     <ClInclude Include="GlobalInclude.h" />
     <ClInclude Include="Model\ModelLoader.h" />
     <ClInclude Include="Models\Cube.h" />

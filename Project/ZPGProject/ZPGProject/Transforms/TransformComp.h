@@ -8,7 +8,7 @@
 
 #include <vector>
 
-class TransformComp : Transform
+class TransformComp : public Transform
 {
 private:
 	std::vector<Transform*> transformList;

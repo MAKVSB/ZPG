@@ -63,6 +63,7 @@ void Application::run() {
 		lastTickStartTime = glfwGetTime();
 
 		defaultScene->tick(deltaTime);
+		defaultScene->draw();
 		//double drawingTime = glfwGetTime() - lastTickStartTime;
 		//int fpsLimitSleepTime = (int)((1000 / 60 - drawingTime)*1000);
 		//printf("fpslimiter %d\n", fpsLimitSleepTime);

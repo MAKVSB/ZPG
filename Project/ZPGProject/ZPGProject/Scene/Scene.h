@@ -6,6 +6,7 @@
 #include "ShaderProgram/ShaderBuilder.h"
 #include "Model/Model.h"
 #include "Model/ModelLoader.h"
+#include "Model/GameObject.h"
 #include "Camera.h"
 
 class Scene
@@ -15,13 +16,14 @@ protected:
 	Camera* camera;
 
 	std::map<std::string, ShaderProgram*> shaderPrograms;
-	std::list<Model*> models;
+	std::list<GameObject*> models;
 public:
 	Scene(GLFWwindow* window) {
 		this->window = window;
 		createShaders();
 		createModels();
 		camera = new Camera(window);
+		models.push_back(camera);
 	};
 
 	~Scene() {};
@@ -30,4 +32,5 @@ public:
 	void createModels() {};
 
 	virtual void tick(double deltaTime) = 0;
+	virtual void draw() = 0;
 };

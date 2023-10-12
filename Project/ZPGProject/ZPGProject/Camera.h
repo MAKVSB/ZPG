@@ -5,13 +5,14 @@
 
 #include "Observer.h"
 #include "CallbackManager.h"
+#include "Model/GameObject.h"
 
 enum ProjectionEnum {
 	Orthogonal,
 	Perspective,
 	None
 };
-class Camera : public Observable, public Observer
+class Camera : public Observable, public Observer, public GameObject
 {
 public:
 	glm::mat4 getViewMatrix();
@@ -19,8 +20,8 @@ public:
 private:
 
 	//mouse controls
-	double yaw = -90;
-	double pitch = 0;
+	float yaw = -90;
+	float pitch = 0;
 	float camSensitivity = 0.1f;
 
 	//key controls
@@ -29,8 +30,8 @@ private:
 
 	GLFWwindow* window;
 
-	glm::vec2 screenSize;
-	glm::vec2 screenCenter;
+	glm::ivec2 screenSize;
+	glm::ivec2 screenCenter;
 	glm::vec3 position = glm::vec3(0, 0, 2);
 	glm::vec3 rotation = glm::vec3(0, 0, -1);
 	glm::vec3 up = glm::vec3(0, 1, 0);
@@ -40,7 +41,10 @@ private:
 
 public:
 	Camera(GLFWwindow* window);
-	void setScreenSize(float x, float y, bool notify = true);
+	void setScreenSize(int x, int y, bool notify = true);
 	void listen(MessageType messageType, void* object);
+	using GameObject::tick;
 	void tick(double deltaTime);
+	using GameObject::draw;
+	void draw();
 };
