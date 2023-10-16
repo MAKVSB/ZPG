@@ -14,7 +14,8 @@
 #include "Model/Model.h"
 
 #include "Scene/Scene.h"
-#include "Scene/DefaultScene.h"
+//#include "Scene/DefaultScene/DefaultScene.h"
+#include "Scene/SceneC5/SceneC5.h"
 
 #include "CallbackManager.h"
 

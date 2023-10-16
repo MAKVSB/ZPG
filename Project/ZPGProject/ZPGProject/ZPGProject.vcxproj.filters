@@ -48,7 +48,7 @@
     <ClCompile Include="Observer.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\DefaultScene.cpp">
+    <ClCompile Include="Scene\DefaultScene\DefaultScene.cpp">
       <Filter>Zdrojové soubory\Scene</Filter>
     </ClCompile>
     <ClCompile Include="ShaderProgram\Shader.cpp">
@@ -70,6 +70,9 @@
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
     <ClCompile Include="Scene\DefaultScene\HouseObjectGroup.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneC5\SceneC5.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,7 +98,7 @@
     <ClInclude Include="Models\Triangle.h">
       <Filter>Hlavičkové soubory\Models</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\DefaultScene.h">
+    <ClInclude Include="Scene\DefaultScene\DefaultScene.h">
       <Filter>Hlavičkové soubory\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\Scene.h">
@@ -150,6 +153,9 @@
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
     <ClInclude Include="Model\ModelBuilder.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneC5\SceneC5.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
   </ItemGroup>

@@ -143,7 +143,8 @@
     <ClCompile Include="Model\ModelLoader.cpp" />
     <ClCompile Include="Model\Model.cpp" />
     <ClCompile Include="Observer.cpp" />
-    <ClCompile Include="Scene\DefaultScene.cpp" />
+    <ClCompile Include="Scene\DefaultScene\DefaultScene.cpp" />
+    <ClCompile Include="Scene\SceneC5\SceneC5.cpp" />
     <ClCompile Include="ShaderProgram\ShaderBuilder.cpp" />
     <ClCompile Include="ShaderProgram\Shader.cpp" />
     <ClCompile Include="ShaderProgram\ShaderProgram.cpp" />
@@ -164,8 +165,9 @@
     <ClInclude Include="Models\suzi_smooth.h" />
     <ClInclude Include="Models\Triangle.h" />
     <ClInclude Include="Observer.h" />
-    <ClInclude Include="Scene\DefaultScene.h" />
+    <ClInclude Include="Scene\DefaultScene\DefaultScene.h" />
     <ClInclude Include="Scene\Scene.h" />
+    <ClInclude Include="Scene\SceneC5\SceneC5.h" />
     <ClInclude Include="ShaderProgram\ShaderBuilder.h" />
     <ClInclude Include="ShaderProgram\Shader.h" />
     <ClInclude Include="ShaderProgram\ShaderProgram.h" />

@@ -1,5 +1,5 @@
 #pragma once
-#include "Scene.h"
+#include "Scene/Scene.h"
 
 #include "Models/Cube.h"
 #include "Models/Triangle.h"

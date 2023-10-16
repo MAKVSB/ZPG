@@ -56,7 +56,7 @@ void Application::initialization() {
 
 void Application::run() {
 	double lastTickStartTime = glfwGetTime();
-	Scene* defaultScene = new DefaultScene(window);
+	Scene* defaultScene = new SceneC5(window);
 	//main vykreslovací while
 	while (!glfwWindowShouldClose(window)) {
 		double deltaTime = glfwGetTime() - lastTickStartTime;

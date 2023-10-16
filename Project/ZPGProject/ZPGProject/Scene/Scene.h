@@ -18,8 +18,8 @@ protected:
 	std::map<std::string, ShaderProgram*> shaderPrograms;
 	std::list<GameObject*> models;
 public:
-	Scene(GLFWwindow* window) {
-		this->window = window;
+	Scene(GLFWwindow* wndw) {
+		window = wndw;
 		createShaders();
 		createModels();
 		camera = new Camera(window);
