@@ -26,9 +26,9 @@ public:
 	GameObjectBuilder* setScale(glm::vec3* scl) { model->setScale(scl); return this; };
 
 	GameObjectBuilder* setBasicTransforms() {
-		model->tc->addTranlateTransform(model->getPosition()); //move relative to its center (when building object from multiple objects)
-		model->tc->addRotationTransform(model->getRotation()); //rotate on place
-		model->tc->addScaleTransform(model->getScale()); // scale down
+		model->tc->addTranlateTransform(model->getPosition());
+		model->tc->addRotationTransform(model->getRotation());
+		model->tc->addScaleTransform(model->getScale());
 		return this;
 	};
 

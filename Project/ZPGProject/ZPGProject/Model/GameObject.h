@@ -18,8 +18,6 @@ public:
 
 	TransformComp* tc = new TransformComp();
 
-	void* tickFunction = nullptr;
-
 	void setPosition(glm::vec3* pos);
 	glm::vec3* getPosition() { return position; };
 

@@ -15,8 +15,9 @@ protected:
 	void createModels();
 public:
 	DefaultScene(GLFWwindow* window);
-	
+	using Scene::tick;
 	void tick(double deltaTime);
+	using Scene::draw;
 	void draw();
 };
 

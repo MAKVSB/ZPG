@@ -67,16 +67,12 @@ void DefaultScene::createModels()
 
 void DefaultScene::tick(double deltaTime)
 {
-	for (GameObject* element : models) {
-		element->tick(deltaTime);
-	}
+	Scene::tick(deltaTime);
 }
 
 void DefaultScene::draw()
 {
 	// clear color and depth buffer
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	for (GameObject* element : models) {
-		element->draw();
-	}
+	Scene::draw();
 }

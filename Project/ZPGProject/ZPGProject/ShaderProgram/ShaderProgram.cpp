@@ -17,8 +17,8 @@ ShaderProgram* ShaderProgram::setCamera(Camera* cmr)
 	return this;
 }
 
-void ShaderProgram::addShader(GLenum shaderType, const char* shaderFile) {
-	shaders.push_back(new Shader(shaderType, shaderFile));
+void ShaderProgram::addShader(GLenum shaderType, std::string shaderFile) {
+	shaders.push_back(new Shader(shaderType, shaderFile.c_str()));
 }
 
 void ShaderProgram::compile() {

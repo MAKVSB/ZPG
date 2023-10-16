@@ -1,7 +1,7 @@
 #include "Camera.h"
 
 glm::mat4 Camera::getViewMatrix() {
-	return glm::lookAt(position, position + rotation, up);
+	return glm::lookAt(*position, *position + *rotation, up);
 }
 
 glm::mat4 Camera::getProjectionMartix() {
@@ -24,6 +24,9 @@ Camera::Camera(GLFWwindow* wndw)
 	glfwGetWindowSize(wndw, &width, &height);
 	setScreenSize(width, height);
 	glfwSetCursorPos(window, screenCenter.x, screenCenter.y);
+
+	setPosition(new glm::vec3(0, 0, 2));
+	setRotation(new glm::vec3(0, 0, -1));
 }
 
 void Camera::setScreenSize(int x, int y, bool notify)
@@ -32,7 +35,7 @@ void Camera::setScreenSize(int x, int y, bool notify)
 	screenSize.y = y;
 	screenCenter.x = x / 2;
 	screenCenter.y = y / 2;
-	this->notify(MessageType::CameraProjectionChange, nullptr);
+	if (notify) this->notify(MessageType::CameraProjectionChange, nullptr);
 }
 
 void Camera::listen(MessageType messageType, void* object)
@@ -44,7 +47,7 @@ void Camera::listen(MessageType messageType, void* object)
 	}
 	if (messageType == MessageType::KeyPressed) {
 		CallbackManager::CBKeyData* dataStruct = static_cast<CallbackManager::CBKeyData*>(object);
-		keypressMap[dataStruct->key] = dataStruct->mods + 1;
+		keypressMap = dataStruct->map;
 
 		if (dataStruct->key == GLFW_KEY_P) {
 			switch (activeProjection)
@@ -66,7 +69,7 @@ void Camera::listen(MessageType messageType, void* object)
 	}
 	if (messageType == MessageType::KeyReleased) {
 		CallbackManager::CBKeyData* dataStruct = static_cast<CallbackManager::CBKeyData*>(object);
-		keypressMap[dataStruct->key] = 0;
+		keypressMap = dataStruct->map;
 	}
 	if (messageType == MessageType::MouseMove) {
 		CallbackManager::CBCursorData* dataStruct = static_cast<CallbackManager::CBCursorData*>(object);
@@ -81,7 +84,8 @@ void Camera::listen(MessageType messageType, void* object)
 		dir.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 		dir.y = sin(glm::radians(pitch));
 		dir.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-		rotation = glm::normalize(dir);
+		glm::vec3 normalizedDir = glm::normalize(dir);
+		setRotation(&normalizedDir);
 		this->notify(MessageType::CameraViewChange, nullptr);
 	}
 }
@@ -92,29 +96,29 @@ void Camera::tick(double deltaTime)
 	bool changed = false;
 	float realSpeed = camSpeed * (float)deltaTime;
 
-	if (keypressMap[GLFW_KEY_W] > 0) {
-		position += realSpeed * rotation;
+	if ((*keypressMap)[GLFW_KEY_W] > 0) {
+		*position += realSpeed * *rotation;
 		changed = true;
 	}
-	if (keypressMap[GLFW_KEY_S] > 0) {
-		position -= realSpeed * rotation;
+	if ((*keypressMap)[GLFW_KEY_S] > 0) {
+		*position -= realSpeed * *rotation;
 		changed = true;
 	}
-	if (keypressMap[GLFW_KEY_SPACE] > 0) {
-		position += realSpeed * up;
+	if ((*keypressMap)[GLFW_KEY_SPACE] > 0) {
+		*position += realSpeed * up;
 		changed = true;
 	}
-	if (keypressMap[GLFW_KEY_LEFT_CONTROL] > 0) {
-		position -= realSpeed * up;
+	if ((*keypressMap)[GLFW_KEY_LEFT_CONTROL] > 0) {
+		*position -= realSpeed * up;
 		changed = true;
 	}
-	if (keypressMap[GLFW_KEY_D] > 0 || keypressMap[GLFW_KEY_A] > 0) {
-		glm::vec3 cameraRight = glm::normalize(glm::cross(rotation, up));
-		if (keypressMap[GLFW_KEY_D] > 0) {
-			position += realSpeed * cameraRight;
+	if ((*keypressMap)[GLFW_KEY_D] > 0 || (*keypressMap)[GLFW_KEY_A] > 0) {
+		glm::vec3 cameraRight = glm::normalize(glm::cross(*rotation, up));
+		if ((*keypressMap)[GLFW_KEY_D] > 0) {
+			*position += realSpeed * cameraRight;
 		}
-		if (keypressMap[GLFW_KEY_A] > 0) {
-			position -= realSpeed * cameraRight;
+		if ((*keypressMap)[GLFW_KEY_A] > 0) {
+			*position -= realSpeed * cameraRight;
 		}
 		changed = true;
 	}

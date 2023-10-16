@@ -27,6 +27,8 @@ private:
 	static void registerCallbacks(GLFWwindow* window);
 	static void unregisterCallbacks(GLFWwindow* window);
 
+	static std::map<int, int>* keypressMap;
+
 	CallbackManager(GLFWwindow* window);
 	~CallbackManager();
 
@@ -35,7 +37,9 @@ private:
 public:
 	struct CBKeyData {
 		int key;
+		int state;
 		int mods;
+		std::map<int, int>* map;
 	};
 
 	struct CBButtonData {

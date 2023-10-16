@@ -4,13 +4,15 @@
 #include "CallbackManager.h"
 CallbackManager* CallbackManager::instance = nullptr;
 GLFWwindow* CallbackManager::window = nullptr;
+std::map<int, int>* CallbackManager::keypressMap = new std::map<int, int>();
 
 void CallbackManager::cbError(int error, const char* description) {
 	fputs(description, stderr);
 }
 
 void CallbackManager::cbKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
-	CBKeyData cbData = CBKeyData{ key, mods };
+	(*keypressMap)[key] = action;
+	CBKeyData cbData = CBKeyData{ key, action, mods, keypressMap };
 	switch (action)
 	{
 	case GLFW_PRESS:

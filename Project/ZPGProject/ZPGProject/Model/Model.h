@@ -30,7 +30,6 @@ public:
 	void setVertexData(std::vector<float> vd, VertexDataFormat df = POS4_COL4);
 
 	GLuint getVertexCount();
-	void addTransforms();
 	using GameObject::draw;
 	void draw() override;
 	using GameObject::tick;

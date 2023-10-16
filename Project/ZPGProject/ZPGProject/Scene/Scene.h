@@ -31,6 +31,16 @@ public:
 	void createShaders() {};
 	void createModels() {};
 
-	virtual void tick(double deltaTime) = 0;
-	virtual void draw() = 0;
+	virtual void tick(double deltaTime) {
+		for (GameObject* element : models) {
+			element->tick(deltaTime);
+		}
+	};
+
+	virtual void draw() {
+		for (GameObject* element : models) {
+			element->draw();
+		}
+	}
+
 };

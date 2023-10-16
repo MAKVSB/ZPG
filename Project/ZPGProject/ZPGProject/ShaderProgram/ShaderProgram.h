@@ -28,7 +28,7 @@ protected:
 	ShaderProgram();
 	void compile();
 	bool check(GLchar* &errorMessage);
-	void addShader(GLenum shaderType, const char* shaderFile);
+	void addShader(GLenum shaderType, std::string shaderFile);
 
 public:
 	ShaderProgram* setCamera(Camera* camera);
