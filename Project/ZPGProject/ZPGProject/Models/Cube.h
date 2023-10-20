@@ -1,5 +1,15 @@
-#pragma once
-#include <vector>
+/**
+ * @file Cube.h
+ *
+ * @brief Cube model
+ *
+ * @details  Command for rendering
+ *           glDrawArrays(GL_TRIANGLES, 0, 288);
+ *
+ * @author Daniel Makovsky
+ *
+ * @year 2023
+ **/
 
 const float cubeVertexData[288] = {
 	// back 

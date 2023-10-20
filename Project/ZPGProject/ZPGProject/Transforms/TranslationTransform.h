@@ -1,3 +1,13 @@
+/**
+ * @file translationTransform.h
+ *
+ * @brief Translation transform composite leaf
+ *
+ * @author Daniel Makovsky
+ *
+ * @year 2023
+ **/
+
 #pragma once
 #include "GlobalInclude.h"
 

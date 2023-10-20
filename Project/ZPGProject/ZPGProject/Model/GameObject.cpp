@@ -1,25 +1,26 @@
 #include "GameObject.h"
 
 
-void GameObject::setPosition(glm::vec3* pos)
+void GameObject::setPosition(glm::vec3 pos)
 {
-	position->x = pos->x;
-	position->y = pos->y;
-	position->z = pos->z;
+	position->x = pos.x;
+	position->y = pos.y;
+	position->z = pos.z;
 }
 
-void GameObject::setRotation(glm::vec3* rot)
+
+void GameObject::setRotation(glm::vec3 rot)
 {
-	rotation->x = rot->x;
-	rotation->y = rot->y;
-	rotation->z = rot->z;
+	rotation->x = rot.x;
+	rotation->y = rot.y;
+	rotation->z = rot.z;
 }
 
-void GameObject::setScale(glm::vec3* scl)
+void GameObject::setScale(glm::vec3 scl)
 {
-	scale->x = scl->x;
-	scale->y = scl->y;
-	scale->z = scl->z;
+	scale->x = scl.x;
+	scale->y = scl.y;
+	scale->z = scl.z;
 }
 
 void GameObject::tick(double deltaTime)

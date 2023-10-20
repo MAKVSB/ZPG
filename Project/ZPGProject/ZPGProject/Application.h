@@ -1,3 +1,13 @@
+/**
+ * @file Application.h
+ *
+ * @brief Application main point
+ *
+ * @author Daniel Makovsky (original author Maritn Nemec 2023)
+ *
+ * @year 2023
+ **/
+
 #pragma once
 #include "GlobalInclude.h"
 

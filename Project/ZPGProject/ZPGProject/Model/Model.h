@@ -1,3 +1,13 @@
+/**
+ * @file Model.h
+ *
+ * @brief Scene model. Child of GameObject which extends its parent by texture data and actual rendering methods.
+ *
+ * @author Daniel Makovsky
+ *
+ * @year 2023
+ **/
+
 #pragma once
 #include "GlobalInclude.h"
 

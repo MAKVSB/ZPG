@@ -1,3 +1,13 @@
+/**
+ * @file Observer.h
+ *
+ * @brief Observer and Observable. Includes notification MessageTypes
+ *
+ * @author Daniel Makovsky
+ *
+ * @year 2023
+ **/
+
 #pragma once
 #include <vector>
 #include <functional>
@@ -20,6 +30,9 @@ enum class MessageType {
 	CameraProjectionChange,
 	CameraViewChange,
 	CameraChanged,
+
+	//light messages
+	LightChanged,
 };
 
 class Observer {

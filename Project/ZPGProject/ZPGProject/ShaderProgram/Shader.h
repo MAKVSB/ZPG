@@ -1,3 +1,13 @@
+/**
+ * @file Shader.h
+ *
+ * @brief Shader creation and compilation.
+ *
+ * @author Daniel Makovsky
+ *
+ * @year 2023
+ **/
+
 #pragma once
 #include "../GlobalInclude.h"
 

@@ -1,3 +1,13 @@
+/**
+ * @file TransformComp.h
+ *
+ * @brief Transform composite
+ *
+ * @author Daniel Makovsky
+ *
+ * @year 2023
+ **/
+
 #pragma once
 #include "GlobalInclude.h"
 

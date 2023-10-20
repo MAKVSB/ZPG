@@ -1,3 +1,13 @@
+/**
+ * @file SceneC5.h
+ *
+ * @brief Scene for showcasing light shaders.
+ *
+ * @author Daniel Makovsky
+ *
+ * @year 2023
+ **/
+
 #pragma once
 #include "Scene/Scene.h"
 

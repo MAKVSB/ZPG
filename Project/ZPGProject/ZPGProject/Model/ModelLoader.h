@@ -1,3 +1,13 @@
+/**
+ * @file ModelLoader.h
+ *
+ * @brief Helper methods and utilities for ModelBuilder class.
+ *
+ * @author Daniel Makovsky
+ *
+ * @year 2023
+ **/
+
 #pragma once
 
 #include <vector>

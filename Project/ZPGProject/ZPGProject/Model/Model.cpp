@@ -42,6 +42,8 @@ GLuint Model::getVertexCount()
 
 void Model::draw() {
 	shader->uploadUniformMatrix("modelMatrix", tc->transform());
+	//shader->uploadUniformMatrix("normalMatrix", glm::mat3(tc->transform()));
+
 
 	shader->useWrapper([&]() {
 		glBindVertexArray(VAO);

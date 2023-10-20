@@ -1,3 +1,16 @@
+/**
+ * @file ShaderProgram.h
+ *
+ * @brief Full encapsulation of OpenGL Shaderprogram. Allows safe campilations, matrix uploads and other uses.
+ *
+ * @details  Safety of use() and unuse() commands
+ *           use useWrapper() preferably with lambda functions.
+ *
+ * @author Daniel Makovsky
+ *
+ * @year 2023
+ **/
+
 #pragma once
 #include "../GlobalInclude.h"
 

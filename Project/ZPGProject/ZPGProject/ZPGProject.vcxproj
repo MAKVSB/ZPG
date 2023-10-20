@@ -137,6 +137,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="CallbackManager.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Light\Light.cpp" />
     <ClCompile Include="Scene\DefaultScene\HouseObjectGroup.cpp" />
     <ClCompile Include="Model\GameObject.cpp" />
     <ClCompile Include="main.cpp" />
@@ -153,6 +154,10 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="CallbackManager.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Light\Light.h" />
+    <ClInclude Include="Models\bushes.h" />
+    <ClInclude Include="Models\gift.h" />
+    <ClInclude Include="Models\tree.h" />
     <ClInclude Include="Model\ModelBuilder.h" />
     <ClInclude Include="Scene\DefaultScene\HouseObjectGroup.h" />
     <ClInclude Include="Model\GameObject.h" />
@@ -181,6 +186,11 @@
   <ItemGroup>
     <None Include="Shaders\fragment_shader_color_positional.glsl" />
     <None Include="Shaders\fragment_shader_color_static.glsl" />
+    <None Include="Shaders\lightShader\blinn.glsl" />
+    <None Include="Shaders\lightShader\constant.glsl" />
+    <None Include="Shaders\lightShader\lambert.glsl" />
+    <None Include="Shaders\lightShader\phong.glsl" />
+    <None Include="Shaders\lightShader\vertex.glsl" />
     <None Include="Shaders\vertex_shader_positional_color.glsl" />
     <None Include="Shaders\vertex_shader_transformative.glsl" />
   </ItemGroup>

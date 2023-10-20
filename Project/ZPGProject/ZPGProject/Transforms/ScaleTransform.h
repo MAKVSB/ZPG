@@ -1,3 +1,13 @@
+/**
+ * @file scaleTransform.h
+ *
+ * @brief Scale transform composite leaf
+ *
+ * @author Daniel Makovsky
+ *
+ * @year 2023
+ **/
+
 #pragma once
 #include "GlobalInclude.h"
 

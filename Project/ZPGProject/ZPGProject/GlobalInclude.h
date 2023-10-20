@@ -1,3 +1,13 @@
+/**
+ * @file GlobalInclude.h
+ *
+ * @brief Group of library header which are imported in all files
+ *
+ * @author Daniel Makovsky
+ *
+ * @year 2023
+ **/
+
 #pragma once
 
 //Include GLEW

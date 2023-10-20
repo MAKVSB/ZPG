@@ -25,8 +25,8 @@ Camera::Camera(GLFWwindow* wndw)
 	setScreenSize(width, height);
 	glfwSetCursorPos(window, screenCenter.x, screenCenter.y);
 
-	setPosition(new glm::vec3(0, 0, 2));
-	setRotation(new glm::vec3(0, 0, -1));
+	setPosition(glm::vec3(0, 0, 2));
+	setRotation(glm::vec3(0, 0, -1));
 }
 
 void Camera::setScreenSize(int x, int y, bool notify)
@@ -85,7 +85,7 @@ void Camera::listen(MessageType messageType, void* object)
 		dir.y = sin(glm::radians(pitch));
 		dir.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 		glm::vec3 normalizedDir = glm::normalize(dir);
-		setRotation(&normalizedDir);
+		setRotation(normalizedDir);
 		this->notify(MessageType::CameraViewChange, nullptr);
 	}
 }
@@ -105,11 +105,11 @@ void Camera::tick(double deltaTime)
 		changed = true;
 	}
 	if ((*keypressMap)[GLFW_KEY_SPACE] > 0) {
-		*position += realSpeed * up;
+		*position += realSpeed * glm::normalize(glm::cross(glm::cross(*rotation, up), *rotation));
 		changed = true;
 	}
 	if ((*keypressMap)[GLFW_KEY_LEFT_CONTROL] > 0) {
-		*position -= realSpeed * up;
+		*position -= realSpeed * glm::normalize(glm::cross(glm::cross(*rotation, up), *rotation));
 		changed = true;
 	}
 	if ((*keypressMap)[GLFW_KEY_D] > 0 || (*keypressMap)[GLFW_KEY_A] > 0) {

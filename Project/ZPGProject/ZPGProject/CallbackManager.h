@@ -1,3 +1,13 @@
+/**
+ * @file callbackManager.h
+ *
+ * @brief Manages callbacks from OpenGL directly
+ *
+ * @author Daniel Makovsky
+ *
+ * @year 2023
+ **/
+
 #pragma once
 
 #include <map>

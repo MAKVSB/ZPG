@@ -1,3 +1,13 @@
+/**
+ * @file GameObject.h
+ *
+ * @brief Application object. Defines basic properties and methods which all properties in scene must have.
+ *
+ * @author Daniel Makovsky
+ *
+ * @year 2023
+ **/
+
 #pragma once
 #include "GlobalInclude.h"
 
@@ -18,13 +28,13 @@ public:
 
 	TransformComp* tc = new TransformComp();
 
-	void setPosition(glm::vec3* pos);
+	void setPosition(glm::vec3 pos);
 	glm::vec3* getPosition() { return position; };
 
-	void setRotation(glm::vec3* rot);
+	void setRotation(glm::vec3 rot);
 	glm::vec3* getRotation() { return rotation; };
 
-	void setScale(glm::vec3* scl);
+	void setScale(glm::vec3 scl);
 	glm::vec3* getScale() { return scale; };
 
 	virtual void tick(double deltaTime);

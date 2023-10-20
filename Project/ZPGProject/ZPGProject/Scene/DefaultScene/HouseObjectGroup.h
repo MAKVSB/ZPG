@@ -1,3 +1,13 @@
+/**
+ * @file HouseObjectGroup.h
+ *
+ * @brief Defines behaviour of group of objects inside DefaultScene scene.
+ *
+ * @author Daniel Makovsky
+ *
+ * @year 2023
+ **/
+
 #pragma once
 #include "Model/GameObject.h"
 #include "Observer.h"

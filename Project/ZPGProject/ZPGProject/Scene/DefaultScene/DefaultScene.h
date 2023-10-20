@@ -1,3 +1,13 @@
+/**
+ * @file DefaultScene.h
+ *
+ * @brief Application scene showcasing rowk made in first lessons.
+ *
+ * @author Daniel Makovsky
+ *
+ * @year 2023
+ **/
+
 #pragma once
 #include "Scene/Scene.h"
 

@@ -1,3 +1,13 @@
+/**
+ * @file shaderBuilder.h
+ *
+ * @brief Builder for shader class. Allows safe loading of shaders.
+ *
+ * @author Daniel Makovsky
+ *
+ * @year 2023
+ **/
+
 #pragma once
 #include "GlobalInclude.h"
 

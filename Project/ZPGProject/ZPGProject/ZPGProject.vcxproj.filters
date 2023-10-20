@@ -75,6 +75,9 @@
     <ClCompile Include="Scene\SceneC5\SceneC5.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
+    <ClCompile Include="Light\Light.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -158,6 +161,18 @@
     <ClInclude Include="Scene\SceneC5\SceneC5.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
+    <ClInclude Include="Models\bushes.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\gift.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\tree.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Light\Light.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragment_shader_color_positional.glsl">
@@ -172,5 +187,10 @@
     <None Include="Shaders\vertex_shader_transformative.glsl">
       <Filter>Soubory zdrojů</Filter>
     </None>
+    <None Include="Shaders\lightShader\vertex.glsl" />
+    <None Include="Shaders\lightShader\lambert.glsl" />
+    <None Include="Shaders\lightShader\phong.glsl" />
+    <None Include="Shaders\lightShader\blinn.glsl" />
+    <None Include="Shaders\lightShader\constant.glsl" />
   </ItemGroup>
 </Project>

@@ -1,3 +1,13 @@
+/**
+ * @file ModelBuilder.h
+ *
+ * @brief Builder for model class. Allows safe building of scene objects.
+ *
+ * @author Daniel Makovsky
+ *
+ * @year 2023
+ **/
+
 #pragma once
 #include <string>
 #include "Model/ModelLoader.h"
@@ -21,9 +31,9 @@ public:
 		return this;
 	};
 
-	GameObjectBuilder* setPosition(glm::vec3* pos) { model->setPosition(pos); return this; };
-	GameObjectBuilder* setRotation(glm::vec3* rot) { model->setRotation(rot); return this; };
-	GameObjectBuilder* setScale(glm::vec3* scl) { model->setScale(scl); return this; };
+	GameObjectBuilder* setPosition(glm::vec3 pos) { model->setPosition(pos); return this; };
+	GameObjectBuilder* setRotation(glm::vec3 rot) { model->setRotation(rot); return this; };
+	GameObjectBuilder* setScale(glm::vec3 scl) { model->setScale(scl); return this; };
 
 	GameObjectBuilder* setBasicTransforms() {
 		model->tc->addTranlateTransform(model->getPosition());

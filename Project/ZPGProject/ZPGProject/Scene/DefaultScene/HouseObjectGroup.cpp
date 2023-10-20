@@ -3,6 +3,7 @@
 
 void HouseObjectGroup::tick(double deltaTime)
 {
+	GameObject::tick(deltaTime);
 	if ((*keypressMap)[GLFW_KEY_UP] > 0) {
 		rotation->x += (float)deltaTime;
 	}

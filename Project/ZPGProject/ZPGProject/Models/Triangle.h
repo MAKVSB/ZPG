@@ -1,4 +1,15 @@
-#pragma once
+/**
+ * @file Triangle.h
+ *
+ * @brief Triangle model
+ *
+ * @details  Command for rendering
+ *           glDrawArrays(GL_TRIANGLES, 0, 144);
+ *
+ * @author Daniel Makovsky
+ *
+ * @year 2023
+ **/
 
 const float triangleVertexData[144] = {
 	// back 
