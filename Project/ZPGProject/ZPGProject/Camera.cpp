@@ -27,7 +27,7 @@ Camera::Camera(GLFWwindow* wndw)
 
 	setPosition(glm::vec3(0, 0, 2));
 	setRotation(glm::vec3(0, 0, -1));
-	setMouseFree(true);
+	setMouseFree(false);
 }
 
 Camera::~Camera() {
@@ -52,11 +52,15 @@ void Camera::listen(MessageType messageType, void* object)
 	}
 	if (messageType == MessageType::KeyPressed) {
 		CallbackManager::CBKeyData* dataStruct = static_cast<CallbackManager::CBKeyData*>(object);
-		keypressMap = dataStruct->map;
+		if (keypressMap == nullptr) {
+			keypressMap = dataStruct->map;
+		}
 	}
 	if (messageType == MessageType::KeyReleased) {
 		CallbackManager::CBKeyData* dataStruct = static_cast<CallbackManager::CBKeyData*>(object);
-		keypressMap = dataStruct->map;
+		if (keypressMap == nullptr) {
+			keypressMap = dataStruct->map;
+		}
 	}
 	if (messageType == MessageType::MouseMove) {
 		CallbackManager::CBCursorData* dataStruct = static_cast<CallbackManager::CBCursorData*>(object);
@@ -89,42 +93,44 @@ void Camera::setMouseFree(bool free) {
 void Camera::tick(double deltaTime)
 {
 	GameObject::tick(deltaTime);
-	bool changed = false;
-	float realSpeed = camSpeed * (float)deltaTime;
+	if (keypressMap != nullptr) {
+		bool changed = false;
+		float realSpeed = camSpeed * (float)deltaTime;
 
-	if ((*keypressMap)[GLFW_KEY_W] > 0) {
-		*position += realSpeed * *rotation;
-		changed = true;
-	}
-	if ((*keypressMap)[GLFW_KEY_S] > 0) {
-		*position -= realSpeed * *rotation;
-		changed = true;
-	}
-	if ((*keypressMap)[GLFW_KEY_SPACE] > 0) {
-		*position += realSpeed * glm::normalize(glm::cross(glm::cross(*rotation, up), *rotation));
-		changed = true;
-	}
-	if ((*keypressMap)[GLFW_KEY_LEFT_CONTROL] > 0) {
-		*position -= realSpeed * glm::normalize(glm::cross(glm::cross(*rotation, up), *rotation));
-		changed = true;
-	}
-	if ((*keypressMap)[GLFW_KEY_D] > 0 || (*keypressMap)[GLFW_KEY_A] > 0) {
-		glm::vec3 cameraRight = glm::normalize(glm::cross(*rotation, up));
-		if ((*keypressMap)[GLFW_KEY_D] > 0) {
-			*position += realSpeed * cameraRight;
+		if ((*keypressMap)[GLFW_KEY_W] > 0) {
+			*position += realSpeed * *rotation;
+			changed = true;
 		}
-		if ((*keypressMap)[GLFW_KEY_A] > 0) {
-			*position -= realSpeed * cameraRight;
+		if ((*keypressMap)[GLFW_KEY_S] > 0) {
+			*position -= realSpeed * *rotation;
+			changed = true;
 		}
-		changed = true;
+		if ((*keypressMap)[GLFW_KEY_SPACE] > 0) {
+			*position += realSpeed * glm::normalize(glm::cross(glm::cross(*rotation, up), *rotation));
+			changed = true;
+		}
+		if ((*keypressMap)[GLFW_KEY_LEFT_CONTROL] > 0) {
+			*position -= realSpeed * glm::normalize(glm::cross(glm::cross(*rotation, up), *rotation));
+			changed = true;
+		}
+		if ((*keypressMap)[GLFW_KEY_D] > 0 || (*keypressMap)[GLFW_KEY_A] > 0) {
+			glm::vec3 cameraRight = glm::normalize(glm::cross(*rotation, up));
+			if ((*keypressMap)[GLFW_KEY_D] > 0) {
+				*position += realSpeed * cameraRight;
+			}
+			if ((*keypressMap)[GLFW_KEY_A] > 0) {
+				*position -= realSpeed * cameraRight;
+			}
+			changed = true;
+		}
+		if ((*keypressMap)[GLFW_KEY_LEFT_ALT] > 0 && !mouseFree) {
+			setMouseFree(true);
+		}
+		if ((*keypressMap)[GLFW_KEY_LEFT_ALT] == 0 && mouseFree) {
+			setMouseFree(false);
+		}
+		if (changed) this->notify(MessageType::CameraViewChange, nullptr);
 	}
-	if ((*keypressMap)[GLFW_KEY_LEFT_ALT] > 0 && !mouseFree) {
-		setMouseFree(true);
-	}
-	if ((*keypressMap)[GLFW_KEY_LEFT_ALT] == 0 && mouseFree) {
-		setMouseFree(false);
-	}
-	if (changed) this->notify(MessageType::CameraViewChange, nullptr);
 }
 
 void Camera::draw() {

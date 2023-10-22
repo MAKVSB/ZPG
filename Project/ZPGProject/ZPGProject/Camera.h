@@ -26,7 +26,7 @@ class Camera : public Observable, public Observer, public GameObject
 {
 private:
 	//key controls
-	std::map<int, int>* keypressMap = new std::map<int, int>();
+	std::map<int, int>* keypressMap;
 
 	GLFWwindow* window;
 
@@ -58,4 +58,5 @@ public:
 	glm::mat4 getViewMatrix();
 	glm::mat4 getProjectionMartix();
 
+	virtual bool isCamera() { return true; };
 };

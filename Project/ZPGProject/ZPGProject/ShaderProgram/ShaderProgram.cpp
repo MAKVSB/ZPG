@@ -11,6 +11,7 @@ ShaderProgram::~ShaderProgram()
 	for (Shader* shader : shaders) {
 		delete shader;
 	}
+	glDeleteProgram(shaderProgram);
 }
 
 ShaderProgram* ShaderProgram::setCamera(Camera* cmr)
@@ -36,6 +37,15 @@ void ShaderProgram::compile() {
 	glLinkProgram(shaderProgram);
 }
 
+void ShaderProgram::cleanup() {
+	while (!shaders.empty()) {
+		Shader* shader = shaders.front();
+		shaders.pop_front();
+		glDetachShader(shaderProgram, shader->getShader());
+		delete shader;
+	}
+}
+
 bool ShaderProgram::check(GLchar* &errorMessage) {
 	GLint status;
 	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &status);
@@ -59,22 +69,43 @@ void ShaderProgram::unuse()
 	glUseProgram(0);
 }
 
-void ShaderProgram::uploadUniformMatrix(std::string uniformName, glm::mat4 M) {
-	use();
+int ShaderProgram::getUniformLocation(std::string uniformName)
+{
 	GLint dataLocation = glGetUniformLocation(shaderProgram, uniformName.c_str());
 	if (dataLocation == -1) {
 		std::cout << "WARNING: shader parameter location \"" << uniformName << "\" not found in shader " << shaderProgram << std::endl;
 	}
-	glUniformMatrix4fv(dataLocation, 1, GL_FALSE, &M[0][0]);
-	unuse();
+	return dataLocation;
+}
+
+void ShaderProgram::uploadUniformLocation(std::string uniformName, glm::mat4 M) {
+	GLint dataLocation = getUniformLocation(uniformName);
+	glProgramUniformMatrix4fv(shaderProgram, dataLocation, 1, GL_FALSE, &M[0][0]);
+}
+
+void ShaderProgram::uploadUniformLocation(std::string uniformName, glm::vec3 V) {
+	GLint dataLocation = getUniformLocation(uniformName);
+	glProgramUniform3f(shaderProgram, dataLocation, V.x, V.y, V.z);
+}
+
+void ShaderProgram::uploadUniformLocation(std::string uniformName, float f)
+{
+	GLint dataLocation = getUniformLocation(uniformName);
+	glProgramUniform1f(shaderProgram, dataLocation, f);
+}
+
+void ShaderProgram::uploadUniformLocation(std::string uniformName, int i)
+{
+	GLint dataLocation = getUniformLocation(uniformName);
+	glProgramUniform1i(shaderProgram, dataLocation, i);
 }
 
 void ShaderProgram::listen(MessageType messageType, void* object)
 {
 	if (messageType == MessageType::CameraProjectionChange || messageType == MessageType::CameraChanged) {
-		uploadUniformMatrix("projectionMatrix", camera->getProjectionMartix());
+		uploadUniformLocation("projectionMatrix", camera->getProjectionMartix());
 	}
 	if (messageType == MessageType::CameraViewChange || messageType == MessageType::CameraChanged) {
-		uploadUniformMatrix("viewMatrix", camera->getViewMatrix());
+		uploadUniformLocation("viewMatrix", camera->getViewMatrix());
 	}
 }

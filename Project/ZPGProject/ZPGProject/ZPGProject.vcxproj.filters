@@ -72,7 +72,7 @@
     <ClCompile Include="Scene\DefaultScene\HouseObjectGroup.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\SceneC5\SceneC5.cpp">
+    <ClCompile Include="Scene\SceneC5_4Balls\SceneC5_4Balls.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
     <ClCompile Include="Light\Light.cpp">
@@ -82,6 +82,18 @@
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneManager.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneC5_1Ball\SceneC5_1Ball.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneC5_4Objects\SceneC5_4Objects.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\ForestScene\ForestScene.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
+    <ClCompile Include="Light\LightManager.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
   </ItemGroup>
@@ -161,7 +173,7 @@
     <ClInclude Include="Scene\DefaultScene\HouseObjectGroup.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\SceneC5\SceneC5.h">
+    <ClInclude Include="Scene\SceneC5_4Balls\SceneC5_4Balls.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
     <ClInclude Include="Models\bushes.h">
@@ -177,6 +189,18 @@
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneManager.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneC5_1Ball\SceneC5_1Ball.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneC5_4Objects\SceneC5_4Objects.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\ForestScene\ForestScene.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Light\LightManager.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
   </ItemGroup>
@@ -198,5 +222,6 @@
     <None Include="Shaders\lightShader\phong.glsl" />
     <None Include="Shaders\lightShader\blinn.glsl" />
     <None Include="Shaders\lightShader\constant.glsl" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

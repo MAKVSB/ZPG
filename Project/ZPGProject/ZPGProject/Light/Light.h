@@ -22,9 +22,9 @@ enum class LightType {
 class Light : public GameObject, public Observable
 {
 private:
-	glm::vec3 lightColor;
-	glm::vec3 lightDirection;
-	LightType lightType;
+	glm::vec3 lightColor = glm::vec3(0);
+	glm::vec3 lightDirection = glm::vec3(0);
+	LightType lightType = LightType::AMBIENT;
 public:
 	GET_SET_NOTIFY(glm::vec3, LightColor, lightColor)
 	GET_SET_NOTIFY(glm::vec3, LightDirection, lightDirection)
@@ -34,5 +34,7 @@ public:
 	void tick(double deltaTime);
 	using GameObject::draw;
 	void draw();
+
+	virtual bool isLight() { return true; };
 };
 

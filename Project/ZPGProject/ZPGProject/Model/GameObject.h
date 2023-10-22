@@ -40,6 +40,11 @@ public:
 	void setScale(glm::vec3 scl);
 	glm::vec3* getScale() { return scale; };
 
+	virtual bool isCamera() { return false; };
+	virtual bool isModel() { return false; };
+	virtual bool isLight() { return false; };
+	virtual bool isGroup() { return !(isCamera() || isModel() || isLight()); };
+
 	virtual void tick(double deltaTime);
 	virtual void draw();
 };

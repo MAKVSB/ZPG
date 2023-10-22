@@ -18,6 +18,8 @@
 #include "Models/sphere.h"
 #include "Models/suzi_flat.h"
 #include "Models/suzi_smooth.h"
+#include "Models/tree.h"
+#include "Models/plain.h"
 
 class ModelLoader
 {

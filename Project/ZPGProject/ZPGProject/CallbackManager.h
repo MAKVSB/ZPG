@@ -38,7 +38,7 @@ private:
 	static void registerCallbacks(GLFWwindow* window);
 	static void unregisterCallbacks(GLFWwindow* window);
 
-	static std::map<int, int>* keypressMap;
+	static std::map<int, int> keypressMap;
 
 	CallbackManager(GLFWwindow* window);
 	~CallbackManager();

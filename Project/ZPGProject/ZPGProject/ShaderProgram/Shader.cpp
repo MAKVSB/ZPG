@@ -22,7 +22,11 @@ Shader::Shader(GLenum shaderType, const char* shaderFile) {
 	glShaderSource(shader, 1, &fragmentShaderCodeCStr, NULL);
 }
 
+Shader::~Shader()
+{
+    glDeleteShader(shader);
+}
+
 void Shader::compile() {
 	glCompileShader(shader);
-
 }

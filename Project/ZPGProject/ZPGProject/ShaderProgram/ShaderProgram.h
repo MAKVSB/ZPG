@@ -40,9 +40,11 @@ protected:
 	//methods reserved to Shaderbuilder
 	ShaderProgram();
 	void compile();
+	void cleanup();
 	bool check(GLchar* &errorMessage);
 	void addShader(GLenum shaderType, std::string shaderFile);
 
+	int getUniformLocation(std::string uniformName);
 public:
 	~ShaderProgram();
 	ShaderProgram* setCamera(Camera* camera);
@@ -54,5 +56,8 @@ public:
 		unuse();
 	}
 
-	void uploadUniformMatrix(std::string uniformName, glm::mat4 M);
+	void uploadUniformLocation(std::string uniformName, glm::mat4 M);
+	void uploadUniformLocation(std::string uniformName, glm::vec3 V);
+	void uploadUniformLocation(std::string uniformName, float f);
+	void uploadUniformLocation(std::string uniformName, int i);
 };

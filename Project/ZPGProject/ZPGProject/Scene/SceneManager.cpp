@@ -15,7 +15,10 @@ void SceneManager::registerScene(std::type_index type, std::string name, std::st
 void SceneManager::registerScenes()
 {
 	registerScene(std::type_index(typeid(DefaultScene)), "Default scene", "Default scene");
-	registerScene(std::type_index(typeid(SceneC5)), "4 Balls with light", "Vytvoøeno na pátem cvièení k light shaderu");
+	registerScene(std::type_index(typeid(SceneC5_4Balls)), "4 Balls with light in middle", "Vytvoøeno na cvièení k light shaderu");
+	registerScene(std::type_index(typeid(SceneC5_4Objects)), "4 Objects with light in middle", "Vytvoøeno na cvièení k light shaderu");
+	registerScene(std::type_index(typeid(SceneC5_1Ball)), "1 Balls with light beihnd", "Vytvoøeno na cvièení k light shaderu");
+	registerScene(std::type_index(typeid(ForestScene)), "Forest scene", "");
 }
 
 void SceneManager::printSceneMenu() {
@@ -54,10 +57,16 @@ Scene* SceneManager::sceneSelector()
 	glfwShowWindow(window);
 	glfwSetTime(0.0);
 	if (scenes[value].type == std::type_index(typeid(DefaultScene))) {
-		return SceneFactory<DefaultScene>().create(window);
-	} else if (scenes[value].type == std::type_index(typeid(SceneC5))) {
-		return SceneFactory<SceneC5>().create(window);
+		return new DefaultScene(window);
+	} else if (scenes[value].type == std::type_index(typeid(SceneC5_4Balls))) {
+		return new SceneC5_4Balls(window);
+	} else if (scenes[value].type == std::type_index(typeid(SceneC5_4Objects))) {
+		return new SceneC5_4Objects(window);
+	} else if (scenes[value].type == std::type_index(typeid(SceneC5_1Ball))) {
+		return new SceneC5_1Ball(window);
+	} else if (scenes[value].type == std::type_index(typeid(ForestScene))) {
+		return new ForestScene(window);
 	} else {
-		return SceneFactory<DefaultScene>().create(window);
+		return new DefaultScene(window);
 	}
 }

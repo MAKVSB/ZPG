@@ -137,6 +137,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="CallbackManager.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Light\LightManager.cpp" />
     <ClCompile Include="Light\Light.cpp" />
     <ClCompile Include="Model\GameObjectBuilder.h" />
     <ClCompile Include="Scene\DefaultScene\HouseObjectGroup.cpp" />
@@ -146,7 +147,10 @@
     <ClCompile Include="Model\Model.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Scene\DefaultScene\DefaultScene.cpp" />
-    <ClCompile Include="Scene\SceneC5\SceneC5.cpp" />
+    <ClCompile Include="Scene\ForestScene\ForestScene.cpp" />
+    <ClCompile Include="Scene\SceneC5_1Ball\SceneC5_1Ball.cpp" />
+    <ClCompile Include="Scene\SceneC5_4Balls\SceneC5_4Balls.cpp" />
+    <ClCompile Include="Scene\SceneC5_4Objects\SceneC5_4Objects.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="ShaderProgram\ShaderBuilder.cpp" />
     <ClCompile Include="ShaderProgram\Shader.cpp" />
@@ -156,6 +160,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="CallbackManager.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Light\LightManager.h" />
     <ClInclude Include="Light\Light.h" />
     <ClInclude Include="Models\bushes.h" />
     <ClInclude Include="Models\gift.h" />
@@ -172,8 +177,11 @@
     <ClInclude Include="Models\Triangle.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="Scene\DefaultScene\DefaultScene.h" />
+    <ClInclude Include="Scene\ForestScene\ForestScene.h" />
     <ClInclude Include="Scene\Scene.h" />
-    <ClInclude Include="Scene\SceneC5\SceneC5.h" />
+    <ClInclude Include="Scene\SceneC5_1Ball\SceneC5_1Ball.h" />
+    <ClInclude Include="Scene\SceneC5_4Balls\SceneC5_4Balls.h" />
+    <ClInclude Include="Scene\SceneC5_4Objects\SceneC5_4Objects.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="ShaderProgram\ShaderBuilder.h" />
     <ClInclude Include="ShaderProgram\Shader.h" />
@@ -186,6 +194,7 @@
     <ClInclude Include="Transforms\TranslationTransform.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="Shaders\fragment_shader_color_positional.glsl" />
     <None Include="Shaders\fragment_shader_color_static.glsl" />
     <None Include="Shaders\lightShader\blinn.glsl" />

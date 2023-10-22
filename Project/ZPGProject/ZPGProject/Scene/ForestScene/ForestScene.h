@@ -19,13 +19,13 @@ extern const float suziSmooth[];
 
 #include "Observer.h"
 
-class SceneC5 : public Scene
+class ForestScene : public Scene
 {
 protected:
 	void createShaders();
 	void createModels();
 public:
-	SceneC5(GLFWwindow* window);
+	ForestScene(GLFWwindow* window);
 	using Scene::tick;
 	void tick(double deltaTime);
 	using Scene::draw;

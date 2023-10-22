@@ -7,6 +7,7 @@
  *
  * @year 2023
  **/
+#define _CRTDBG_MAP_ALLOC
 
 #pragma once
 #include "GlobalInclude.h"
@@ -37,6 +38,9 @@ private:
 public:
 	Scene* currentScene;
 	SceneManager* sm;
+
+	Application();
+	~Application();
 
 	void initialization();
 	void run();

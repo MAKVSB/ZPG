@@ -39,9 +39,14 @@ public:
 
 	void setVertexData(std::vector<float> vd, VertexDataFormat df = POS4_COL4);
 
+	virtual ~Model();
+
 	GLuint getVertexCount();
 	using GameObject::draw;
 	void draw() override;
 	using GameObject::tick;
 	void tick(double deltaTime);
+
+	virtual bool isModel() { return true; };
+
 };

@@ -27,6 +27,7 @@ private:
 	GLuint shader;
 public:
 	Shader(GLenum shaderType, const char* shaderCode);
+	~Shader();
 	void compile();
 	GLuint getShader() { return shader; };
 };

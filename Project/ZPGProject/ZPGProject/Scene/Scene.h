@@ -1,7 +1,6 @@
 #pragma once
-#include "../GlobalInclude.h"
+#include "GlobalInclude.h"
 #include <map>
-#include <list>
 #include "ShaderProgram/ShaderProgram.h"
 #include "ShaderProgram/ShaderBuilder.h"
 #include "Model/Model.h"
@@ -28,12 +27,11 @@ public:
 	};
 
 	~Scene() {
-		printf("Destroying scene");
 		for (auto sp : shaderPrograms) {
 			delete sp.second;
 		}
-		for (auto mdl : models) {
-			delete mdl;
+		for (auto model : models) {
+			delete model;
 		}
 	};
 
@@ -50,14 +48,5 @@ public:
 		for (GameObject* element : models) {
 			element->draw();
 		}
-	}
-
-};
-
-template<class T>
-class SceneFactory {
-public:
-	Scene* create(GLFWwindow* window) {
-		return new T(window);
 	}
 };

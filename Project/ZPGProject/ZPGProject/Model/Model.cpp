@@ -35,15 +35,19 @@ void Model::setVertexData(std::vector<float> vd, VertexDataFormat df)
 	}
 }
 
+Model::~Model()
+{
+	glDeleteBuffers(1, &VBO);
+	glDeleteVertexArrays(1, &VAO);
+}
+
 GLuint Model::getVertexCount()
 {
 	return vertexData.size() / vertexLength;
 }
 
 void Model::draw() {
-	shader->uploadUniformMatrix("modelMatrix", tc->transform());
-	//shader->uploadUniformMatrix("normalMatrix", glm::mat3(tc->transform()));
-
+	shader->uploadUniformLocation("modelMatrix", tc->transform());
 
 	shader->useWrapper([&]() {
 		glBindVertexArray(VAO);

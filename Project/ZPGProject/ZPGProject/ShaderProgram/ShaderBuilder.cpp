@@ -33,5 +33,6 @@ ShaderProgram* ShaderBuilder::compileAndCheck()
 		throw std::runtime_error("Linker failure: " + sp->name + "  -> " + strInfoLog);
 		delete[] strInfoLog;
 	}
+	sp->cleanup();
 	return sp;
 }

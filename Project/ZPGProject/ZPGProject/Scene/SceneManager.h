@@ -5,7 +5,10 @@
 #include <memory>
 
 #include "Scene/DefaultScene/DefaultScene.h"
-#include "Scene/SceneC5/SceneC5.h"
+#include "Scene/SceneC5_4Balls/SceneC5_4Balls.h"
+#include "Scene/SceneC5_1Ball/SceneC5_1Ball.h"
+#include "Scene/SceneC5_4Objects/SceneC5_4Objects.h"
+#include "Scene/ForestScene/ForestScene.h"
 
 class SceneManager: public Observer {
 private:

@@ -1,10 +1,18 @@
 ﻿#pragma once
 #include "Application.h"
 
-void Application::initialization() {
-	//void error_callback(int error, const char* description) { fputs(description, stderr); }
-	//glfwSetErrorCallback(error_callback);
+Application::Application()
+{
+}
 
+Application::~Application()
+{
+	delete sm;
+	delete currentScene;
+	delete window;
+}
+
+void Application::initialization() {
 	if (!glfwInit()) {
 		fprintf(stderr, "ERROR: could not start GLFW3\n");
 		exit(EXIT_FAILURE);
