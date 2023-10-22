@@ -21,6 +21,16 @@ void main(void) {
     vec3 lightPosition = vec3(0.0, 0.0, 0.0);
     vec3 objectColor = vec3(0.285, 0.647, 0.812);
 
+    //attenuation
+    // Define attenuation factors
+    float constant = 1.0;
+    float linear = 0.36;
+    float quadratic = 0.256;
+
+    float dist = length(lightPosition - ex_worldPosition.xyz / ex_worldPosition.w);
+    float attenuation = 1.0 / (constant + linear * dist + quadratic * dist * dist);
+    lightColor = lightColor * attenuation;
+
     //generic calculations
     vec3 lightVector = normalize(lightPosition - ex_worldPosition.xyz);
     vec3 viewDir = normalize(-ex_worldPosition.xyz);

@@ -12,6 +12,13 @@
 
 #include <vector>
 
+//include static models
+#include "Models/Cube.h"
+#include "Models/Triangle.h"
+#include "Models/sphere.h"
+#include "Models/suzi_flat.h"
+#include "Models/suzi_smooth.h"
+
 class ModelLoader
 {
 public:

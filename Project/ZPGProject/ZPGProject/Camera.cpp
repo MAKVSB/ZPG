@@ -27,6 +27,11 @@ Camera::Camera(GLFWwindow* wndw)
 
 	setPosition(glm::vec3(0, 0, 2));
 	setRotation(glm::vec3(0, 0, -1));
+	setMouseFree(true);
+}
+
+Camera::~Camera() {
+	CallbackManager::getInstance()->remove(this);
 }
 
 void Camera::setScreenSize(int x, int y, bool notify)
@@ -48,24 +53,6 @@ void Camera::listen(MessageType messageType, void* object)
 	if (messageType == MessageType::KeyPressed) {
 		CallbackManager::CBKeyData* dataStruct = static_cast<CallbackManager::CBKeyData*>(object);
 		keypressMap = dataStruct->map;
-
-		if (dataStruct->key == GLFW_KEY_P) {
-			switch (activeProjection)
-			{
-			case Perspective:
-				activeProjection = Orthogonal;
-				break;
-			case Orthogonal:
-				activeProjection = None;
-				break;
-			case None:
-				activeProjection = Perspective;
-				break;
-			default:
-				break;
-			}
-			this->notify(MessageType::CameraProjectionChange, nullptr);
-		}
 	}
 	if (messageType == MessageType::KeyReleased) {
 		CallbackManager::CBKeyData* dataStruct = static_cast<CallbackManager::CBKeyData*>(object);
@@ -73,21 +60,30 @@ void Camera::listen(MessageType messageType, void* object)
 	}
 	if (messageType == MessageType::MouseMove) {
 		CallbackManager::CBCursorData* dataStruct = static_cast<CallbackManager::CBCursorData*>(object);
-		glfwSetCursorPos(window, screenCenter.x, screenCenter.y);
 
-		yaw += ((float)dataStruct->x - screenCenter.x) * camSensitivity;
-		pitch += (screenCenter.y - (float)dataStruct->y) * camSensitivity;
-		//clamp values to prevent lock
-		pitch = std::max(-89.9f, std::min(pitch, 89.9f));
+		if (!mouseFree) {
+			glfwSetCursorPos(window, screenCenter.x, screenCenter.y);
 
-		glm::vec3 dir;
-		dir.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-		dir.y = sin(glm::radians(pitch));
-		dir.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-		glm::vec3 normalizedDir = glm::normalize(dir);
-		setRotation(normalizedDir);
-		this->notify(MessageType::CameraViewChange, nullptr);
+			yaw += ((float)dataStruct->x - screenCenter.x) * camSensitivity;
+			pitch += (screenCenter.y - (float)dataStruct->y) * camSensitivity;
+			//clamp values to prevent lock
+			pitch = std::max(-89.9f, std::min(pitch, 89.9f));
+
+			glm::vec3 dir;
+			dir.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+			dir.y = sin(glm::radians(pitch));
+			dir.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+			glm::vec3 normalizedDir = glm::normalize(dir);
+			setRotation(normalizedDir);
+			this->notify(MessageType::CameraViewChange, nullptr);
+		}
 	}
+}
+
+void Camera::setMouseFree(bool free) {
+	mouseFree = free;
+	glfwSetCursorPos(window, screenCenter.x, screenCenter.y);
+	glfwSetInputMode(window, GLFW_CURSOR, free ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
 }
 
 void Camera::tick(double deltaTime)
@@ -121,6 +117,12 @@ void Camera::tick(double deltaTime)
 			*position -= realSpeed * cameraRight;
 		}
 		changed = true;
+	}
+	if ((*keypressMap)[GLFW_KEY_LEFT_ALT] > 0 && !mouseFree) {
+		setMouseFree(true);
+	}
+	if ((*keypressMap)[GLFW_KEY_LEFT_ALT] == 0 && mouseFree) {
+		setMouseFree(false);
 	}
 	if (changed) this->notify(MessageType::CameraViewChange, nullptr);
 }

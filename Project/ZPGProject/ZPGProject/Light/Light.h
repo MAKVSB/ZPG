@@ -30,7 +30,6 @@ public:
 	GET_SET_NOTIFY(glm::vec3, LightDirection, lightDirection)
 	GET_SET_NOTIFY(LightType, LightType, lightType)
 
-
 	using GameObject::tick;
 	void tick(double deltaTime);
 	using GameObject::draw;

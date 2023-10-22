@@ -1,10 +1,13 @@
 ﻿//Login MAK0065
 
 #include "Application.h"
+#include <crtdbg.h>
+
 
 int main(void)
 {
     try {
+        _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
         Application* app = new Application();
         app->initialization(); //OpenGL inicialization
         app->run();

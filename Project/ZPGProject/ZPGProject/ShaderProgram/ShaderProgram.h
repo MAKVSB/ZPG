@@ -20,8 +20,8 @@
 #include "shader.h"
 #include "Camera.h"
 #include "Observer.h"
-#include "ShaderBuilder.h"
 
+class ShaderBuilder;
 class ShaderProgram : Observer
 {
 private:
@@ -44,6 +44,7 @@ protected:
 	void addShader(GLenum shaderType, std::string shaderFile);
 
 public:
+	~ShaderProgram();
 	ShaderProgram* setCamera(Camera* camera);
 
 	template<typename Func, typename... Args>

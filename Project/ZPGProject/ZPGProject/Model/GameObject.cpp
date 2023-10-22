@@ -1,6 +1,5 @@
 #include "GameObject.h"
 
-
 void GameObject::setPosition(glm::vec3 pos)
 {
 	position->x = pos.x;
@@ -35,6 +34,25 @@ void GameObject::draw()
 	for (GameObject* child : childs) {
 		child->draw();
 	}
+}
+
+GameObject::GameObject()
+{
+	position = new glm::vec3(0, 0, 0);
+	rotation = new glm::vec3(0, 0, 0);
+	scale = new glm::vec3(1, 1, 1);
+}
+
+
+GameObject::~GameObject()
+{
+	for (auto child : childs) {
+		delete child;
+	}
+	delete tc;
+	delete position;
+	delete rotation;
+	delete scale;
 }
 
 void GameObject::addChild(GameObject* child)

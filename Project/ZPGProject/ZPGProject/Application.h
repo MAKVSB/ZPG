@@ -22,19 +22,25 @@
 
 #include "ShaderProgram/ShaderProgram.h"
 #include "Model/Model.h"
+#include "Observer.h"
 
+#include "Scene/SceneManager.h"
 #include "Scene/Scene.h"
-//#include "Scene/DefaultScene/DefaultScene.h"
-#include "Scene/SceneC5/SceneC5.h"
 
 #include "CallbackManager.h"
 
-class Application
+class Application : Observer
 {
 private:
 	GLFWwindow* window;
 
 public:
+	Scene* currentScene;
+	SceneManager* sm;
+
 	void initialization();
 	void run();
+
+	// Dìdí se pøes Observer.
+	void listen(MessageType messageType, void* object);
 };

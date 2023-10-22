@@ -36,15 +36,18 @@ private:
 
 	ProjectionEnum activeProjection = Perspective;
 
-public:
 	float fov = 45;
 	float yaw = -90;
 	float pitch = 0;
 	float camSensitivity = 0.1f;
 	float camSpeed = 1.5f;
+	bool mouseFree = false;
 
+public:
+	void setMouseFree(bool free);
 
 	Camera(GLFWwindow* window);
+	~Camera() override;
 	void setScreenSize(int x, int y, bool notify = true);
 	void listen(MessageType messageType, void* object);
 	using GameObject::tick;

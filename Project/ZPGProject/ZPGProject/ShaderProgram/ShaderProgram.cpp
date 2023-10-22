@@ -6,6 +6,13 @@ ShaderProgram::ShaderProgram() {
 	shaderProgram = glCreateProgram();
 }
 
+ShaderProgram::~ShaderProgram()
+{
+	for (Shader* shader : shaders) {
+		delete shader;
+	}
+}
+
 ShaderProgram* ShaderProgram::setCamera(Camera* cmr)
 {
 	if (camera != nullptr) {

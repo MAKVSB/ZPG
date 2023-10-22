@@ -1,6 +1,4 @@
 #pragma once
-#include "GlobalInclude.h"
-
 #include "CallbackManager.h"
 CallbackManager* CallbackManager::instance = nullptr;
 GLFWwindow* CallbackManager::window = nullptr;

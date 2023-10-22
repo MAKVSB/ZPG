@@ -138,6 +138,7 @@
     <ClCompile Include="CallbackManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Light\Light.cpp" />
+    <ClCompile Include="Model\GameObjectBuilder.h" />
     <ClCompile Include="Scene\DefaultScene\HouseObjectGroup.cpp" />
     <ClCompile Include="Model\GameObject.cpp" />
     <ClCompile Include="main.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Scene\DefaultScene\DefaultScene.cpp" />
     <ClCompile Include="Scene\SceneC5\SceneC5.cpp" />
+    <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="ShaderProgram\ShaderBuilder.cpp" />
     <ClCompile Include="ShaderProgram\Shader.cpp" />
     <ClCompile Include="ShaderProgram\ShaderProgram.cpp" />
@@ -158,7 +160,6 @@
     <ClInclude Include="Models\bushes.h" />
     <ClInclude Include="Models\gift.h" />
     <ClInclude Include="Models\tree.h" />
-    <ClInclude Include="Model\ModelBuilder.h" />
     <ClInclude Include="Scene\DefaultScene\HouseObjectGroup.h" />
     <ClInclude Include="Model\GameObject.h" />
     <ClInclude Include="GlobalInclude.h" />
@@ -173,6 +174,7 @@
     <ClInclude Include="Scene\DefaultScene\DefaultScene.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Scene\SceneC5\SceneC5.h" />
+    <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="ShaderProgram\ShaderBuilder.h" />
     <ClInclude Include="ShaderProgram\Shader.h" />
     <ClInclude Include="ShaderProgram\ShaderProgram.h" />

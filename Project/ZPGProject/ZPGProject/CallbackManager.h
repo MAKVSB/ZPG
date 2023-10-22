@@ -9,6 +9,7 @@
  **/
 
 #pragma once
+#include "GlobalInclude.h"
 
 #include <map>
 

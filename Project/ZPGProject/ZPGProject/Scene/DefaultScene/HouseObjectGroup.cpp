@@ -35,5 +35,6 @@ HouseObjectGroup::HouseObjectGroup() {
 	CallbackManager::getInstance()->add(this);
 }
 HouseObjectGroup::~HouseObjectGroup() {
+	printf("deleting HOG");
 	CallbackManager::getInstance()->remove(this);
 }

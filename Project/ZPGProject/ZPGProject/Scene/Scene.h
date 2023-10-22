@@ -16,8 +16,9 @@ protected:
 	Camera* camera;
 
 	std::map<std::string, ShaderProgram*> shaderPrograms;
-	std::list<GameObject*> models;
+	std::vector<GameObject*> models;
 public:
+
 	Scene(GLFWwindow* wndw) {
 		window = wndw;
 		createShaders();
@@ -26,7 +27,15 @@ public:
 		models.push_back(camera);
 	};
 
-	~Scene() {};
+	~Scene() {
+		printf("Destroying scene");
+		for (auto sp : shaderPrograms) {
+			delete sp.second;
+		}
+		for (auto mdl : models) {
+			delete mdl;
+		}
+	};
 
 	void createShaders() {};
 	void createModels() {};
@@ -43,4 +52,12 @@ public:
 		}
 	}
 
+};
+
+template<class T>
+class SceneFactory {
+public:
+	Scene* create(GLFWwindow* window) {
+		return new T(window);
+	}
 };

@@ -11,11 +11,12 @@
 #pragma once
 #include "Scene/Scene.h"
 
-#include "Models/Cube.h"
-#include "Models/Triangle.h"
-#include "Models/sphere.h"
-#include "Models/suzi_flat.h"
-#include "Models/suzi_smooth.h"
+extern const float cubeVertexData[];
+extern const float triangleVertexData[];
+extern const float sphere[];
+extern const float suziFlat[];
+extern const float suziSmooth[];
+
 #include "Observer.h"
 
 class SceneC5 : public Scene

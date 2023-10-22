@@ -17,10 +17,13 @@
 class GameObject
 {
 protected:
-	glm::vec3* position = new glm::vec3(0, 0, 0);
-	glm::vec3* rotation = new glm::vec3(0, 0, 0);
-	glm::vec3* scale = new glm::vec3(1, 1, 1);
+	glm::vec3* position;
+	glm::vec3* rotation;
+	glm::vec3* scale;
 public:
+	GameObject();
+	virtual ~GameObject();
+
 	std::string name;
 
 	std::vector<GameObject*> childs;

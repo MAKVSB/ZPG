@@ -47,27 +47,49 @@ void Application::initialization() {
 
 	//custom
 	glEnable(GL_DEPTH_TEST);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	//init required singletons
 	CallbackManager::init(window);
-	
+	CallbackManager::getInstance()->add(this);
+	sm = new SceneManager(window);
+	sm->registerScenes();
 }
 
 void Application::run() {
+	bool prefectTime = true;
+	int targetFPS = 60;
+	double targetFrameTime = (double)1000 / targetFPS -2; // (-const) just to be slightly above set framerate
+
 	double lastTickStartTime = glfwGetTime();
-	Scene* defaultScene = new SceneC5(window);
+	double thisTickStartTime, deltaTime;
+
+	currentScene = sm->sceneSelector();
 	//main vykreslovací while
 	while (!glfwWindowShouldClose(window)) {
-		double deltaTime = glfwGetTime() - lastTickStartTime;
+		deltaTime = glfwGetTime() - lastTickStartTime;
 		lastTickStartTime = glfwGetTime();
+		thisTickStartTime = lastTickStartTime;
 
-		defaultScene->tick(deltaTime);
-		defaultScene->draw();
-		//double drawingTime = glfwGetTime() - lastTickStartTime;
-		//int fpsLimitSleepTime = (int)((1000 / 60 - drawingTime)*1000);
-		//printf("fpslimiter %d\n", fpsLimitSleepTime);
-		std::this_thread::sleep_for(std::chrono::milliseconds(5));
+		if (currentScene) {
+			currentScene->tick(deltaTime);
+			currentScene->draw();
+		}
+
+		double thisTickElapsed = glfwGetTime() - thisTickStartTime;
+		double sleepTime = targetFrameTime - thisTickElapsed * 1000;
+		if (prefectTime) {
+			while (1) {
+				thisTickElapsed = glfwGetTime() - thisTickStartTime;
+				if (targetFrameTime - thisTickElapsed * 1000 < 1) {
+					break;
+				}
+			}
+		}
+		else {
+			std::this_thread::sleep_for(std::chrono::milliseconds((int)(sleepTime/2)));
+		}
+
+		//printf("Current FPS: %d\n", (int)(1 / deltaTime));
 		// update other events like input handling
 		glfwPollEvents();
 		// put the stuff we’ve been drawing onto the display
@@ -77,4 +99,15 @@ void Application::run() {
 	glfwDestroyWindow(window);
 	glfwTerminate();
 	exit(EXIT_SUCCESS);
+}
+
+void Application::listen(MessageType messageType, void* object)
+{
+	if (MessageType::KeyPressed == messageType) {
+		CallbackManager::CBKeyData* data = static_cast<CallbackManager::CBKeyData*>(object);
+		if (data->key == GLFW_KEY_GRAVE_ACCENT) {
+			delete currentScene;
+			currentScene = sm->sceneSelector();
+		}
+	}
 }

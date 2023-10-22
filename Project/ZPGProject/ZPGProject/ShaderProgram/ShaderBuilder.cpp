@@ -2,18 +2,13 @@
 
 #include <filesystem>
 
-ShaderBuilder::ShaderBuilder()
-{
-	sp = new ShaderProgram();
-}
-
-ShaderBuilder* ShaderBuilder::name(std::string name)
+ShaderBuilder& ShaderBuilder::name(std::string name)
 {
 	sp->name = name;
-	return this;
+	return *this;
 }
 
-ShaderBuilder* ShaderBuilder::addShader(std::string shaderFolder)
+ShaderBuilder& ShaderBuilder::addShader(std::string shaderFolder)
 {
 	if (std::filesystem::exists("./" + shaderFolder + "/vector.glsl")) {
 		sp->addShader(GL_VERTEX_SHADER, ("./" + shaderFolder + "/vector.glsl").c_str());
@@ -21,13 +16,13 @@ ShaderBuilder* ShaderBuilder::addShader(std::string shaderFolder)
 	if (std::filesystem::exists("./" + shaderFolder + "/fragment.glsl")) {
 		sp->addShader(GL_FRAGMENT_SHADER, ("./" + shaderFolder + "/fragment.glsl").c_str());
 	}
-	return this;
+	return *this;
 }
 
-ShaderBuilder* ShaderBuilder::addShader(const GLenum shaderType, const char* shaderFile)
+ShaderBuilder& ShaderBuilder::addShader(const GLenum shaderType, const char* shaderFile)
 {
 	sp->addShader(shaderType, shaderFile);
-	return this;
+	return *this;
 }
 
 ShaderProgram* ShaderBuilder::compileAndCheck()

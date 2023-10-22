@@ -1,0 +1,31 @@
+#include <CallbackManager.h>
+#include <Observer.h>
+#include <vector>
+#include <typeindex>
+#include <memory>
+
+#include "Scene/DefaultScene/DefaultScene.h"
+#include "Scene/SceneC5/SceneC5.h"
+
+class SceneManager: public Observer {
+private:
+	struct SceneStruct {
+		std::type_index type;
+		std::string name;
+		std::string desc;
+	};
+	GLFWwindow* window;
+
+	std::vector<SceneStruct> scenes;
+
+	void printSceneMenu();
+	int getSceneValue();
+public:
+	SceneManager(GLFWwindow* wndw);
+
+	void registerScene(std::type_index type, std::string name, std::string desc);
+	void registerScenes();
+	Scene* sceneSelector();
+
+	void listen(MessageType messageType, void* object);
+};

@@ -19,13 +19,13 @@
 class ShaderProgram;
 class ShaderBuilder
 {
-	ShaderProgram* sp;
+private:
+	ShaderProgram* sp = new ShaderProgram();
 
 public:
-	ShaderBuilder();
-	ShaderBuilder* name(std::string name);
-	ShaderBuilder* addShader(std::string shaderFolder);
-	ShaderBuilder* addShader(const GLenum shaderType, const char* shaderFile);
+	ShaderBuilder& name(std::string name);
+	ShaderBuilder& addShader(std::string shaderFolder);
+	ShaderBuilder& addShader(const GLenum shaderType, const char* shaderFile);
 	ShaderProgram* compileAndCheck();
 };
 
