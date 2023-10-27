@@ -27,7 +27,7 @@ protected:
 public:
 	SceneC5_4Balls(GLFWwindow* window);
 	using Scene::tick;
-	void tick(double deltaTime);
+	void tick(float deltaTime);
 	using Scene::draw;
 	void draw();
 };

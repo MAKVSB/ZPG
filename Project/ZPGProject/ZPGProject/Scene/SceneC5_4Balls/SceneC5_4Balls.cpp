@@ -48,48 +48,48 @@ void SceneC5_4Balls::createModels()
 	//models.push_back(light);
 
 	models.push_back(ModelBuilder()
-		.loadVertexesFromArray(suziSmooth, POS3_NOR3)
-		.setShader(shaderPrograms[std::string("lightShader0")])
+		.loadVertexesFromArray(sphere, POS3_NOR3)
+		.setShader(shaderPrograms[std::string("lightShader2")])
 		.setPosition(glm::vec3(0, distance, 0))
 		.setScale(glm::vec3(.3f))
 		.setBasicTransforms()
 		.finish());
 	models.push_back(ModelBuilder()
-		.loadVertexesFromArray(suziSmooth, POS3_NOR3)
-		.setShader(shaderPrograms[std::string("lightShader1")])
+		.loadVertexesFromArray(sphere, POS3_NOR3)
+		.setShader(shaderPrograms[std::string("lightShader2")])
 		.setPosition(glm::vec3(distance, 0, 0))
 		.setScale(glm::vec3(.3f))
 		.setBasicTransforms()
 		.finish());
 	models.push_back(ModelBuilder()
-		.loadVertexesFromArray(suziSmooth, POS3_NOR3)
+		.loadVertexesFromArray(sphere, POS3_NOR3)
 		.setShader(shaderPrograms[std::string("lightShader2")])
 		.setPosition(glm::vec3(0, -distance, 0))
 		.setScale(glm::vec3(.3f))
 		.setBasicTransforms()
 		.finish());
 	models.push_back(ModelBuilder()
-		.loadVertexesFromArray(suziSmooth, POS3_NOR3)
-		.setShader(shaderPrograms[std::string("lightShader3")])
+		.loadVertexesFromArray(sphere, POS3_NOR3)
+		.setShader(shaderPrograms[std::string("lightShader2")])
 		.setPosition(glm::vec3(-distance, 0, 0))
 		.setScale(glm::vec3(.3f))
 		.setBasicTransforms()
 		.finish());
 	models.push_back(ModelBuilder()
-		.loadVertexesFromArray(suziSmooth, POS3_NOR3)
-		.setShader(shaderPrograms[std::string("lightShader3")])
+		.loadVertexesFromArray(sphere, POS3_NOR3)
+		.setShader(shaderPrograms[std::string("lightShader2")])
 		.setPosition(glm::vec3(-distance*3, 0, 0))
 		.setScale(glm::vec3(.3f))
 		.setBasicTransforms()
 		.finish());
 }
 
-void SceneC5_4Balls::tick(double deltaTime)
+void SceneC5_4Balls::tick(float deltaTime)
 {
 	Scene::tick(deltaTime);
 	for (GameObject* element : models) {
 		if (!element->isCamera()) {
-			element->getRotation()->x += 0.5 * deltaTime;
+			element->getRotation()->x += 0.5f * deltaTime;
 		}
 	}
 }

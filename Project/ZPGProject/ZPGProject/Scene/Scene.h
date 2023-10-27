@@ -7,12 +7,15 @@
 #include "Model/ModelLoader.h"
 #include "Model/GameObject.h"
 #include "Camera.h"
+#include <Light/Light.h>
+#include "Light/LightManager.h"
 
 class Scene
 {
 protected:
 	GLFWwindow* window;
 	Camera* camera;
+	LightManager lightManager;
 
 	std::map<std::string, ShaderProgram*> shaderPrograms;
 	std::vector<GameObject*> models;
@@ -38,7 +41,7 @@ public:
 	void createShaders() {};
 	void createModels() {};
 
-	virtual void tick(double deltaTime) {
+	virtual void tick(float deltaTime) {
 		for (GameObject* element : models) {
 			element->tick(deltaTime);
 		}

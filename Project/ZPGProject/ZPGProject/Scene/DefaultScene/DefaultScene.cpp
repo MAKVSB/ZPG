@@ -37,14 +37,14 @@ void DefaultScene::createModels()
 			.name("firstModel")
 			.loadVertexesFromArray(cubeVertexData)
 			.setShader(shaderPrograms["firstShader"])
-			.setPosition(glm::vec3(0, -.5f, 0))
+			.setPosition(glm::vec3(0, 0, 0))
 			.setBasicTransforms()
 			.finish())
 		.addChild(ModelBuilder()
 			.name("secondModel")
 			.loadVertexesFromArray(triangleVertexData)
 			.setShader(shaderPrograms["secondShader"])
-			.setPosition(glm::vec3(0, .5f, 0))
+			.setPosition(glm::vec3(0, 1, 0))
 			.setBasicTransforms()
 			.finish())
 		.finish());
@@ -68,9 +68,10 @@ void DefaultScene::createModels()
 		.finish());
 }
 
-void DefaultScene::tick(double deltaTime)
+void DefaultScene::tick(float deltaTime)
 {
 	Scene::tick(deltaTime);
+	models[2]->getPosition()->x += deltaTime;
 }
 
 void DefaultScene::draw()

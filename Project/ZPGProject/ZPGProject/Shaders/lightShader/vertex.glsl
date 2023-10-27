@@ -23,6 +23,6 @@ out vec3 ex_worldNormal;
 void main () {
     ex_worldPosition = modelMatrix * vec4(in_Position,1.0f);
     mat4 normalMatrix = modelMatrix; //temporary
-    ex_worldNormal = normalize(transpose(inverse(mat3(modelMatrix))) * in_Normal);
+    ex_worldNormal = normalize(transpose(inverse(mat3(modelMatrix))) * in_Normal); // N = (M^-1)^T
     gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(in_Position, 1.0);
 };

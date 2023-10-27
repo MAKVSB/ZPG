@@ -1,7 +1,7 @@
 #include "HouseObjectGroup.h"
 #include <CallbackManager.h>
 
-void HouseObjectGroup::tick(double deltaTime)
+void HouseObjectGroup::tick(float deltaTime)
 {
 	GameObject::tick(deltaTime);
 	if ((*keypressMap)[GLFW_KEY_UP] > 0) {

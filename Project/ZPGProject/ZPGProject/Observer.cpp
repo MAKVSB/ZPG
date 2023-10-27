@@ -15,12 +15,10 @@ void Observable::remove(Observer* obs) {
 
 void Observable::notify(MessageType messageType, void* obj)
 {
-	auto test2 = this->observers;
-	auto test = observers.size();
+	auto startCount = observers.size();
 	for (auto& obs : observers) {
-		auto test4 = this->observers;
-		auto test3 = observers.size();
-		if (test3 != test) break;
+		auto currCount = observers.size();
+		if (currCount != startCount) break;
 		obs->listen(messageType, obj);
 	}
 }

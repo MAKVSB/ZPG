@@ -78,6 +78,14 @@ int ShaderProgram::getUniformLocation(std::string uniformName)
 	return dataLocation;
 }
 
+int ShaderProgram::getUniformBufferIndex(std::string uniformName) {
+	GLuint blockIndex = glGetUniformBlockIndex(shaderProgram, uniformName.c_str());
+	if (blockIndex == GL_INVALID_INDEX) {
+		std::cout << "WARNING: shader buffer location \"" << uniformName << "\" not found in shader " << shaderProgram << std::endl;
+	}
+	return blockIndex;
+}
+
 void ShaderProgram::uploadUniformLocation(std::string uniformName, glm::mat4 M) {
 	GLint dataLocation = getUniformLocation(uniformName);
 	glProgramUniformMatrix4fv(shaderProgram, dataLocation, 1, GL_FALSE, &M[0][0]);
@@ -108,4 +116,21 @@ void ShaderProgram::listen(MessageType messageType, void* object)
 	if (messageType == MessageType::CameraViewChange || messageType == MessageType::CameraChanged) {
 		uploadUniformLocation("viewMatrix", camera->getViewMatrix());
 	}
+}
+
+void ShaderProgram::bindUniformObject(std::string uniformName, int bufferId, int bufferSize)
+{
+	GLuint blockIndex = getUniformBufferIndex(uniformName);
+
+	GLint binding;
+	glGetActiveUniformBlockiv(shaderProgram, blockIndex, GL_UNIFORM_BLOCK_BINDING, &binding);
+
+	glUniformBlockBinding(shaderProgram, blockIndex, binding);
+	glBindBufferBase(GL_UNIFORM_BUFFER, blockIndex, bufferId);
+}
+
+void ShaderProgram::uploadUniformObject(int bufferId, int bufferSize, void* bufferData, int startPos) {
+	glBindBuffer(GL_UNIFORM_BUFFER, bufferId);
+	glBufferSubData(GL_UNIFORM_BUFFER, startPos, bufferSize, bufferData);
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }

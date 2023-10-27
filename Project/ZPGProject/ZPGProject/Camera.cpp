@@ -90,7 +90,7 @@ void Camera::setMouseFree(bool free) {
 	glfwSetInputMode(window, GLFW_CURSOR, free ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
 }
 
-void Camera::tick(double deltaTime)
+void Camera::tick(float deltaTime)
 {
 	GameObject::tick(deltaTime);
 	if (keypressMap != nullptr) {

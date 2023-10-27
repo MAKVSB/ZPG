@@ -9,6 +9,7 @@
 #include "Scene/SceneC5_1Ball/SceneC5_1Ball.h"
 #include "Scene/SceneC5_4Objects/SceneC5_4Objects.h"
 #include "Scene/ForestScene/ForestScene.h"
+#include "Scene/Universe/Universe.h"
 
 class SceneManager: public Observer {
 private:

@@ -45,6 +45,7 @@ protected:
 	void addShader(GLenum shaderType, std::string shaderFile);
 
 	int getUniformLocation(std::string uniformName);
+	int getUniformBufferIndex(std::string uniformName);
 public:
 	~ShaderProgram();
 	ShaderProgram* setCamera(Camera* camera);
@@ -60,4 +61,6 @@ public:
 	void uploadUniformLocation(std::string uniformName, glm::vec3 V);
 	void uploadUniformLocation(std::string uniformName, float f);
 	void uploadUniformLocation(std::string uniformName, int i);
+	void bindUniformObject(std::string uniformName, int bufferId, int bufferSize);
+	static void uploadUniformObject(int bufferId, int bufferSize, void* bufferData, int startPos = 0);
 };

@@ -39,7 +39,6 @@ public:
 	Scene* currentScene;
 	SceneManager* sm;
 
-	Application();
 	~Application();
 
 	void initialization();

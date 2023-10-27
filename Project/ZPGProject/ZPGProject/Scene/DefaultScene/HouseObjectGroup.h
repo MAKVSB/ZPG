@@ -20,7 +20,7 @@ public:
 	std::string valuse;
 	std::map<int, int>* keypressMap = new std::map<int, int>();
 
-	void tick(double deltaTime);
+	void tick(float deltaTime);
 	void draw();
 	HouseObjectGroup();
 	~HouseObjectGroup();

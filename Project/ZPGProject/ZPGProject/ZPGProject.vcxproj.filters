@@ -96,6 +96,12 @@
     <ClCompile Include="Light\LightManager.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\Universe\Universe.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Universe\OffsetRotator.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -203,6 +209,15 @@
     <ClInclude Include="Light\LightManager.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\Universe\Universe.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Universe\OffsetRotator.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\Material.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragment_shader_color_positional.glsl">
@@ -222,6 +237,6 @@
     <None Include="Shaders\lightShader\phong.glsl" />
     <None Include="Shaders\lightShader\blinn.glsl" />
     <None Include="Shaders\lightShader\constant.glsl" />
-    <None Include="ClassDiagram.cd" />
+    <None Include="Shaders\lightShader\phong2.glsl" />
   </ItemGroup>
 </Project>

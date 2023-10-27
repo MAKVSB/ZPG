@@ -153,6 +153,8 @@
     <ClCompile Include="Scene\SceneC5_4Balls\SceneC5_4Balls.cpp" />
     <ClCompile Include="Scene\SceneC5_4Objects\SceneC5_4Objects.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
+    <ClCompile Include="Scene\Universe\OffsetRotator.cpp" />
+    <ClCompile Include="Scene\Universe\Universe.cpp" />
     <ClCompile Include="ShaderProgram\ShaderBuilder.cpp" />
     <ClCompile Include="ShaderProgram\Shader.cpp" />
     <ClCompile Include="ShaderProgram\ShaderProgram.cpp" />
@@ -163,6 +165,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Light\LightManager.h" />
     <ClInclude Include="Light\Light.h" />
+    <ClInclude Include="Model\Material.h" />
     <ClInclude Include="Models\bushes.h" />
     <ClInclude Include="Models\gift.h" />
     <ClInclude Include="Models\tree.h" />
@@ -184,6 +187,8 @@
     <ClInclude Include="Scene\SceneC5_4Balls\SceneC5_4Balls.h" />
     <ClInclude Include="Scene\SceneC5_4Objects\SceneC5_4Objects.h" />
     <ClInclude Include="Scene\SceneManager.h" />
+    <ClInclude Include="Scene\Universe\OffsetRotator.h" />
+    <ClInclude Include="Scene\Universe\Universe.h" />
     <ClInclude Include="ShaderProgram\ShaderBuilder.h" />
     <ClInclude Include="ShaderProgram\Shader.h" />
     <ClInclude Include="ShaderProgram\ShaderProgram.h" />
@@ -201,6 +206,7 @@
     <None Include="Shaders\lightShader\constant.glsl" />
     <None Include="Shaders\lightShader\lambert.glsl" />
     <None Include="Shaders\lightShader\phong.glsl" />
+    <None Include="Shaders\lightShader\phong2.glsl" />
     <None Include="Shaders\lightShader\vertex.glsl" />
     <None Include="Shaders\vertex_shader_positional_color.glsl" />
     <None Include="Shaders\vertex_shader_transformative.glsl" />

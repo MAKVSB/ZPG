@@ -1,6 +1,6 @@
 #include "Light.h"
 
-void Light::tick(double deltaTime)
+void Light::tick(float deltaTime)
 {
 	GameObject::tick(deltaTime);
 }

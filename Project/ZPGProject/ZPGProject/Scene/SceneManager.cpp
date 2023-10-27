@@ -19,6 +19,7 @@ void SceneManager::registerScenes()
 	registerScene(std::type_index(typeid(SceneC5_4Objects)), "4 Objects with light in middle", "Vytvoøeno na cvièení k light shaderu");
 	registerScene(std::type_index(typeid(SceneC5_1Ball)), "1 Balls with light beihnd", "Vytvoøeno na cvièení k light shaderu");
 	registerScene(std::type_index(typeid(ForestScene)), "Forest scene", "");
+	registerScene(std::type_index(typeid(UniverseScene)), "Universe", "");
 }
 
 void SceneManager::printSceneMenu() {
@@ -66,6 +67,8 @@ Scene* SceneManager::sceneSelector()
 		return new SceneC5_1Ball(window);
 	} else if (scenes[value].type == std::type_index(typeid(ForestScene))) {
 		return new ForestScene(window);
+	} else if (scenes[value].type == std::type_index(typeid(UniverseScene))) {
+		return new UniverseScene(window);
 	} else {
 		return new DefaultScene(window);
 	}

@@ -77,12 +77,12 @@ void SceneC5_4Objects::createModels()
 		.finish());
 }
 
-void SceneC5_4Objects::tick(double deltaTime)
+void SceneC5_4Objects::tick(float deltaTime)
 {
 	Scene::tick(deltaTime);
 	for (GameObject* element : models) {
 		if (!element->isCamera()) {
-			element->getRotation()->x += 0.5 * deltaTime;
+			element->getRotation()->x += 0.5f * deltaTime;
 		}
 	}
 }

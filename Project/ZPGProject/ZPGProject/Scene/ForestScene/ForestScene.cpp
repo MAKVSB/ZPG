@@ -2,10 +2,6 @@
 
 #include "CallbackManager.h"
 
-#include "Scene/DefaultScene/HouseObjectGroup.h"
-#include "Model/GameObjectBuilder.h"
-#include "Light/Light.h"
-
 ForestScene::ForestScene(GLFWwindow* window) : Scene(window) {
 	createShaders();
 	createModels();
@@ -14,45 +10,123 @@ ForestScene::ForestScene(GLFWwindow* window) : Scene(window) {
 void ForestScene::createShaders()
 {
 	shaderPrograms["lightShader"] = ShaderBuilder()
-		.name("lightShader2")
+		.name("lightShader")
 		.addShader(GL_VERTEX_SHADER, "Shaders/lightShader/vertex.glsl")
-		.addShader(GL_FRAGMENT_SHADER, "Shaders/lightShader/phong.glsl")
+		.addShader(GL_FRAGMENT_SHADER, "Shaders/lightShader/phong2.glsl")
+		.compileAndCheck()
+		->setCamera(camera);
+	lightManager.attachShader(shaderPrograms["lightShader"]);
+
+	shaderPrograms["secondShader"] = ShaderBuilder()
+		.name("secondShader")
+		.addShader(GL_VERTEX_SHADER, "Shaders/vertex_shader_positional_color.glsl")
+		.addShader(GL_FRAGMENT_SHADER, "Shaders/fragment_shader_color_positional.glsl")
 		.compileAndCheck()
 		->setCamera(camera);
 }
+
+Light* light;
+GameObject* lightVisualiser;
 
 void ForestScene::createModels()
 {
 	float distance = 0.7f;
 
-	Light* light = new Light();
-	light->setPosition(glm::vec3(0));
+	light = new Light();
+	light->setPosition(glm::vec3(0, 10, 0));
+	light->setLightAttenuation(glm::vec3(0.5, 0.1, 0.1));
+	models.push_back(light);
+
+	lightVisualiser = ModelBuilder()
+		.loadVertexesFromArray(sphere, POS3_NOR3)
+		.setShader(shaderPrograms[std::string("lightShader")])
+		.setPosition(glm::vec3(0, 10, 0))
+		.setScale(glm::vec3(.8f))
+		.setBasicTransforms()
+		.finish();
+	models.push_back(lightVisualiser);
+
+	Material m;
+	m.r_a = glm::vec4(0);
+	m.r_d = glm::vec4(1);
+	m.r_s = glm::vec4(2);
 
 	camera->setPosition(glm::vec3(0, 1, 2));
 
-	int terrainSize = 5;
+	int terrainSize = 10;
 
 	for (int i = -terrainSize; i < terrainSize;i++) {
 		for (int j = -terrainSize; j < terrainSize;j++) {
 			models.push_back(ModelBuilder()
 				.loadVertexesFromArray(plain, POS3_NOR3)
 				.setShader(shaderPrograms[std::string("lightShader")])
-				.setPosition(glm::vec3(i * 2, -1, j * 2))
+				.setPosition(glm::vec3(i * 2, 0, j * 2))
+				.setMaterial(m)
 				.setBasicTransforms()
 				.finish());
 		}
 	}
 
-	models.push_back(ModelBuilder()
-		.loadVertexesFromArray(tree, POS3_NOR3)
-		.setShader(shaderPrograms[std::string("lightShader")])
-		.setPosition(glm::vec3(1, -1, 1))
-		.setBasicTransforms()
-		.finish());
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_real_distribution<float> distribution((2 * -terrainSize)-(1-0.1f), (2 * terrainSize)-(1+0.2f));
+
+	// Generate random trees
+	for (int i = 0; i < 300; i++) {
+		models.push_back(ModelBuilder()
+			.loadVertexesFromArray(tree, POS3_NOR3)
+			.setShader(shaderPrograms[std::string("lightShader")])
+			.setPosition(glm::vec3(distribution(gen), 0, distribution(gen)))
+			.setScale(glm::vec3(.8f))
+			.setMaterial(m)
+			.setBasicTransforms()
+			.finish());
+	}
+
+	// Generate random bushes
+	for (int i = 0; i < 1000; i++) {
+		models.push_back(ModelBuilder()
+			.loadVertexesFromArray(bushes, POS3_NOR3)
+			.setShader(shaderPrograms[std::string("lightShader")])
+			.setPosition(glm::vec3(distribution(gen), 0, distribution(gen)))
+			.setScale(glm::vec3(.8f))
+			.setMaterial(m)
+			.setBasicTransforms()
+			.finish());
+	}
+
+	// Generate random spheres
+	for (int i = 0; i < 3; i++) {
+		models.push_back(ModelBuilder()
+			.loadVertexesFromArray(sphere, POS3_NOR3)
+			.setShader(shaderPrograms[std::string("lightShader")])
+			.setPosition(glm::vec3(distribution(gen)/ terrainSize, 0.5f, distribution(gen)/ terrainSize))
+			.setScale(glm::vec3(.5f))
+			.setMaterial(m)
+			.setBasicTransforms()
+			.finish());
+	}
+
+	// Generate random suzis
+	for (int i = 0; i < 3; i++) {
+		models.push_back(ModelBuilder()
+			.loadVertexesFromArray(suziSmooth, POS3_NOR3)
+			.setShader(shaderPrograms[std::string("secondShader")])
+			.setPosition(glm::vec3(distribution(gen)/ terrainSize, 0.5f, distribution(gen)/ terrainSize))
+			.setScale(glm::vec3(.5f))
+			.setMaterial(m)
+			.setBasicTransforms()
+			.finish());
+	}
+
+	lightManager.updateLightReferences(models);
 }
 
-void ForestScene::tick(double deltaTime)
+void ForestScene::tick(float deltaTime)
 {
+	//light->updatePosition(glm::vec3(0.5f * deltaTime, 0, 0));
+	//lightVisualiser->getPosition()->x += 0.5f * deltaTime;
+
 	Scene::tick(deltaTime);
 }
 

@@ -37,10 +37,11 @@ public:
 	BT& setRotation(glm::vec3 rot) { model->setRotation(rot); return static_cast<BT&>(*this); };
 	BT& setScale(glm::vec3 scl) { model->setScale(scl); return static_cast<BT&>(*this); };
 
+	BT& addTransform(Transform* t) { model->tc->add(t); return  static_cast<BT&>(*this); };
 	BT& setBasicTransforms() {
-		model->tc->addTranlateTransform(model->getPosition());
-		model->tc->addRotationTransform(model->getRotation());
 		model->tc->addScaleTransform(model->getScale());
+		model->tc->addRotationTransform(model->getRotation());
+		model->tc->addTranlateTransform(model->getPosition());
 		return static_cast<BT&>(*this);
 	};
 
@@ -64,7 +65,8 @@ public:
 		model->setVertexData(ModelLoader::convertToVector<float>(dataArray), vdf);
 		return static_cast<BT&>(*this);
 	};
-	BT& setShader(ShaderProgram* sp) { model->shader = sp; return static_cast<BT&>(*this); };
+	BT& setShader(ShaderProgram* sp) { model->setShader(sp); return static_cast<BT&>(*this); };
+	BT& setMaterial(Material m) { model->setMaterial(m); return static_cast<BT&>(*this); };
 };
 
 class ModelBuilder : public ModelBuilderSpec<ModelBuilder> {};

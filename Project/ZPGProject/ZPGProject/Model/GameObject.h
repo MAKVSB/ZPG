@@ -12,6 +12,7 @@
 #include "GlobalInclude.h"
 
 #include "Transforms/TransformComp.h"
+#include "Observer.h"
 #include <string>
 
 class GameObject
@@ -32,12 +33,15 @@ public:
 	TransformComp* tc = new TransformComp();
 
 	void setPosition(glm::vec3 pos);
+	void updatePosition(glm::vec3 pos);
 	glm::vec3* getPosition() { return position; };
 
 	void setRotation(glm::vec3 rot);
+	void updateRotation(glm::vec3 pos);
 	glm::vec3* getRotation() { return rotation; };
 
 	void setScale(glm::vec3 scl);
+	void updateScale(glm::vec3 pos);
 	glm::vec3* getScale() { return scale; };
 
 	virtual bool isCamera() { return false; };
@@ -45,7 +49,7 @@ public:
 	virtual bool isLight() { return false; };
 	virtual bool isGroup() { return !(isCamera() || isModel() || isLight()); };
 
-	virtual void tick(double deltaTime);
+	virtual void tick(float deltaTime);
 	virtual void draw();
 };
 

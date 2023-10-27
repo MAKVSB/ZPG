@@ -1,5 +1,5 @@
 /**
- * @file TransformComp.h
+ * @file TransformComp2.h
  *
  * @brief Transform composite
  *
@@ -24,10 +24,11 @@ private:
 	std::vector<Transform*> transformList;
 public:
 	glm::mat4 transform(glm::mat4 m = glm::mat4(1)) {
-		for (Transform* element : transformList) {
+		for (auto it = transformList.rbegin(); it != transformList.rend(); ++it) {
+			Transform* element = *it;
 			m = element->transform(m);
 		}
-  		return m;
+		return m;
 	}
 
 	void add(Transform* transform) {

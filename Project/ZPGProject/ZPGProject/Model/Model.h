@@ -15,8 +15,8 @@
 #include <vector>
 
 #include "ShaderProgram/ShaderProgram.h"
-#include "Transforms/TransformComp.h"
 #include "Model/GameObject.h"
+#include "Material.h"
 
 enum VertexDataFormat {
 	POS4_COL4,
@@ -26,18 +26,22 @@ enum VertexDataFormat {
 class Model : public GameObject
 {
 private:
-	GLuint VBO;
-	VertexDataFormat dataFormat;
-	int vertexLength;
+	GLuint VBO = -1;;
+	GLuint materialUBO = -1;
+	VertexDataFormat dataFormat = POS3_NOR3;
+	int vertexLength = -1;
 
 public:
-	GLuint VAO;
+	GLuint VAO = -1;
 	GLuint renderType = GL_TRIANGLES;
-	ShaderProgram* shader;
+	ShaderProgram* shader = nullptr;
 
 	std::vector<float> vertexData;
+	Material material = Material();
 
-	void setVertexData(std::vector<float> vd, VertexDataFormat df = POS4_COL4);
+	void setVertexData(std::vector<float> vd, VertexDataFormat df = POS3_NOR3);
+	void setMaterial(Material m);
+	void setShader(ShaderProgram* sp);
 
 	virtual ~Model();
 
@@ -45,7 +49,7 @@ public:
 	using GameObject::draw;
 	void draw() override;
 	using GameObject::tick;
-	void tick(double deltaTime);
+	void tick(float deltaTime);
 
 	virtual bool isModel() { return true; };
 

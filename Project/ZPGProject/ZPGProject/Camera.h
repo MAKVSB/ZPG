@@ -51,7 +51,7 @@ public:
 	void setScreenSize(int x, int y, bool notify = true);
 	void listen(MessageType messageType, void* object);
 	using GameObject::tick;
-	void tick(double deltaTime);
+	void tick(float deltaTime);
 	using GameObject::draw;
 	void draw();
 

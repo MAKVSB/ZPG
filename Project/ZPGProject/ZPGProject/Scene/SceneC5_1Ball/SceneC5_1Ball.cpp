@@ -31,8 +31,9 @@ void SceneC5_1Ball::createModels()
 
 	camera->setPosition(glm::vec3(0, 0, 2));
 
+
 	models.push_back(ModelBuilder()
-		.loadVertexesFromArray(suziSmooth, POS3_NOR3)
+		.loadVertexesFromArray(sphere, POS3_NOR3)
 		.setShader(shaderPrograms[std::string("lightShader")])
 		.setPosition(glm::vec3(0, 0, distance))
 		.setScale(glm::vec3(.3f))
@@ -40,12 +41,12 @@ void SceneC5_1Ball::createModels()
 		.finish());
 }
 
-void SceneC5_1Ball::tick(double deltaTime)
+void SceneC5_1Ball::tick(float deltaTime)
 {
 	Scene::tick(deltaTime);
 	for (GameObject* element : models) {
 		if (!element->isCamera()) {
-			element->getRotation()->x += 0.5 * deltaTime;
+			element->getRotation()->x += 0.5f * deltaTime;
 		}
 	}
 }

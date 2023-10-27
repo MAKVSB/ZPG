@@ -1,15 +1,10 @@
 ﻿#pragma once
 #include "Application.h"
 
-Application::Application()
-{
-}
-
 Application::~Application()
 {
 	delete sm;
 	delete currentScene;
-	delete window;
 }
 
 void Application::initialization() {
@@ -66,7 +61,7 @@ void Application::initialization() {
 void Application::run() {
 	bool prefectTime = true;
 	int targetFPS = 60;
-	double targetFrameTime = (double)1000 / targetFPS -2; // (-const) just to be slightly above set framerate
+	double targetFrameTime = (double)1000 / targetFPS - 2; // (-const) just to be slightly above set framerate
 
 	double lastTickStartTime = glfwGetTime();
 	double thisTickStartTime, deltaTime;
@@ -79,7 +74,7 @@ void Application::run() {
 		thisTickStartTime = lastTickStartTime;
 
 		if (currentScene) {
-			currentScene->tick(deltaTime);
+			currentScene->tick((float)deltaTime);
 			currentScene->draw();
 		}
 
