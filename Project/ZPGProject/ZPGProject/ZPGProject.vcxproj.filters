@@ -243,6 +243,5 @@
     <None Include="Shaders\lightShader\phong.glsl" />
     <None Include="Shaders\lightShader\blinn.glsl" />
     <None Include="Shaders\lightShader\constant.glsl" />
-    <None Include="Shaders\lightShader\phong2.glsl" />
   </ItemGroup>
 </Project>

@@ -8,15 +8,16 @@
  * @year 2023
  **/
 
-#version 330
-#define MAX_LIGHTS          100
+#version 420
+#define MAX_LIGHTS          10
 
 struct LightStruct {
     vec3 position;
     vec3 direction;
 	vec3 color;
-    int lightType;
-    int lightStrength;
+    vec3 attenuation;
+    float lightType;
+    float lightStrength;
 };
 
 in vec4 ex_worldPosition;
@@ -24,30 +25,30 @@ in vec3 ex_worldNormal;
 
 out vec4 out_Color;
 
-layout(std140) uniform Material {
+layout(std140, binding = 1) uniform Material {
     vec3 r_a;
     vec3 r_d;
     vec3 r_s;
 };
 
-layout(std140) uniform LightArray {
+layout(std140, binding = 0) uniform LightArray {
     LightStruct lights[MAX_LIGHTS];
 };
 
 void main(void) {
     //temporary constants
-    vec3 lightColor = vec3(1.0, 1.0, 1.0);
-    vec3 lightPosition = vec3(0.0, 0.0, 0.0);
+    vec3 lightColor = lights[0].color;
+    vec3 lightPosition = lights[0].position;
     vec3 objectColor = vec3(0.285, 0.647, 0.812);
 
     //attenuation
     // Define attenuation factors
-    float constant = 1.0;
-    float linear = 0.36;
-    float quadratic = 0.256;
+    float constant = lights[0].attenuation.x;
+    float linear = lights[0].attenuation.y;
+    float quadratic = lights[0].attenuation.z;
 
     float dist = length(lightPosition - ex_worldPosition.xyz / ex_worldPosition.w);
-    float attenuation = 1.0 / (constant + linear * dist + quadratic * dist * dist);
+    float attenuation = clamp(1.0 / (constant + linear * dist + quadratic * dist * dist), 0.0, 1.0);
 
     //generic calculations
     vec3 lightVector = normalize(lightPosition - ex_worldPosition.xyz);
@@ -55,7 +56,7 @@ void main(void) {
     vec3 reflectDir = reflect(-lightVector, ex_worldNormal);
     float dotProduct = dot(lightVector, ex_worldNormal);
 
-    float specStrength = pow(max(dot(viewDir, reflectDir), 0.0), 1.0);
+    float specStrength = pow(max(dot(viewDir, reflectDir), 0.0), lights[0].lightStrength);
     // Check if the light is hitting the back side of the surface
     if (dotProduct < 0.0) {
         specStrength = 0.0;
@@ -63,7 +64,7 @@ void main(void) {
     vec3 specular = vec3(specStrength) * r_s * lightColor * attenuation;
 
     float diff = max(dotProduct, 0.0);
-    vec3 diffuse = vec3(diff) * r_d * lightColor * attenuation;
+    vec3 diffuse = max(dotProduct, 0.0) * r_d * lightColor * attenuation;
 
     vec3 ambient = vec3(0.1) * r_a * lightColor;
 

@@ -12,7 +12,7 @@ void ForestScene::createShaders()
 	shaderPrograms["lightShader"] = ShaderBuilder()
 		.name("lightShader")
 		.addShader(GL_VERTEX_SHADER, "Shaders/lightShader/vertex.glsl")
-		.addShader(GL_FRAGMENT_SHADER, "Shaders/lightShader/phong2.glsl")
+		.addShader(GL_FRAGMENT_SHADER, "Shaders/lightShader/phong.glsl")
 		.compileAndCheck()
 		->setCamera(camera);
 	lightManager.attachShader(shaderPrograms["lightShader"]);
@@ -132,8 +132,8 @@ void ForestScene::createModels()
 
 void ForestScene::tick(float deltaTime)
 {
-	//light->updatePosition(glm::vec3(0.5f * deltaTime, 0, 0));
-	//lightVisualiser->getPosition()->x += 0.5f * deltaTime;
+	light->updatePosition(glm::vec3(0.5f * deltaTime, 0, 0));
+	lightVisualiser->getPosition()->x += 0.5f * deltaTime;
 
 	Scene::tick(deltaTime);
 }

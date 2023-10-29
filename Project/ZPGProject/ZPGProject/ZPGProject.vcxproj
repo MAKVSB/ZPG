@@ -208,7 +208,6 @@
     <None Include="Shaders\lightShader\constant.glsl" />
     <None Include="Shaders\lightShader\lambert.glsl" />
     <None Include="Shaders\lightShader\phong.glsl" />
-    <None Include="Shaders\lightShader\phong2.glsl" />
     <None Include="Shaders\lightShader\vertex.glsl" />
     <None Include="Shaders\vertex_shader_positional_color.glsl" />
     <None Include="Shaders\vertex_shader_transformative.glsl" />
