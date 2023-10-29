@@ -1,7 +1,7 @@
 #pragma once
 #include "Model.h"
 
-void Model::setVertexData(std::vector<float> vd, VertexDataFormat df)
+void Model::setVertexData(std::vector<float>* vd, VertexDataFormat df)
 {
 	vertexData = vd;
 	dataFormat = df;
@@ -10,7 +10,7 @@ void Model::setVertexData(std::vector<float> vd, VertexDataFormat df)
 	VBO = 0;
 	glGenBuffers(1, &VBO); // generate the VBO
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertexData.size() * sizeof(float), vertexData.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertexData->size() * sizeof(float), vertexData->data(), GL_STATIC_DRAW);
 
 	//Vertex Array Object (VAO)
 	VAO = 0;
@@ -60,7 +60,7 @@ Model::~Model()
 
 GLuint Model::getVertexCount()
 {
-	return (int)vertexData.size() / vertexLength;
+	return (int)vertexData->size() / vertexLength;
 }
 
 void Model::draw() {

@@ -36,10 +36,10 @@ public:
 	GLuint renderType = GL_TRIANGLES;
 	ShaderProgram* shader = nullptr;
 
-	std::vector<float> vertexData;
+	std::vector<float>* vertexData;
 	Material material = Material();
 
-	void setVertexData(std::vector<float> vd, VertexDataFormat df = POS3_NOR3);
+	void setVertexData(std::vector<float>* vd, VertexDataFormat df = POS3_NOR3);
 	void setMaterial(Material m);
 	void setShader(ShaderProgram* sp);
 

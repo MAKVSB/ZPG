@@ -30,6 +30,14 @@ GameObject* lightVisualiser;
 
 void ForestScene::createModels()
 {
+	modelManager.registerModel("tree", ModelLoader::convertToVector(tree));
+	modelManager.registerModel("sphere", ModelLoader::convertToVector(sphere));
+	modelManager.registerModel("plain", ModelLoader::convertToVector(plain));
+	modelManager.registerModel("bushes", ModelLoader::convertToVector(bushes));
+	modelManager.registerModel("suziSmooth", ModelLoader::convertToVector(suziSmooth));
+
+
+
 	float distance = 0.7f;
 
 	light = new Light();
@@ -38,7 +46,7 @@ void ForestScene::createModels()
 	models.push_back(light);
 
 	lightVisualiser = ModelBuilder()
-		.loadVertexesFromArray(sphere, POS3_NOR3)
+		.setVertexData(modelManager.getModel("sphere"))
 		.setShader(shaderPrograms[std::string("lightShader")])
 		.setPosition(glm::vec3(0, 10, 0))
 		.setScale(glm::vec3(.8f))
@@ -58,7 +66,7 @@ void ForestScene::createModels()
 	for (int i = -terrainSize; i < terrainSize;i++) {
 		for (int j = -terrainSize; j < terrainSize;j++) {
 			models.push_back(ModelBuilder()
-				.loadVertexesFromArray(plain, POS3_NOR3)
+				.setVertexData(modelManager.getModel("plain"))
 				.setShader(shaderPrograms[std::string("lightShader")])
 				.setPosition(glm::vec3(i * 2, 0, j * 2))
 				.setMaterial(m)
@@ -74,7 +82,7 @@ void ForestScene::createModels()
 	// Generate random trees
 	for (int i = 0; i < 300; i++) {
 		models.push_back(ModelBuilder()
-			.loadVertexesFromArray(tree, POS3_NOR3)
+			.setVertexData(modelManager.getModel("tree"))
 			.setShader(shaderPrograms[std::string("lightShader")])
 			.setPosition(glm::vec3(distribution(gen), 0, distribution(gen)))
 			.setScale(glm::vec3(.8f))
@@ -86,7 +94,7 @@ void ForestScene::createModels()
 	// Generate random bushes
 	for (int i = 0; i < 1000; i++) {
 		models.push_back(ModelBuilder()
-			.loadVertexesFromArray(bushes, POS3_NOR3)
+			.setVertexData(modelManager.getModel("bushes"))
 			.setShader(shaderPrograms[std::string("lightShader")])
 			.setPosition(glm::vec3(distribution(gen), 0, distribution(gen)))
 			.setScale(glm::vec3(.8f))
@@ -98,7 +106,7 @@ void ForestScene::createModels()
 	// Generate random spheres
 	for (int i = 0; i < 3; i++) {
 		models.push_back(ModelBuilder()
-			.loadVertexesFromArray(sphere, POS3_NOR3)
+			.setVertexData(modelManager.getModel("sphere"))
 			.setShader(shaderPrograms[std::string("lightShader")])
 			.setPosition(glm::vec3(distribution(gen)/ terrainSize, 0.5f, distribution(gen)/ terrainSize))
 			.setScale(glm::vec3(.5f))
@@ -110,7 +118,7 @@ void ForestScene::createModels()
 	// Generate random suzis
 	for (int i = 0; i < 3; i++) {
 		models.push_back(ModelBuilder()
-			.loadVertexesFromArray(suziSmooth, POS3_NOR3)
+			.setVertexData(modelManager.getModel("suziSmooth"))
 			.setShader(shaderPrograms[std::string("secondShader")])
 			.setPosition(glm::vec3(distribution(gen)/ terrainSize, 0.5f, distribution(gen)/ terrainSize))
 			.setScale(glm::vec3(.5f))

@@ -29,20 +29,25 @@ void DefaultScene::createShaders()
 
 void DefaultScene::createModels()
 {	
+	modelManager.registerModel("cubeVertexData", ModelLoader::convertToVector(cubeVertexData));
+	modelManager.registerModel("triangleVertexData", ModelLoader::convertToVector(triangleVertexData));
+	modelManager.registerModel("sphere", ModelLoader::convertToVector(sphere));
+	modelManager.registerModel("suziSmooth", ModelLoader::convertToVector(suziSmooth));
+
 	models.push_back(GameObjectBuilder<HouseObjectGroup>()
 		.setPosition(glm::vec3(.5f, 0, 0))
 		.setScale(glm::vec3(.5f))
 		.setBasicTransforms()
 		.addChild(ModelBuilder()
 			.name("firstModel")
-			.loadVertexesFromArray(cubeVertexData)
+			.setVertexData(modelManager.getModel("cubeVertexData"), POS4_COL4)
 			.setShader(shaderPrograms["firstShader"])
 			.setPosition(glm::vec3(0, 0, 0))
 			.setBasicTransforms()
 			.finish())
 		.addChild(ModelBuilder()
 			.name("secondModel")
-			.loadVertexesFromArray(triangleVertexData)
+			.setVertexData(modelManager.getModel("triangleVertexData"), POS4_COL4)
 			.setShader(shaderPrograms["secondShader"])
 			.setPosition(glm::vec3(0, 1, 0))
 			.setBasicTransforms()
@@ -51,7 +56,7 @@ void DefaultScene::createModels()
 
 	models.push_back(ModelBuilder()
 		.name("thirdModel")
-		.loadVertexesFromArray(sphere, POS3_NOR3)
+		.setVertexData(modelManager.getModel("sphere"))
 		.setShader(shaderPrograms[std::string("firstShader")])
 		.setPosition(glm::vec3(-.5f, -.5f, 0))
 		.setScale(glm::vec3(.3f))
@@ -60,7 +65,7 @@ void DefaultScene::createModels()
 
 	models.push_back(ModelBuilder()
 		.name("fourthModel")
-		.loadVertexesFromArray(suziSmooth, POS3_NOR3)
+		.setVertexData(modelManager.getModel("suziSmooth"))
 		.setShader(shaderPrograms[std::string("firstShader")])
 		.setPosition(glm::vec3(-.5f, .5f, 0))
 		.setScale(glm::vec3(.3f))

@@ -50,12 +50,15 @@ glm::vec3 moonScale = glm::vec3(.2f);
 
 void UniverseScene::createModels()
 {
+	modelManager.registerModel("cubeVertexData", ModelLoader::convertToVector(cubeVertexData));
+	modelManager.registerModel("sphere", ModelLoader::convertToVector(sphere));
+
 	//sun
 	models.push_back(GameObjectBuilder<OffsetRotator>()
 		.addTransform(new ScaleTransform(&globalscale))
 		.addChild(ModelBuilder()
 			.name("sun")
-			.loadVertexesFromArray(sphere, POS3_NOR3)
+			.setVertexData(modelManager.getModel("sphere"))
 			.addTransform(new ScaleTransform(&sunScale))
 			.addTransform(new RotationTransform(&sunRotationInner))
 			.setShader(shaderPrograms[std::string("lightShader")])
@@ -68,7 +71,7 @@ void UniverseScene::createModels()
 			.addTransform(new RotationTransform(&mercurRotation))
 			.addChild(ModelBuilder()
 				.name("mecrury")
-				.loadVertexesFromArray(cubeVertexData)
+				.setVertexData(modelManager.getModel("cubeVertexData"), POS4_COL4)
 				.addTransform(new RotationTransform(&mercurRotationInner))
 				.setShader(shaderPrograms["secondShader"])
 				.finish())
@@ -80,13 +83,13 @@ void UniverseScene::createModels()
 			.addTransform(new RotationTransform(&earthRotation))
 			.addChild(ModelBuilder()
 				.name("earthModel")
-				.loadVertexesFromArray(cubeVertexData)
+				.setVertexData(modelManager.getModel("cubeVertexData"), POS4_COL4)
 				.addTransform(new RotationTransform(&earthRotationInner))
 				.setShader(shaderPrograms["secondShader"])
 				.finish())
 			.addChild(ModelBuilder()
 				.name("moonModel")
-				.loadVertexesFromArray(sphere, POS3_NOR3)
+				.setVertexData(modelManager.getModel("sphere"))
 				.setShader(shaderPrograms["lightShader"])
 				.addTransform(new ScaleTransform(&moonScale))
 				.addTransform(new RotationTransform(&moonRotationInner))
@@ -111,7 +114,6 @@ void UniverseScene::tick(float deltaTime)
 	mercurRotation.z += deltaTime;
 	mercurRotationInner.x += deltaTime * 1.5f;
 	mercurRotationInner.z += deltaTime * 1.5f;
-
 
 	earthRotation.z += deltaTime * .5f;
 	earthRotationInner.x += deltaTime * 1.5f;

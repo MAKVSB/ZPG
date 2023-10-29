@@ -41,6 +41,11 @@ void SceneC5_4Objects::createShaders()
 
 void SceneC5_4Objects::createModels()
 {
+	modelManager.registerModel("cubeVertexData", ModelLoader::convertToVector(cubeVertexData));
+	modelManager.registerModel("sphere", ModelLoader::convertToVector(sphere));
+	modelManager.registerModel("suziSmooth", ModelLoader::convertToVector(suziSmooth));
+	modelManager.registerModel("suziFlat", ModelLoader::convertToVector(suziFlat));
+
 	float distance = 0.7f;
 	
 	//Light* light = new Light();
@@ -48,28 +53,28 @@ void SceneC5_4Objects::createModels()
 	//models.push_back(light);
 
 	models.push_back(ModelBuilder()
-		.loadVertexesFromArray(cubeVertexData, POS4_COL4)
+		.setVertexData(modelManager.getModel("cubeVertexData"), POS4_COL4)
 		.setShader(shaderPrograms[std::string("lightShader0")])
 		.setPosition(glm::vec3(0, distance, 0))
 		.setScale(glm::vec3(.3f))
 		.setBasicTransforms()
 		.finish());
 	models.push_back(ModelBuilder()
-		.loadVertexesFromArray(sphere, POS3_NOR3)
+		.setVertexData(modelManager.getModel("sphere"))
 		.setShader(shaderPrograms[std::string("lightShader1")])
 		.setPosition(glm::vec3(distance, 0, 0))
 		.setScale(glm::vec3(.3f))
 		.setBasicTransforms()
 		.finish());
 	models.push_back(ModelBuilder()
-		.loadVertexesFromArray(suziSmooth, POS3_NOR3)
+		.setVertexData(modelManager.getModel("suziSmooth"))
 		.setShader(shaderPrograms[std::string("lightShader2")])
 		.setPosition(glm::vec3(0, -distance, 0))
 		.setScale(glm::vec3(.3f))
 		.setBasicTransforms()
 		.finish());
 	models.push_back(ModelBuilder()
-		.loadVertexesFromArray(suziFlat, POS3_NOR3)
+		.setVertexData(modelManager.getModel("suziFlat"))
 		.setShader(shaderPrograms[std::string("lightShader3")])
 		.setPosition(glm::vec3(-distance, 0, 0))
 		.setScale(glm::vec3(.3f))

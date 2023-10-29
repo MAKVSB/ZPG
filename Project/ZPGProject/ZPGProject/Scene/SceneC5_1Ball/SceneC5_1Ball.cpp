@@ -23,6 +23,8 @@ void SceneC5_1Ball::createShaders()
 
 void SceneC5_1Ball::createModels()
 {
+	modelManager.registerModel("sphere", ModelLoader::convertToVector(suziSmooth));
+
 	float distance = 0.7f;
 	
 	//Light* light = new Light();
@@ -33,7 +35,7 @@ void SceneC5_1Ball::createModels()
 
 
 	models.push_back(ModelBuilder()
-		.loadVertexesFromArray(sphere, POS3_NOR3)
+		.setVertexData(modelManager.getModel("sphere"))
 		.setShader(shaderPrograms[std::string("lightShader")])
 		.setPosition(glm::vec3(0, 0, distance))
 		.setScale(glm::vec3(.3f))

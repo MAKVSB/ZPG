@@ -9,6 +9,7 @@
 #include "Camera.h"
 #include <Light/Light.h>
 #include "Light/LightManager.h"
+#include "Model/ModelManager.h"
 
 class Scene
 {
@@ -16,6 +17,7 @@ protected:
 	GLFWwindow* window;
 	Camera* camera;
 	LightManager lightManager;
+	ModelManager modelManager;
 
 	std::map<std::string, ShaderProgram*> shaderPrograms;
 	std::vector<GameObject*> models;

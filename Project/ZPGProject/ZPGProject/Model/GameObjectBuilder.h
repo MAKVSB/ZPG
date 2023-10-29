@@ -60,11 +60,7 @@ template <class BT>
 class ModelBuilderSpec : public GameObjectBuilderSpec<ModelBuilder, Model>
 {
 public:
-	template <typename T, std::size_t N>
-	BT& loadVertexesFromArray(const T(&dataArray)[N], VertexDataFormat vdf = VertexDataFormat::POS4_COL4) {
-		model->setVertexData(ModelLoader::convertToVector<float>(dataArray), vdf);
-		return static_cast<BT&>(*this);
-	};
+	BT& setVertexData(std::vector<float>* modelData, VertexDataFormat df = VertexDataFormat::POS3_NOR3) { model->setVertexData(modelData, df); return static_cast<BT&>(*this); };
 	BT& setShader(ShaderProgram* sp) { model->setShader(sp); return static_cast<BT&>(*this); };
 	BT& setMaterial(Material m) { model->setMaterial(m); return static_cast<BT&>(*this); };
 };
