@@ -53,6 +53,13 @@ void SceneC5_4Balls::createModels()
 	light->setLightStrength(32);
 	models.push_back(light);
 
+	Light* light2 = new Light();
+	light2->setPosition(glm::vec3(0));
+	light2->setLightColor(glm::vec3(1, 1, 1));
+	light2->setLightAttenuation(glm::vec3(1, 0.36f, 0.256f));
+	light2->setLightStrength(32);
+	models.push_back(light2);
+
 	models.push_back(ModelBuilder()
 		.setVertexData(modelManager.getModel("sphere"))
 		.setShader(shaderPrograms[std::string("lightShader2")])

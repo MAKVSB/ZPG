@@ -31,17 +31,19 @@ layout(std140, binding = 1) uniform Material {
     vec3 r_a;
     vec3 r_d;
     vec3 r_s;
+    vec3 objectColor;
 };
 
 layout(std140, binding = 0) uniform LightArray {
+    float lightsCount;
     LightStruct lights[MAX_LIGHTS];
 };
+//uniform float lightsCount;
 
 void main(void) {
     //temporary constants
     vec3 lightColor = lights[0].color;
     vec3 lightPosition = lights[0].position;
-    vec3 objectColor = vec3(0.285, 0.647, 0.812);
 
     //attenuation
     // Define attenuation factors

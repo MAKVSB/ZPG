@@ -14,5 +14,6 @@ public:
 	glm::vec4 r_a = glm::vec4(1);
 	glm::vec4 r_d = glm::vec4(1);
 	glm::vec4 r_s = glm::vec4(1);
+	glm::vec4 objectColor = glm::vec4(0.285, 0.647, 0.812, 1);
 };
 

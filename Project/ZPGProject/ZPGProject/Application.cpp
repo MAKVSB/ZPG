@@ -50,6 +50,7 @@ void Application::initialization() {
 
 	//custom
 	glEnable(GL_DEPTH_TEST);
+	glfwSwapInterval(1);
 
 	//init required singletons
 	CallbackManager::init(window);

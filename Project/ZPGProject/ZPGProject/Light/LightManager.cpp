@@ -5,12 +5,13 @@ LightManager::LightManager()
 	lightsUBO = 0;
 	glGenBuffers(1, &lightsUBO);
 	glBindBuffer(GL_UNIFORM_BUFFER, lightsUBO);
-	glBufferData(GL_UNIFORM_BUFFER, sizeof(LightStruct) * MAX_LIGHTS, NULL, GL_DYNAMIC_DRAW);
+	glBufferData(GL_UNIFORM_BUFFER, (sizeof(LightStruct) * MAX_LIGHTS)+16, NULL, GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
 
 void LightManager::attachShader(ShaderProgram* sp)
 {
+	shaders.push_back(sp);
 	sp->bindUniformObject("LightArray", lightsUBO, sizeof(LightStruct) * MAX_LIGHTS);
 }
 
@@ -39,8 +40,11 @@ void LightManager::listen(MessageType messageType, void* target)
 
 		if (it != lights.end()) {
 			int index = (int)std::distance(lights.begin(), it);
+			float lightSize = static_cast<float>(lights.size());
+			auto test = sizeof(LightStruct);
 			LightStruct ls = static_cast<Light*>(target)->getStruct();
-			ShaderProgram::uploadUniformObject(lightsUBO, sizeof(LightStruct) * MAX_LIGHTS, &ls, sizeof(LightStruct) * index);
+			ShaderProgram::uploadUniformObject(lightsUBO, sizeof(float), &lightSize, 0);
+			ShaderProgram::uploadUniformObject(lightsUBO, sizeof(LightStruct), &ls, (80 * index)+16);
 		}
 	}
 }

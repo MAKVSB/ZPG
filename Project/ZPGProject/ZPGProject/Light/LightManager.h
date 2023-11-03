@@ -11,6 +11,7 @@ class LightManager : public Observer, public Observable
 private:
 	std::vector<Light*> lights;
 	GLuint lightsUBO;
+	std::vector<ShaderProgram*> shaders;
 
 public:
 	LightManager();
