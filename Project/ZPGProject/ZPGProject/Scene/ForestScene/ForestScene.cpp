@@ -41,14 +41,14 @@ void ForestScene::createModels()
 	float distance = 0.7f;
 
 	light = new Light();
-	light->setPosition(glm::vec3(0, 10, 0));
+	light->setPosition(glm::vec3(0, 7, 0));
 	light->setLightAttenuation(glm::vec3(0.5, 0.1, 0.1));
 	models.push_back(light);
 
 	lightVisualiser = ModelBuilder()
 		.setVertexData(modelManager.getModel("sphere"))
 		.setShader(shaderPrograms[std::string("lightShader")])
-		.setPosition(glm::vec3(0, 10, 0))
+		.setPosition(glm::vec3(0, 7, 0))
 		.setScale(glm::vec3(.8f))
 		.setBasicTransforms()
 		.finish();

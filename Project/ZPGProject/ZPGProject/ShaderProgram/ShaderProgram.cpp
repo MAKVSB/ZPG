@@ -110,6 +110,7 @@ void ShaderProgram::uploadUniformLocation(std::string uniformName, int i)
 
 void ShaderProgram::listen(MessageType messageType, void* object)
 {
+	uploadUniformLocation("cameraPosition", *camera->getPosition());
 	if (messageType == MessageType::CameraProjectionChange || messageType == MessageType::CameraChanged) {
 		uploadUniformLocation("projectionMatrix", camera->getProjectionMartix());
 	}

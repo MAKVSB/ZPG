@@ -13,13 +13,15 @@
 in vec4 ex_worldPosition;
 in vec3 ex_worldNormal;
 
+uniform vec3 cameraPosition;
+
 out vec4 out_Color;
 
 void main(void) {
     //temporary constants
     vec3 lightColor = vec3(1.0, 1.0, 1.0);
     vec3 lightPosition = vec3(0.0, 0.0, 0.0);
-    vec3 objectColor = vec3(0.285, 0.647, 0.812);
+    vec3 objectColor = vec3(0.485, 0.647, 0.212);
 
     //attenuation
     // Define attenuation factors
@@ -32,8 +34,8 @@ void main(void) {
     lightColor = lightColor * attenuation;
 
     //generic calculations
-    vec3 lightVector = normalize(lightPosition - ex_worldPosition.xyz);
-    vec3 viewDir = normalize(-ex_worldPosition.xyz);
+    vec3 lightVector = normalize(lightPosition - ex_worldPosition.xyz/ex_worldPosition.w);
+    vec3 viewDir = normalize(cameraPosition - ex_worldPosition.xyz/ex_worldPosition.w);
     vec3 halfDir = normalize(lightVector + viewDir);
     vec3 normalVector = normalize(ex_worldNormal);
     float dotProduct = dot(lightVector, ex_worldNormal);

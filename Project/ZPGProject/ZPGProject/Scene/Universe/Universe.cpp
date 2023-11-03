@@ -115,9 +115,9 @@ void UniverseScene::tick(float deltaTime)
 	mercurRotationInner.x += deltaTime * 1.5f;
 	mercurRotationInner.z += deltaTime * 1.5f;
 
-	earthRotation.z += deltaTime * .5f;
+	earthRotation.z += deltaTime * -.5f;
 	earthRotationInner.x += deltaTime * 1.5f;
-	earthRotationInner.y += deltaTime * 1.5f;
+	earthRotationInner.y += deltaTime * 15;
 	earthRotationInner.z += deltaTime * 1.5f;
 
 	moonRotation.z += deltaTime * 2;

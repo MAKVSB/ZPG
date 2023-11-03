@@ -37,17 +37,21 @@ void SceneC5_4Balls::createShaders()
 		.addShader(GL_FRAGMENT_SHADER, "Shaders/lightShader/blinn.glsl")
 		.compileAndCheck()
 		->setCamera(camera);
+	lightManager.attachShader(shaderPrograms["lightShader2"]);
 }
 
 void SceneC5_4Balls::createModels()
 {
-	modelManager.registerModel("sphere", ModelLoader::convertToVector(suziSmooth));
+	modelManager.registerModel("sphere", ModelLoader::convertToVector(sphere));
 
 	float distance = 0.7f;
 	
-	//Light* light = new Light();
-	//light->setPosition(glm::vec3(0));
-	//models.push_back(light);
+	Light* light = new Light();
+	light->setPosition(glm::vec3(0));
+	light->setLightColor(glm::vec3(1, 1, 1));
+	light->setLightAttenuation(glm::vec3(1, 0.36f, 0.256f));
+	light->setLightStrength(32);
+	models.push_back(light);
 
 	models.push_back(ModelBuilder()
 		.setVertexData(modelManager.getModel("sphere"))
@@ -72,18 +76,20 @@ void SceneC5_4Balls::createModels()
 		.finish());
 	models.push_back(ModelBuilder()
 		.setVertexData(modelManager.getModel("sphere"))
-		.setShader(shaderPrograms[std::string("lightShader2")])
+		.setShader(shaderPrograms[std::string("lightShader3")])
 		.setPosition(glm::vec3(-distance, 0, 0))
 		.setScale(glm::vec3(.3f))
 		.setBasicTransforms()
 		.finish());
 	models.push_back(ModelBuilder()
 		.setVertexData(modelManager.getModel("sphere"))
-		.setShader(shaderPrograms[std::string("lightShader2")])
+		.setShader(shaderPrograms[std::string("lightShader3")])
 		.setPosition(glm::vec3(-distance*3, 0, 0))
 		.setScale(glm::vec3(.3f))
 		.setBasicTransforms()
 		.finish());
+
+	lightManager.updateLightReferences(models);
 }
 
 void SceneC5_4Balls::tick(float deltaTime)

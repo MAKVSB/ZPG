@@ -28,7 +28,7 @@ void SceneC5_4Objects::createShaders()
 	shaderPrograms["lightShader2"] = ShaderBuilder()
 		.name("lightShader2")
 		.addShader(GL_VERTEX_SHADER, "Shaders/lightShader/vertex.glsl")
-		.addShader(GL_FRAGMENT_SHADER, "Shaders/lightShader/phong.glsl")
+		.addShader(GL_FRAGMENT_SHADER, "Shaders/lightShader/blinn.glsl")
 		.compileAndCheck()
 		->setCamera(camera);
 	shaderPrograms["lightShader3"] = ShaderBuilder()

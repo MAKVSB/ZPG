@@ -25,6 +25,8 @@ in vec3 ex_worldNormal;
 
 out vec4 out_Color;
 
+uniform vec3 cameraPosition;
+
 layout(std140, binding = 1) uniform Material {
     vec3 r_a;
     vec3 r_d;
@@ -51,12 +53,12 @@ void main(void) {
     float attenuation = clamp(1.0 / (constant + linear * dist + quadratic * dist * dist), 0.0, 1.0);
 
     //generic calculations
-    vec3 lightVector = normalize(lightPosition - ex_worldPosition.xyz);
-    vec3 viewDir = normalize(-ex_worldPosition.xyz);
+    vec3 lightVector = normalize(lightPosition - ex_worldPosition.xyz/ex_worldPosition.w);
+    vec3 viewDir = normalize(cameraPosition - ex_worldPosition.xyz/ex_worldPosition.w);
     vec3 reflectDir = reflect(-lightVector, ex_worldNormal);
     float dotProduct = dot(lightVector, ex_worldNormal);
 
-    float specStrength = pow(max(dot(viewDir, reflectDir), 0.0), lights[0].lightStrength);
+    float specStrength = pow(max(dot(viewDir, reflectDir), 0.0), 32);
     // Check if the light is hitting the back side of the surface
     if (dotProduct < 0.0) {
         specStrength = 0.0;
