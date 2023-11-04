@@ -25,7 +25,7 @@ enum VertexDataFormat {
 class Model : public GameObject
 {
 private:
-	GLuint VBO = -1;;
+	GLuint VBO = -1;
 	GLuint materialUBO = -1;
 	VertexDataFormat dataFormat = POS3_NOR3;
 	int vertexLength = -1;
@@ -35,9 +35,11 @@ public:
 	ShaderProgram* shader = nullptr;
 
 	std::vector<float>* vertexData;
+	std::vector<uint32_t> indices;
 	Material material = Material();
 
 	void setVertexData(std::vector<float>* vd, VertexDataFormat df = POS3_NOR3);
+	void setIndices(std::vector<uint32_t> ind);
 	void setMaterial(Material m);
 	void setShader(ShaderProgram* sp);
 

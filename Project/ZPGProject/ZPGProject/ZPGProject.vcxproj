@@ -108,14 +108,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ZPGProject;$(SolutionDir)..\Lib\glew-2.1.0\include;$(SolutionDir)..\Lib\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)..\Lib\glm-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ZPGProject;$(SolutionDir)..\Lib\glew-2.1.0\include;$(SolutionDir)..\Lib\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)..\Lib\Assimp\include;$(SolutionDir)..\Lib\glm-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;glfw3.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\Lib\glew-2.1.0\lib\Release\x64;$(SolutionDir)..\Lib\glfw-3.3.8.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\Lib\glew-2.1.0\lib\Release\x64;$(SolutionDir)..\Lib\Assimp\lib\x64;$(SolutionDir)..\Lib\glfw-3.3.8.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glfw3.lib;glew32.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -166,6 +166,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Light\LightManager.h" />
     <ClInclude Include="Light\Light.h" />
+    <ClInclude Include="Models\plain_indiced.h" />
     <ClInclude Include="Model\Material.h" />
     <ClInclude Include="Models\bushes.h" />
     <ClInclude Include="Models\gift.h" />
@@ -175,12 +176,10 @@
     <ClInclude Include="Model\GameObject.h" />
     <ClInclude Include="GlobalInclude.h" />
     <ClInclude Include="Model\ModelLoader.h" />
-    <ClInclude Include="Models\Cube.h" />
     <ClInclude Include="Models\plain.h" />
     <ClInclude Include="Models\sphere.h" />
     <ClInclude Include="Models\suzi_flat.h" />
     <ClInclude Include="Models\suzi_smooth.h" />
-    <ClInclude Include="Models\Triangle.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="Scene\DefaultScene\DefaultScene.h" />
     <ClInclude Include="Scene\ForestScene\ForestScene.h" />

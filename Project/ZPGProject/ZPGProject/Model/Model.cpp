@@ -32,6 +32,11 @@ void Model::setVertexData(std::vector<float>* vd, VertexDataFormat df)
 	glBindVertexArray(0);
 }
 
+void Model::setIndices(std::vector<uint32_t> ind)
+{
+	indices = ind;
+}
+
 void Model::setMaterial(Material m)
 {
 	this->material = m;
@@ -59,11 +64,23 @@ void Model::draw() {
 	shader->uploadUniformLocation("material.r_s", material.r_s);
 	shader->uploadUniformLocation("material.objectColor", material.objectColor);
 
-	shader->useWrapper([&]() {
-		glBindVertexArray(VAO);
-		// draw triangles
-		glDrawArrays(GL_TRIANGLES, 0, getVertexCount()); //mode,first,count
-	});
+	if (indices.empty()) {
+		shader->useWrapper([&]() {
+			glBindVertexArray(VAO);
+			// draw triangles
+			glDrawArrays(GL_TRIANGLES, 0, getVertexCount()); //mode,first,count
+			glBindVertexArray(0);
+		});
+	}
+	else {
+		shader->useWrapper([&]() {
+			glBindVertexArray(VAO);
+			// draw triangles based on indexes
+			glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, indices.data());
+			glBindVertexArray(0);
+		});
+	}
+
 	GameObject::draw();
 }
 

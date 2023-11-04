@@ -32,6 +32,7 @@ void DefaultScene::createModels()
 	modelManager.registerModel("gift", ModelLoader::convertToVector(gift));
 	modelManager.registerModel("sphere", ModelLoader::convertToVector(sphere));
 	modelManager.registerModel("suziSmooth", ModelLoader::convertToVector(suziSmooth));
+	modelManager.registerModel("plain_indiced", ModelLoader::convertToVector(plain_indiced));
 
 	models.push_back(GameObjectBuilder<HouseObjectGroup>()
 		.setPosition(glm::vec3(.5f, 0, 0))
@@ -46,14 +47,13 @@ void DefaultScene::createModels()
 			.finish())
 		.addChild(ModelBuilder()
 			.name("secondModel")
-			.setVertexData(modelManager.getModel("sphere"))
+			.setVertexData(modelManager.getModel("plain_indiced"))
+			.setIndices(ModelLoader::convertToVector(plain_indices))
 			.setShader(shaderPrograms["secondShader"])
 			.setPosition(glm::vec3(0, 1, 0))
-			.setScale(glm::vec3(0.2))
 			.setBasicTransforms()
 			.finish())
 		.finish());
-
 	models.push_back(ModelBuilder()
 		.name("thirdModel")
 		.setVertexData(modelManager.getModel("sphere"))

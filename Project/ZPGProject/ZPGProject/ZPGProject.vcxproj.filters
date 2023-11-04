@@ -122,12 +122,6 @@
     <ClInclude Include="CallbackManager.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
-    <ClInclude Include="Models\Cube.h">
-      <Filter>Hlavičkové soubory\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\Triangle.h">
-      <Filter>Hlavičkové soubory\Models</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\DefaultScene\DefaultScene.h">
       <Filter>Hlavičkové soubory\Scene</Filter>
     </ClInclude>
@@ -222,6 +216,9 @@
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
     <ClInclude Include="Model\ModelManager.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\plain_indiced.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
   </ItemGroup>
