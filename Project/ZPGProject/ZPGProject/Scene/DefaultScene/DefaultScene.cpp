@@ -29,8 +29,7 @@ void DefaultScene::createShaders()
 
 void DefaultScene::createModels()
 {	
-	modelManager.registerModel("cubeVertexData", ModelLoader::convertToVector(cubeVertexData));
-	modelManager.registerModel("triangleVertexData", ModelLoader::convertToVector(triangleVertexData));
+	modelManager.registerModel("gift", ModelLoader::convertToVector(gift));
 	modelManager.registerModel("sphere", ModelLoader::convertToVector(sphere));
 	modelManager.registerModel("suziSmooth", ModelLoader::convertToVector(suziSmooth));
 
@@ -40,16 +39,17 @@ void DefaultScene::createModels()
 		.setBasicTransforms()
 		.addChild(ModelBuilder()
 			.name("firstModel")
-			.setVertexData(modelManager.getModel("cubeVertexData"), POS4_COL4)
+			.setVertexData(modelManager.getModel("gift"))
 			.setShader(shaderPrograms["firstShader"])
 			.setPosition(glm::vec3(0, 0, 0))
 			.setBasicTransforms()
 			.finish())
 		.addChild(ModelBuilder()
 			.name("secondModel")
-			.setVertexData(modelManager.getModel("triangleVertexData"), POS4_COL4)
+			.setVertexData(modelManager.getModel("sphere"))
 			.setShader(shaderPrograms["secondShader"])
 			.setPosition(glm::vec3(0, 1, 0))
+			.setScale(glm::vec3(0.2))
 			.setBasicTransforms()
 			.finish())
 		.finish());

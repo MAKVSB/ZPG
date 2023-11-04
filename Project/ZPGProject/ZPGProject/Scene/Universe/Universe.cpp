@@ -50,7 +50,7 @@ glm::vec3 moonScale = glm::vec3(.2f);
 
 void UniverseScene::createModels()
 {
-	modelManager.registerModel("cubeVertexData", ModelLoader::convertToVector(cubeVertexData));
+	modelManager.registerModel("gift", ModelLoader::convertToVector(gift));
 	modelManager.registerModel("sphere", ModelLoader::convertToVector(sphere));
 
 	//sun
@@ -71,7 +71,7 @@ void UniverseScene::createModels()
 			.addTransform(new RotationTransform(&mercurRotation))
 			.addChild(ModelBuilder()
 				.name("mecrury")
-				.setVertexData(modelManager.getModel("cubeVertexData"), POS4_COL4)
+				.setVertexData(modelManager.getModel("gift"))
 				.addTransform(new RotationTransform(&mercurRotationInner))
 				.setShader(shaderPrograms["secondShader"])
 				.finish())
@@ -83,7 +83,7 @@ void UniverseScene::createModels()
 			.addTransform(new RotationTransform(&earthRotation))
 			.addChild(ModelBuilder()
 				.name("earthModel")
-				.setVertexData(modelManager.getModel("cubeVertexData"), POS4_COL4)
+				.setVertexData(modelManager.getModel("gift"))
 				.addTransform(new RotationTransform(&earthRotationInner))
 				.setShader(shaderPrograms["secondShader"])
 				.finish())

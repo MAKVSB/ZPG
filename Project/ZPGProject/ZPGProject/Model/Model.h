@@ -19,7 +19,6 @@
 #include "Material.h"
 
 enum VertexDataFormat {
-	POS4_COL4,
 	POS3_NOR3,
 };
 
@@ -33,7 +32,6 @@ private:
 
 public:
 	GLuint VAO = -1;
-	GLuint renderType = GL_TRIANGLES;
 	ShaderProgram* shader = nullptr;
 
 	std::vector<float>* vertexData;

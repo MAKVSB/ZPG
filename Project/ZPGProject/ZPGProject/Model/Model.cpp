@@ -16,23 +16,20 @@ void Model::setVertexData(std::vector<float>* vd, VertexDataFormat df)
 	VAO = 0;
 	glGenVertexArrays(1, &VAO); //generate the VAO
 	glBindVertexArray(VAO); //bind the VAO
-	glEnableVertexAttribArray(0); //enable vertex attributes
-	glEnableVertexAttribArray(1);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
 	switch (dataFormat)
 	{
-	case POS4_COL4:
-		vertexLength = 8;
-		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, vertexLength * sizeof(float), (GLvoid*)0);
-		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, vertexLength * sizeof(float), (GLvoid*)(4 * sizeof(float)));
-		break;
 	case POS3_NOR3:
 		vertexLength = 6;
+		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, vertexLength * sizeof(float), (GLvoid*)0);
+		glEnableVertexAttribArray(1);
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, vertexLength * sizeof(float), (GLvoid*)(3 * sizeof(float)));
 		break;
 	}
+
+	glBindVertexArray(0);
 }
 
 void Model::setMaterial(Material m)
@@ -65,7 +62,7 @@ void Model::draw() {
 	shader->useWrapper([&]() {
 		glBindVertexArray(VAO);
 		// draw triangles
-		glDrawArrays(renderType, 0, getVertexCount()); //mode,first,count
+		glDrawArrays(GL_TRIANGLES, 0, getVertexCount()); //mode,first,count
 	});
 	GameObject::draw();
 }

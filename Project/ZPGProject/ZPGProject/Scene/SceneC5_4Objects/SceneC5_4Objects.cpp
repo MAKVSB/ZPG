@@ -44,7 +44,7 @@ void SceneC5_4Objects::createShaders()
 
 void SceneC5_4Objects::createModels()
 {
-	modelManager.registerModel("cubeVertexData", ModelLoader::convertToVector(cubeVertexData));
+	modelManager.registerModel("gift", ModelLoader::convertToVector(gift));
 	modelManager.registerModel("sphere", ModelLoader::convertToVector(sphere));
 	modelManager.registerModel("suziSmooth", ModelLoader::convertToVector(suziSmooth));
 	modelManager.registerModel("suziFlat", ModelLoader::convertToVector(suziFlat));
@@ -87,7 +87,7 @@ void SceneC5_4Objects::createModels()
 	models.push_back(light4);
 
 	models.push_back(ModelBuilder()
-		.setVertexData(modelManager.getModel("cubeVertexData"), POS4_COL4)
+		.setVertexData(modelManager.getModel("gift"))
 		.setShader(shaderPrograms[std::string("lightShader0")])
 		.setPosition(glm::vec3(0, distance, 0))
 		.setScale(glm::vec3(.3f))
