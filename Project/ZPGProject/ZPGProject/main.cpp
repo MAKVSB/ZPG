@@ -2,10 +2,6 @@
 
 #include "Application.h"
 
-struct Pod {
-    int x;
-};
-
 int main()
 {
     try {  
