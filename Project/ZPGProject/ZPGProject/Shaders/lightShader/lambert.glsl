@@ -8,36 +8,115 @@
  * @year 2023
  **/
 
-#version 330
+#version 420
+#define MAX_LIGHTS          10
+
+struct LightStruct {
+    vec3 position;
+    vec3 direction;
+	vec3 color;
+    vec3 attenuation; // x = constant, y = linear, z = quadratic;
+    float offset1;
+    float lightType;
+    float lightStrength;
+    float cutoff;
+};
 
 in vec4 ex_worldPosition;
 in vec3 ex_worldNormal;
 
 out vec4 out_Color;
 
-void main(void){
-    //temporary constants
-    vec3 lightColor = vec3(1, 1, 1);
-    vec3 lightPosition = vec3(0.0,0.0,0.0);
-    vec3 objectColor = vec3(0.285, 0.647, 0.812);
+uniform vec3 cameraPosition;
 
-    //attenuation
-    // Define attenuation factors
-    float constant = 1.0;
-    float linear = 0.36;
-    float quadratic = 0.256;
+struct Material {
+    vec3 r_a;
+    vec3 r_d;
+    vec3 r_s;
+    vec3 objectColor;
+};
+uniform Material material;
 
-    float dist = length(lightPosition - ex_worldPosition.xyz / ex_worldPosition.w);
-    float attenuation = 1.0 / (constant + linear * dist + quadratic * dist * dist);
-    lightColor = lightColor * attenuation;
+layout(std140, binding = 0) uniform LightArray {
+    float lightsCount;
+    LightStruct lights[MAX_LIGHTS];
+};
 
-    //generic calculations
-    vec3 lightVector = lightPosition - ex_worldPosition.xyz;
+//
+// helper methods
+//
 
-    float diff = max(dot(normalize(lightVector), normalize(ex_worldNormal)),0.0);
-    vec3 diffuse = diff * lightColor;
-
-    vec3 ambient = vec3(0.1) * lightColor;
-    out_Color = vec4((ambient + diffuse) * objectColor, 1.0);
+float degreesToFloat(float inputAngle) {
+    return ((360 - inputAngle) / 180) -1;
 }
 
+vec3 vec4toVec3(vec4 inputVec) {
+    return inputVec.xyz / inputVec.w;
+}
+
+float calculateAttenuation(LightStruct light) {
+    // Define attenuation factors
+    float constant = light.attenuation.x;
+    float linear = light.attenuation.y;
+    float quadratic = light.attenuation.z;
+
+    float dist = length(light.position - vec4toVec3(ex_worldPosition));
+    return clamp(1.0 / (constant + linear * dist + quadratic * dist * dist), 0.0, light.lightStrength);
+}
+
+//
+// main methods
+//
+
+vec3 ambientLight(LightStruct light) {
+    vec3 ambient = material.r_a * light.color * 0.1;
+    return material.objectColor * ambient;
+}
+
+vec3 pointLight(LightStruct light) {
+    //generic calculations
+    vec3 lightVector = normalize(light.position - vec4toVec3(ex_worldPosition));
+    float dotProduct = dot(lightVector, ex_worldNormal);
+    float attenuation = calculateAttenuation(light);
+
+    float diff = max(dotProduct, 0.0);
+    vec3 diffuse = max(dotProduct, 0.0) * material.r_d;
+
+    return diffuse * material.objectColor * light.color * attenuation;
+}
+
+vec3 directionalLight(LightStruct light){
+    //generic calculations
+    vec3 lightVector = normalize(light.direction);
+    float dotProduct = dot(lightVector, ex_worldNormal);
+    vec3 diffuse = max(dotProduct, 0.0) * light.color;
+
+    return diffuse * material.objectColor;
+}
+
+vec3 spotlightLight(LightStruct light) {
+    vec3 lightVector = normalize(light.position - vec4toVec3(ex_worldPosition));
+
+    float theta = dot(lightVector, normalize(-light.direction));
+
+    if (theta <= degreesToFloat(light.cutoff)) {
+        return vec3(0.0, 0.0, 0.0);
+    }
+    return pointLight(light);
+}
+
+void main(void) {
+    vec3 outColor = vec3(0);
+    for (int i = 0; i < lightsCount; i++){
+        if (lights[i].lightType == 0){  // AMBIENT
+            outColor += ambientLight(lights[i]);
+        } else if (lights[i].lightType == 1){  // POINT
+            outColor += pointLight(lights[i]);
+        } else if (lights[i].lightType == 2){  // DIRECTIONAL
+            outColor += directionalLight(lights[i]);
+        } else if (lights[i].lightType == 3){  // SPOTLIGHT
+            outColor += spotlightLight(lights[i]);
+        }
+    }
+    out_Color = vec4(outColor, 1);
+}

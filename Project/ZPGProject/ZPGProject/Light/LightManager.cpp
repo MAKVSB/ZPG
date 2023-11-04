@@ -9,6 +9,11 @@ LightManager::LightManager()
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
 
+LightManager::~LightManager()
+{
+	glDeleteBuffers(1, &lightsUBO);
+}
+
 void LightManager::attachShader(ShaderProgram* sp)
 {
 	shaders.push_back(sp);
@@ -41,7 +46,6 @@ void LightManager::listen(MessageType messageType, void* target)
 		if (it != lights.end()) {
 			int index = (int)std::distance(lights.begin(), it);
 			float lightSize = static_cast<float>(lights.size());
-			auto test = sizeof(LightStruct);
 			LightStruct ls = static_cast<Light*>(target)->getStruct();
 			ShaderProgram::uploadUniformObject(lightsUBO, sizeof(float), &lightSize, 0);
 			ShaderProgram::uploadUniformObject(lightsUBO, sizeof(LightStruct), &ls, (80 * index)+16);

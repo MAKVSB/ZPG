@@ -20,13 +20,6 @@ void Model::setVertexData(std::vector<float>* vd, VertexDataFormat df)
 	glEnableVertexAttribArray(1);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-	// Create a uniform buffer object
-	materialUBO = 0;
-	glGenBuffers(1, &materialUBO);
-	glBindBuffer(GL_UNIFORM_BUFFER, materialUBO);
-	glBufferData(GL_UNIFORM_BUFFER, sizeof(Material), NULL, GL_DYNAMIC_DRAW);
-	glBindBuffer(GL_UNIFORM_BUFFER, 0);
-
 	switch (dataFormat)
 	{
 	case POS4_COL4:
@@ -55,7 +48,6 @@ Model::~Model()
 {
 	glDeleteBuffers(1, &VBO);
 	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &materialUBO);
 }
 
 GLuint Model::getVertexCount()
@@ -65,9 +57,10 @@ GLuint Model::getVertexCount()
 
 void Model::draw() {
 	shader->uploadUniformLocation("modelMatrix", tc->transform());
-
-	shader->bindUniformObject("Material", materialUBO, sizeof(Material));
-	shader->uploadUniformObject(materialUBO, sizeof(Material), &material);
+	shader->uploadUniformLocation("material.r_a", material.r_a);
+	shader->uploadUniformLocation("material.r_d", material.r_d);
+	shader->uploadUniformLocation("material.r_s", material.r_s);
+	shader->uploadUniformLocation("material.objectColor", material.objectColor);
 
 	shader->useWrapper([&]() {
 		glBindVertexArray(VAO);

@@ -20,6 +20,7 @@
 #include "shader.h"
 #include "Camera.h"
 #include "Observer.h"
+#include "map"
 
 class ShaderBuilder;
 class ShaderProgram : Observer
@@ -29,12 +30,15 @@ private:
 	std::list<Shader*> shaders;
 	GLuint shaderProgram;
 	Camera* camera = nullptr;
+	std::unordered_map<std::string, int> uniformsLocationCache;
 
 	void use();
 	void unuse();
 
 	void listen(MessageType messageType, void* object);
 
+	int getUniformLocation(std::string uniformName);
+	int getUniformBufferIndex(std::string uniformName);
 protected:
 	friend class ShaderBuilder;
 	//methods reserved to Shaderbuilder
@@ -43,12 +47,10 @@ protected:
 	void cleanup();
 	bool check(GLchar* &errorMessage);
 	void addShader(GLenum shaderType, std::string shaderFile);
-
-	int getUniformLocation(std::string uniformName);
-	int getUniformBufferIndex(std::string uniformName);
 public:
 	~ShaderProgram();
 	ShaderProgram* setCamera(Camera* camera);
+
 
 	template<typename Func, typename... Args>
 	void useWrapper(Func func, Args... args) {

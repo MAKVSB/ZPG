@@ -11,9 +11,9 @@
 class Material
 {
 public:
-	glm::vec4 r_a = glm::vec4(1);
-	glm::vec4 r_d = glm::vec4(1);
-	glm::vec4 r_s = glm::vec4(1);
-	glm::vec4 objectColor = glm::vec4(0.285, 0.647, 0.812, 1);
+	glm::vec3 r_a = glm::vec3(1);
+	glm::vec3 r_d = glm::vec3(1);
+	glm::vec3 r_s = glm::vec3(1);
+	glm::vec3 objectColor = glm::vec3(0.285, 0.647, 0.812);
 };
 

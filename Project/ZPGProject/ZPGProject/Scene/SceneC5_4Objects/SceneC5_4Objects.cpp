@@ -28,15 +28,18 @@ void SceneC5_4Objects::createShaders()
 	shaderPrograms["lightShader2"] = ShaderBuilder()
 		.name("lightShader2")
 		.addShader(GL_VERTEX_SHADER, "Shaders/lightShader/vertex.glsl")
-		.addShader(GL_FRAGMENT_SHADER, "Shaders/lightShader/blinn.glsl")
+		.addShader(GL_FRAGMENT_SHADER, "Shaders/lightShader/phong.glsl")
 		.compileAndCheck()
 		->setCamera(camera);
 	shaderPrograms["lightShader3"] = ShaderBuilder()
-		.name("lightShader2")
+		.name("lightShader3")
 		.addShader(GL_VERTEX_SHADER, "Shaders/lightShader/vertex.glsl")
 		.addShader(GL_FRAGMENT_SHADER, "Shaders/lightShader/blinn.glsl")
 		.compileAndCheck()
 		->setCamera(camera);
+	lightManager.attachShader(shaderPrograms["lightShader3"]);
+	lightManager.attachShader(shaderPrograms["lightShader2"]);
+	lightManager.attachShader(shaderPrograms["lightShader1"]);
 }
 
 void SceneC5_4Objects::createModels()
@@ -48,9 +51,40 @@ void SceneC5_4Objects::createModels()
 
 	float distance = 0.7f;
 	
-	//Light* light = new Light();
-	//light->setPosition(glm::vec3(0));
-	//models.push_back(light);
+	Light* light = new Light();
+	light->setLightType(LightType::AMBIENT);
+	light->setPosition(glm::vec3(0));
+	light->setLightColor(glm::vec3(1, 1, 1));
+	light->setLightAttenuation(glm::vec3(1, 0.36f, 0.256f));
+	light->setLightStrength(32);
+	models.push_back(light);
+
+	Light* light2 = new Light();
+	light2->setLightType(LightType::DIRECTIONAL);
+	light2->setPosition(glm::vec3(0, 0, 0));
+	light2->setLightDirection(glm::vec3(1, 0, 0));
+	light2->setLightColor(glm::vec3(1, 1, 1));
+	light2->setLightAttenuation(glm::vec3(1, 0.36f, 0.256f));
+	light2->setLightStrength(32.0f);
+	models.push_back(light2);
+
+	Light* light3 = new Light();
+	light3->setLightType(LightType::SPOTLIGHT);
+	light3->setPosition(glm::vec3(0, 0, 0));
+	light3->setLightDirection(glm::vec3(1, 0, 0));
+	light3->setLightColor(glm::vec3(1, 1, 1));
+	light3->setLightAttenuation(glm::vec3(1, 0.36f, 0.256f));
+	light3->setLightStrength(32.0f);
+	models.push_back(light3);
+
+	Light* light4 = new Light();
+	light4->setLightType(LightType::POINT);
+	light4->setPosition(glm::vec3(0, 0, 0));
+	light4->setLightDirection(glm::vec3(1, 0, 0));
+	light4->setLightColor(glm::vec3(1, 1, 1));
+	light4->setLightAttenuation(glm::vec3(1, 0.36f, 0.256f));
+	light4->setLightStrength(32.0f);
+	models.push_back(light4);
 
 	models.push_back(ModelBuilder()
 		.setVertexData(modelManager.getModel("cubeVertexData"), POS4_COL4)
@@ -80,6 +114,8 @@ void SceneC5_4Objects::createModels()
 		.setScale(glm::vec3(.3f))
 		.setBasicTransforms()
 		.finish());
+
+	lightManager.updateLightReferences(models);
 }
 
 void SceneC5_4Objects::tick(float deltaTime)
