@@ -63,6 +63,8 @@ public:
 	void tick(float deltaTime);
 	using GameObject::draw;
 	void draw();
+	using GameObject::drawDebugElement;
+	void drawDebugElement();
 
 	virtual bool isLight() { return true; };
 	void invalidate() {

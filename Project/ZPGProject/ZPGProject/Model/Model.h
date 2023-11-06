@@ -17,28 +17,28 @@
 #include "ShaderProgram/ShaderProgram.h"
 #include "Model/GameObject.h"
 #include "Material.h"
+#include "Mesh.h"
 
-enum VertexDataFormat {
-	POS3_NOR3,
-};
 
 class Model : public GameObject
 {
 private:
 	GLuint VBO = -1;
 	GLuint materialUBO = -1;
-	VertexDataFormat dataFormat = POS3_NOR3;
+	VertexDataFormat dataFormat = VertexDataFormat::POS3_NOR3;
 	int vertexLength = -1;
 
 public:
 	GLuint VAO = -1;
 	ShaderProgram* shader = nullptr;
+	Mesh* mesh = nullptr;
 
 	std::vector<float>* vertexData;
 	std::vector<uint32_t> indices;
 	Material material = Material();
 
-	void setVertexData(std::vector<float>* vd, VertexDataFormat df = POS3_NOR3);
+	void setMesh(Mesh* mesh);
+	void setVertexData(std::vector<float>* vd, VertexDataFormat df = VertexDataFormat::POS3_NOR3);
 	void setIndices(std::vector<uint32_t> ind);
 	void setMaterial(Material m);
 	void setShader(ShaderProgram* sp);
@@ -50,6 +50,8 @@ public:
 	void draw() override;
 	using GameObject::tick;
 	void tick(float deltaTime);
+	using GameObject::drawDebugElement;
+	void drawDebugElement();
 
 	virtual bool isModel() { return true; };
 

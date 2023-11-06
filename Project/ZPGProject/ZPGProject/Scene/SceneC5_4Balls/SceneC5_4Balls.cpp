@@ -44,7 +44,7 @@ void SceneC5_4Balls::createShaders()
 
 void SceneC5_4Balls::createModels()
 {
-	modelManager.registerModel("sphere", ModelLoader::convertToVector(sphere));
+	meshManager.registerMesh("sphere", sphere);
 
 	float distance = 0.7f;
 	
@@ -84,35 +84,35 @@ void SceneC5_4Balls::createModels()
 	models.push_back(light4);
 
 	models.push_back(ModelBuilder()
-		.setVertexData(modelManager.getModel("sphere"))
+		.setMesh(meshManager.getMesh("sphere"))
 		.setShader(shaderPrograms[std::string("lightShader3")])
 		.setPosition(glm::vec3(0, distance, 0))
 		.setScale(glm::vec3(.3f))
 		.setBasicTransforms()
 		.finish());
 	models.push_back(ModelBuilder()
-		.setVertexData(modelManager.getModel("sphere"))
+		.setMesh(meshManager.getMesh("sphere"))
 		.setShader(shaderPrograms[std::string("lightShader3")])
 		.setPosition(glm::vec3(distance, 0, 0))
 		.setScale(glm::vec3(.3f))
 		.setBasicTransforms()
 		.finish());
 	models.push_back(ModelBuilder()
-		.setVertexData(modelManager.getModel("sphere"))
+		.setMesh(meshManager.getMesh("sphere"))
 		.setShader(shaderPrograms[std::string("lightShader3")])
 		.setPosition(glm::vec3(0, -distance, 0))
 		.setScale(glm::vec3(.3f))
 		.setBasicTransforms()
 		.finish());
 	models.push_back(ModelBuilder()
-		.setVertexData(modelManager.getModel("sphere"))
+		.setMesh(meshManager.getMesh("sphere"))
 		.setShader(shaderPrograms[std::string("lightShader3")])
 		.setPosition(glm::vec3(-distance, 0, 0))
 		.setScale(glm::vec3(.3f))
 		.setBasicTransforms()
 		.finish());
 	models.push_back(ModelBuilder()
-		.setVertexData(modelManager.getModel("sphere"))
+		.setMesh(meshManager.getMesh("sphere"))
 		.setShader(shaderPrograms[std::string("lightShader3")])
 		.setPosition(glm::vec3(-distance*3, 0, 0))
 		.setScale(glm::vec3(.3f))

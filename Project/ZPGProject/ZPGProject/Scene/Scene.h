@@ -9,7 +9,7 @@
 #include "Camera.h"
 #include <Light/Light.h>
 #include "Light/LightManager.h"
-#include "Model/ModelManager.h"
+#include <Model/MeshManager.h>
 
 class Scene
 {
@@ -17,7 +17,7 @@ protected:
 	GLFWwindow* window;
 	Camera* camera;
 	LightManager lightManager;
-	ModelManager modelManager;
+	MeshManager meshManager;
 
 	std::map<std::string, ShaderProgram*> shaderPrograms;
 	std::vector<GameObject*> models;
@@ -52,6 +52,12 @@ public:
 	virtual void draw() {
 		for (GameObject* element : models) {
 			element->draw();
+		}
+	}
+
+	virtual void drawDebugElement() {
+		for (GameObject* element : models) {
+			element->drawDebugElement();
 		}
 	}
 };

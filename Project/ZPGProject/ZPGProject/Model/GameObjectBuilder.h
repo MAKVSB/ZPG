@@ -12,6 +12,7 @@
 #include <string>
 #include "Model/ModelLoader.h"
 #include "Model/Model.h"
+#include "Mesh.h"
 
 class ModelBuilder;
 
@@ -64,6 +65,7 @@ public:
 	BT& setShader(ShaderProgram* sp) { model->setShader(sp); return static_cast<BT&>(*this); };
 	BT& setMaterial(Material m) { model->setMaterial(m); return static_cast<BT&>(*this); };
 	BT& setIndices(std::vector<uint32_t> ind) { model->setIndices(ind); return static_cast<BT&>(*this); };
+	BT& setMesh(Mesh* mesh) { model->setMesh(mesh); return static_cast<BT&>(*this); }
 };
 
 class ModelBuilder : public ModelBuilderSpec<ModelBuilder> {};

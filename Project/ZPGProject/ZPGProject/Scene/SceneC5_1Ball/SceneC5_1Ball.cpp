@@ -24,7 +24,7 @@ void SceneC5_1Ball::createShaders()
 
 void SceneC5_1Ball::createModels()
 {
-	modelManager.registerModel("sphere", ModelLoader::convertToVector(sphere));
+	meshManager.registerMesh("sphere", sphere);
 
 	float distance = 0.7f;
 	
@@ -41,7 +41,7 @@ void SceneC5_1Ball::createModels()
 	m.r_s = glm::vec4(10, 10, 10, 0);
 
 	models.push_back(ModelBuilder()
-		.setVertexData(modelManager.getModel("sphere"))
+		.setMesh(meshManager.getMesh("sphere"))
 		.setShader(shaderPrograms[std::string("lightShader")])
 		.setPosition(glm::vec3(0, 0, distance))
 		.setScale(glm::vec3(.3f))

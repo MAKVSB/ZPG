@@ -1,13 +1,8 @@
 ﻿#pragma once
 #include "Application.h"
 
-Application::~Application()
+void Application::inicializeOpenGL()
 {
-	delete sm;
-	delete currentScene;
-}
-
-void Application::initialization() {
 	if (!glfwInit()) {
 		fprintf(stderr, "ERROR: could not start GLFW3\n");
 		exit(EXIT_FAILURE);
@@ -59,6 +54,29 @@ void Application::initialization() {
 	sm->registerScenes();
 }
 
+void Application::inicializeImgui()
+{
+	//IMGUI_CHECKVERSION();
+	// Initialize ImGui
+	ImGui::CreateContext();
+	ImGui_ImplOpenGL3_Init("#version 330 core");
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+
+	// Configure ImGui style, add fonts, etc.
+	ImGui::StyleColorsDark();
+}
+
+Application::~Application()
+{
+	delete sm;
+	delete currentScene;
+}
+
+void Application::initialization() {
+	inicializeOpenGL();
+	inicializeImgui();
+}
+
 void Application::run() {
 	bool prefectTime = true;
 	int targetFPS = 60;
@@ -77,6 +95,17 @@ void Application::run() {
 		if (currentScene) {
 			currentScene->tick((float)deltaTime);
 			currentScene->draw();
+
+			if (imguiEnabled) {
+				ImGui_ImplOpenGL3_NewFrame();
+				ImGui_ImplGlfw_NewFrame();
+				ImGui::NewFrame();
+
+				currentScene->drawDebugElement();
+
+				ImGui::Render();
+				ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+			}
 		}
 
 		double thisTickElapsed = glfwGetTime() - thisTickStartTime;

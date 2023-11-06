@@ -22,11 +22,35 @@
 #include "Models/bushes.h"
 #include "Models/gift.h"
 
+
+#include "MeshManager.h"
+#include "Model.h"
+
+#include <assimp/cimport.h>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include <assimp/Importer.hpp>
+
+static constexpr uint32_t importOpts = 
+	aiProcess_OptimizeMeshes
+	bitor aiProcess_JoinIdenticalVertices
+	bitor aiProcess_Triangulate
+	bitor aiProcess_CalcTangentSpace
+	bitor aiProcess_GenSmoothNormals;
+
 class ModelLoader
 {
+private:
+	VertexDataFormat vertexDataFormat;
+	MeshManager* meshManager;
+	int namingIndex = 0;
+
+	std::vector<float>* processVertices(aiMesh& mesh);
+	std::vector<uint32_t>* processIndices(aiMesh& mesh);
 public:
-	template <typename T, std::size_t N>
-	static std::vector<T> convertToVector(const T(&dataArray)[N]) {
-		return std::vector<T>(dataArray, dataArray + N);
-	}
+	ModelLoader(MeshManager* mM, VertexDataFormat = POS3_NOR3);
+	GameObject* loadModel(std::string filePath);
+	void processNode(aiNode& node, const aiScene& scene, GameObject* parentModel, std::string filePath);
+	void applyTransformations(aiNode& node, GameObject* gameObject);
+	Model* processMesh(aiMesh& mesh, aiNode& node, const aiScene& scene, std::string filePath);
 };

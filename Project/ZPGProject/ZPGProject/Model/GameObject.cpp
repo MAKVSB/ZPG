@@ -50,6 +50,37 @@ void GameObject::tick(float deltaTime)
 	}
 }
 
+void GameObject::drawDebugElement()
+{
+	if (isGroup()) {
+		ImGui::Begin("Object Debugger");
+		std::string objectName(name);
+		objectName += "GameObject(" + std::to_string((int)this) + ")";
+		if (ImGui::TreeNode(objectName.c_str())) {
+			// position
+			ImGui::DragFloat3("Position", glm::value_ptr(*position), 0.1f, -100.0f, 100.0f);
+
+			// rotation
+			ImGui::DragFloat3("Rotation", glm::value_ptr(*rotation), 0.1f, -100.0f, 100.0f);
+
+			// scale
+			ImGui::DragFloat3("Scale", glm::value_ptr(*scale), 0.1f, 0.0f, 100.0f);
+
+			for (GameObject* child : childs) {
+				child->drawDebugElement();
+			}
+			ImGui::TreePop();
+		}
+		// End the window
+		ImGui::End();
+	}
+	else {
+		for (GameObject* child : childs) {
+			child->drawDebugElement();
+		}
+	}
+}
+
 void GameObject::draw()
 {
 	for (GameObject* child : childs) {

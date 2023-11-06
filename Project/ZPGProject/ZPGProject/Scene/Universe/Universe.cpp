@@ -50,15 +50,16 @@ glm::vec3 moonScale = glm::vec3(.2f);
 
 void UniverseScene::createModels()
 {
-	modelManager.registerModel("gift", ModelLoader::convertToVector(gift));
-	modelManager.registerModel("sphere", ModelLoader::convertToVector(sphere));
+
+	meshManager.registerMesh("gift", gift);
+	meshManager.registerMesh("sphere", sphere);
 
 	//sun
 	models.push_back(GameObjectBuilder<OffsetRotator>()
 		.addTransform(new ScaleTransform(&globalscale))
 		.addChild(ModelBuilder()
 			.name("sun")
-			.setVertexData(modelManager.getModel("sphere"))
+			.setMesh(meshManager.getMesh("sphere"))
 			.addTransform(new ScaleTransform(&sunScale))
 			.addTransform(new RotationTransform(&sunRotationInner))
 			.setShader(shaderPrograms[std::string("lightShader")])
@@ -71,7 +72,7 @@ void UniverseScene::createModels()
 			.addTransform(new RotationTransform(&mercurRotation))
 			.addChild(ModelBuilder()
 				.name("mecrury")
-				.setVertexData(modelManager.getModel("gift"))
+				.setMesh(meshManager.getMesh("gift"))
 				.addTransform(new RotationTransform(&mercurRotationInner))
 				.setShader(shaderPrograms["secondShader"])
 				.finish())
@@ -83,13 +84,13 @@ void UniverseScene::createModels()
 			.addTransform(new RotationTransform(&earthRotation))
 			.addChild(ModelBuilder()
 				.name("earthModel")
-				.setVertexData(modelManager.getModel("gift"))
+				.setMesh(meshManager.getMesh("gift"))
 				.addTransform(new RotationTransform(&earthRotationInner))
 				.setShader(shaderPrograms["secondShader"])
 				.finish())
 			.addChild(ModelBuilder()
 				.name("moonModel")
-				.setVertexData(modelManager.getModel("sphere"))
+				.setMesh(meshManager.getMesh("sphere"))
 				.setShader(shaderPrograms["lightShader"])
 				.addTransform(new ScaleTransform(&moonScale))
 				.addTransform(new RotationTransform(&moonRotationInner))

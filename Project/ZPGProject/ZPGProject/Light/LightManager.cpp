@@ -20,14 +20,15 @@ void LightManager::attachShader(ShaderProgram* sp)
 	sp->bindUniformObject("LightArray", lightsUBO, sizeof(LightStruct) * MAX_LIGHTS);
 }
 
-void LightManager::updateLightReferences(std::vector<GameObject*> gameObjects)
-{
-	for (Light* light : lights) {
-		light->remove(this);
-	}
+void LightManager::updateLightReferences(std::vector<GameObject*> gameObjects) {
 	lights.clear();
+	updateLightReferencesRecursive(gameObjects);
+}
+
+void LightManager::updateLightReferencesRecursive(std::vector<GameObject*> gameObjects)
+{
 	for (GameObject* object : gameObjects) {
-		if (!object->childs.empty()) updateLightReferences(object->childs);
+		if (!object->childs.empty()) updateLightReferencesRecursive(object->childs);
 		if (object->isLight()) {
 			lights.emplace_back(static_cast<Light*>(object));
 		}

@@ -18,6 +18,7 @@ public:
 	~LightManager();
 	void attachShader(ShaderProgram* sp);
 	void updateLightReferences(std::vector<GameObject*> gameObjects);
+	void updateLightReferencesRecursive(std::vector<GameObject*> gameObjects);
 	virtual void listen(MessageType messageType, void* object) override;
 };
 

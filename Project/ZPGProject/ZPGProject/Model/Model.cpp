@@ -1,6 +1,11 @@
 #pragma once
 #include "Model.h"
 
+void Model::setMesh(Mesh* mesh)
+{
+	this->mesh = mesh;
+}
+
 void Model::setVertexData(std::vector<float>* vd, VertexDataFormat df)
 {
 	vertexData = vd;
@@ -64,21 +69,26 @@ void Model::draw() {
 	shader->uploadUniformLocation("material.r_s", material.r_s);
 	shader->uploadUniformLocation("material.objectColor", material.objectColor);
 
-	if (indices.empty()) {
-		shader->useWrapper([&]() {
-			glBindVertexArray(VAO);
-			// draw triangles
-			glDrawArrays(GL_TRIANGLES, 0, getVertexCount()); //mode,first,count
-			glBindVertexArray(0);
-		});
+	if (mesh == nullptr) {
+		if (indices.empty()) {
+			shader->useWrapper([&]() {
+				glBindVertexArray(VAO);
+				// draw triangles
+				glDrawArrays(GL_TRIANGLES, 0, getVertexCount()); //mode,first,count
+				glBindVertexArray(0);
+				});
+		}
+		else {
+			shader->useWrapper([&]() {
+				glBindVertexArray(VAO);
+				// draw triangles based on indexes
+				glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, indices.data());
+				glBindVertexArray(0);
+				});
+		}
 	}
 	else {
-		shader->useWrapper([&]() {
-			glBindVertexArray(VAO);
-			// draw triangles based on indexes
-			glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, indices.data());
-			glBindVertexArray(0);
-		});
+		mesh->draw(*shader);
 	}
 
 	GameObject::draw();
@@ -87,4 +97,41 @@ void Model::draw() {
 void Model::tick(float deltaTime)
 {
 	GameObject::tick(deltaTime);
+}
+
+void Model::drawDebugElement() {
+	ImGui::Begin("Object Debugger");
+	std::string objectName(name);
+	objectName += "Model (" + std::to_string((int)this) + ")";
+	if (ImGui::TreeNode(objectName.c_str())) {
+		// position
+		ImGui::DragFloat3("Position", glm::value_ptr(*position), 0.1f, -100.0f, 100.0f);
+
+		// rotation
+		ImGui::DragFloat3("Rotation", glm::value_ptr(*rotation), 0.1f, -100.0f, 100.0f);
+
+		// scale
+		ImGui::DragFloat3("Scale", glm::value_ptr(*scale), 0.1f, 0.0f, 100.0f);
+
+		//// Light strength
+		//if (ImGui::DragFloat("Strength", &lightStrength, 1, 0.0f, 100.0f)) {
+		//	invalidate();
+		//}
+
+		//// Light strength
+		//if (ImGui::DragFloat("Cutoff", &cutoff, 10, 0.0f, 360.0f)) {
+		//	invalidate();
+		//}
+
+		////color
+		//if (ImGui::ColorEdit3("color", glm::value_ptr(lightColor))) {
+		//	invalidate();
+		//}
+
+		GameObject::drawDebugElement();
+		ImGui::TreePop();
+	}
+
+	// End the window
+	ImGui::End();
 }

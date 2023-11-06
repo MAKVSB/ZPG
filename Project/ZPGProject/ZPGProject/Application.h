@@ -34,6 +34,10 @@ class Application : Observer
 {
 private:
 	GLFWwindow* window;
+	void inicializeOpenGL();
+	void inicializeImgui();
+
+	bool imguiEnabled = false;
 
 public:
 	Scene* currentScene;

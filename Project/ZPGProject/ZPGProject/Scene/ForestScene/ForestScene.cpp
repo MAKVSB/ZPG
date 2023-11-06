@@ -16,44 +16,34 @@ void ForestScene::createShaders()
 		.compileAndCheck()
 		->setCamera(camera);
 	lightManager.attachShader(shaderPrograms["lightShader"]);
-
-	//shaderPrograms["secondShader"] = ShaderBuilder()
-	//	.name("secondShader")
-	//	.addShader(GL_VERTEX_SHADER, "Shaders/vertex_shader_positional_color.glsl")
-	//	.addShader(GL_FRAGMENT_SHADER, "Shaders/fragment_shader_color_positional.glsl")
-	//	.compileAndCheck()
-	//	->setCamera(camera);
 }
 
-Light* light;
-Light* light2;
+Light* alight;
+Light* alight2;
 
 void ForestScene::createModels()
 {
-	modelManager.registerModel("tree", ModelLoader::convertToVector(tree));
-	modelManager.registerModel("sphere", ModelLoader::convertToVector(sphere));
-	modelManager.registerModel("plain", ModelLoader::convertToVector(plain));
-	modelManager.registerModel("bushes", ModelLoader::convertToVector(bushes));
-	modelManager.registerModel("suziSmooth", ModelLoader::convertToVector(suziSmooth));
-
-
+	meshManager.registerMesh("tree", Mesh(tree));
+	meshManager.registerMesh("bushes", Mesh(bushes));
+	meshManager.registerMesh("sphere", Mesh(sphere));
+	meshManager.registerMesh("plain", Mesh(plain));
 
 	float distance = 0.7f;
 
-	light = new Light();
-	light->setLightType(LightType::SPOTLIGHT);
-	light->setPosition(glm::vec3(0, 7, 0));
-	light->setLightColor(glm::vec3(1, 1, 1));
-	light->setLightAttenuation(glm::vec3(0.5, 0.1, 0.1));
-	light->setLightStrength(32);
-	light->setCutoff(10);
-	models.push_back(light);
+	alight = new Light();
+	alight->setLightType(LightType::SPOTLIGHT);
+	alight->setPosition(glm::vec3(0, 7, 0));
+	alight->setLightColor(glm::vec3(1, 1, 1));
+	alight->setLightAttenuation(glm::vec3(0.5, 0.1, 0.1));
+	alight->setLightStrength(32);
+	alight->setCutoff(10);
+	models.push_back(alight);
 
-	light2 = new Light();
-	light2->setLightType(LightType::POINT);
-	light2->setPosition(glm::vec3(0, 0, 0));
-	light2->setLightColor(glm::vec3(0.4, 0.4, 0.4));
-	models.push_back(light2);
+	alight2 = new Light();
+	alight2->setLightType(LightType::POINT);
+	alight2->setPosition(glm::vec3(0, 0, 0));
+	alight2->setLightColor(glm::vec3(0.4, 0.4, 0.4));
+	models.push_back(alight2);
 
 	Light* light4 = new Light();
 	light4->setLightType(LightType::AMBIENT);
@@ -74,7 +64,7 @@ void ForestScene::createModels()
 	for (int i = -terrainSize; i < terrainSize;i++) {
 		for (int j = -terrainSize; j < terrainSize;j++) {
 			models.push_back(ModelBuilder()
-				.setVertexData(modelManager.getModel("plain"))
+				.setMesh(meshManager.getMesh("plain"))
 				.setShader(shaderPrograms[std::string("lightShader")])
 				.setPosition(glm::vec3(i * 2, 0, j * 2))
 				.setMaterial(m)
@@ -90,7 +80,7 @@ void ForestScene::createModels()
 	// Generate random trees
 	for (int i = 0; i < 300; i++) {
 		models.push_back(ModelBuilder()
-			.setVertexData(modelManager.getModel("tree"))
+			.setMesh(meshManager.getMesh("tree"))
 			.setShader(shaderPrograms[std::string("lightShader")])
 			.setPosition(glm::vec3(distribution(gen), 0, distribution(gen)))
 			.setScale(glm::vec3(.8f))
@@ -102,7 +92,7 @@ void ForestScene::createModels()
 	// Generate random bushes
 	for (int i = 0; i < 1000; i++) {
 		models.push_back(ModelBuilder()
-			.setVertexData(modelManager.getModel("bushes"))
+			.setMesh(meshManager.getMesh("bushes"))
 			.setShader(shaderPrograms[std::string("lightShader")])
 			.setPosition(glm::vec3(distribution(gen), 0, distribution(gen)))
 			.setScale(glm::vec3(.8f))
@@ -114,7 +104,7 @@ void ForestScene::createModels()
 	// Generate random spheres
 	for (int i = 0; i < 3; i++) {
 		models.push_back(ModelBuilder()
-			.setVertexData(modelManager.getModel("sphere"))
+			.setMesh(meshManager.getMesh("sphere"))
 			.setShader(shaderPrograms[std::string("lightShader")])
 			.setPosition(glm::vec3(distribution(gen)/ terrainSize, 0.5f, distribution(gen)/ terrainSize))
 			.setScale(glm::vec3(.5f))
@@ -123,28 +113,15 @@ void ForestScene::createModels()
 			.finish());
 	}
 
-	// Generate random suzis
-	//for (int i = 0; i < 3; i++) {
-	//	models.push_back(ModelBuilder()
-	//		.setVertexData(modelManager.getModel("suziSmooth"))
-	//		.setShader(shaderPrograms[std::string("secondShader")])
-	//		.setPosition(glm::vec3(distribution(gen)/ terrainSize, 0.5f, distribution(gen)/ terrainSize))
-	//		.setScale(glm::vec3(.5f))
-	//		.setMaterial(m)
-	//		.setBasicTransforms()
-	//		.finish());
-	//}
-
 	lightManager.updateLightReferences(models);
 }
 
 void ForestScene::tick(float deltaTime)
 {
-	light->setPosition(*camera->getPosition());
-	light2->setPosition(*camera->getPosition());
-	light->setLightDirection(*camera->getRotation());
-
 	Scene::tick(deltaTime);
+	alight->setPosition(*camera->getPosition());
+	alight2->setPosition(*camera->getPosition());
+	alight->setLightDirection(*camera->getRotation());
 }
 
 void ForestScene::draw()

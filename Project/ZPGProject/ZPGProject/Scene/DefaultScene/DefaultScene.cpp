@@ -4,6 +4,7 @@
 
 #include "Scene/DefaultScene/HouseObjectGroup.h"
 #include "Model/GameObjectBuilder.h"
+#include "Model/Mesh.h"
 
 DefaultScene::DefaultScene(GLFWwindow* window) : Scene(window) {
 	createShaders();
@@ -29,10 +30,10 @@ void DefaultScene::createShaders()
 
 void DefaultScene::createModels()
 {	
-	modelManager.registerModel("gift", ModelLoader::convertToVector(gift));
-	modelManager.registerModel("sphere", ModelLoader::convertToVector(sphere));
-	modelManager.registerModel("suziSmooth", ModelLoader::convertToVector(suziSmooth));
-	modelManager.registerModel("plain_indiced", ModelLoader::convertToVector(plain_indiced));
+	meshManager.registerMesh("gift", Mesh(gift));
+	meshManager.registerMesh("sphere", Mesh(sphere));
+	meshManager.registerMesh("suziSmooth", Mesh(suziSmooth));
+	meshManager.registerMesh("plain_indiced", Mesh(plain_indiced, plain_indices));
 
 	models.push_back(GameObjectBuilder<HouseObjectGroup>()
 		.setPosition(glm::vec3(.5f, 0, 0))
@@ -40,23 +41,23 @@ void DefaultScene::createModels()
 		.setBasicTransforms()
 		.addChild(ModelBuilder()
 			.name("firstModel")
-			.setVertexData(modelManager.getModel("gift"))
+			.setMesh(meshManager.getMesh("gift"))
 			.setShader(shaderPrograms["firstShader"])
 			.setPosition(glm::vec3(0, 0, 0))
 			.setBasicTransforms()
 			.finish())
 		.addChild(ModelBuilder()
 			.name("secondModel")
-			.setVertexData(modelManager.getModel("plain_indiced"))
-			.setIndices(ModelLoader::convertToVector(plain_indices))
+			.setMesh(meshManager.getMesh("plain_indiced"))
 			.setShader(shaderPrograms["secondShader"])
 			.setPosition(glm::vec3(0, 1, 0))
 			.setBasicTransforms()
 			.finish())
 		.finish());
+
 	models.push_back(ModelBuilder()
 		.name("thirdModel")
-		.setVertexData(modelManager.getModel("sphere"))
+		.setMesh(meshManager.getMesh("sphere"))
 		.setShader(shaderPrograms[std::string("firstShader")])
 		.setPosition(glm::vec3(-.5f, -.5f, 0))
 		.setScale(glm::vec3(.3f))
@@ -65,7 +66,7 @@ void DefaultScene::createModels()
 
 	models.push_back(ModelBuilder()
 		.name("fourthModel")
-		.setVertexData(modelManager.getModel("suziSmooth"))
+		.setMesh(meshManager.getMesh("suziSmooth"))
 		.setShader(shaderPrograms[std::string("firstShader")])
 		.setPosition(glm::vec3(-.5f, .5f, 0))
 		.setScale(glm::vec3(.3f))
