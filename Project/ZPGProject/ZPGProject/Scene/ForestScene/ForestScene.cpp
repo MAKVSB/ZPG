@@ -1,7 +1,5 @@
 #include "ForestScene.h"
 
-#include "CallbackManager.h"
-
 ForestScene::ForestScene(GLFWwindow* window) : Scene(window) {
 	createShaders();
 	createModels();
@@ -33,7 +31,7 @@ void ForestScene::createModels()
 	alight = new Light();
 	alight->setLightType(LightType::SPOTLIGHT);
 	alight->setPosition(glm::vec3(0, 7, 0));
-	alight->setLightColor(glm::vec3(1, 1, 1));
+	alight->setLightColor(glm::vec3(1, 0, 0));
 	alight->setLightAttenuation(glm::vec3(0.5, 0.1, 0.1));
 	alight->setLightStrength(32);
 	alight->setCutoff(10);
@@ -55,7 +53,7 @@ void ForestScene::createModels()
 	m.r_a = glm::vec4(1);
 	m.r_d = glm::vec4(1);
 	m.r_s = glm::vec4(2);
-	m.objectColor = glm::vec3(0, 1, 0);
+	m.objectColor = glm::vec3(0.2f, 1, 0.2f);
 
 	camera->setPosition(glm::vec3(0, 1, 2));
 

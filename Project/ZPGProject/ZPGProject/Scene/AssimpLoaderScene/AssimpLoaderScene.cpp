@@ -1,11 +1,5 @@
 #include "AssimpLoaderScene.h"
 
-#include "CallbackManager.h"
-
-#include "Scene/DefaultScene/HouseObjectGroup.h"
-#include "Model/GameObjectBuilder.h"
-#include "Light/Light.h"
-
 AssimpLoaderScene::AssimpLoaderScene(GLFWwindow* window) : Scene(window) {
 	createShaders();
 	createModels();

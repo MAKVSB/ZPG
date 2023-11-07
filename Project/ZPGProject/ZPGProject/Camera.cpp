@@ -136,3 +136,41 @@ void Camera::tick(float deltaTime)
 void Camera::draw() {
 	GameObject::draw();
 }
+
+void Camera::drawDebugElement()
+{
+	ImGui::Begin("Object Debugger");
+	std::string objectName(name);
+	objectName += "Camera (" + std::to_string((uintptr_t)this) + ")";
+	if (ImGui::TreeNode(objectName.c_str())) {
+		if (ImGui::DragFloat3("Position", glm::value_ptr(*position), 0.1f, -100.0f, 100.0f)) {
+			notify(MessageType::CameraChanged, this);
+		}
+		if (ImGui::DragFloat3("Rotation", glm::value_ptr(*rotation), 0.1f, -100.0f, 100.0f)) {
+			notify(MessageType::CameraChanged, this);
+		}
+		if (ImGui::DragFloat3("Scale", glm::value_ptr(*scale), 0.1f, -100.0f, 100.0f)) {
+			notify(MessageType::CameraChanged, this);
+		}
+		if (ImGui::DragFloat("FOV", &fov, 1, 0, 360)) {
+			notify(MessageType::CameraChanged, this);
+		}
+		if (ImGui::DragFloat("yaw", &yaw, 1, -180, 180)) {
+			notify(MessageType::CameraChanged, this);
+		}
+		if (ImGui::DragFloat("pitch", &pitch, 1, -90, 90)) {
+			notify(MessageType::CameraChanged, this);
+		}
+		if (ImGui::DragFloat("speed", &camSpeed, 0.2f, 0, 100)) {
+			notify(MessageType::CameraChanged, this);
+		}
+		if (ImGui::DragFloat("sensitivity", &camSensitivity, 0.01f, 0, 100)) {
+			notify(MessageType::CameraChanged, this);
+		}
+		GameObject::drawDebugElement();
+		ImGui::TreePop();
+	}
+
+	// End the window
+	ImGui::End();
+}

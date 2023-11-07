@@ -1,11 +1,5 @@
 #include "DefaultScene.h"
 
-#include "CallbackManager.h"
-
-#include "Scene/DefaultScene/HouseObjectGroup.h"
-#include "Model/GameObjectBuilder.h"
-#include "Model/Mesh.h"
-
 DefaultScene::DefaultScene(GLFWwindow* window) : Scene(window) {
 	createShaders();
 	createModels();

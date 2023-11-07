@@ -3,13 +3,18 @@
 #include <map>
 #include "ShaderProgram/ShaderProgram.h"
 #include "ShaderProgram/ShaderBuilder.h"
-#include "Model/Model.h"
-#include "Model/ModelLoader.h"
-#include "Model/GameObject.h"
+#include "Model/Model/Model.h"
+#include "Model/Model/ModelLoader.h"
+#include "Model/GameObject/GameObject.h"
 #include "Camera.h"
-#include <Light/Light.h>
+#include "Light/Light.h"
 #include "Light/LightManager.h"
-#include <Model/MeshManager.h>
+#include "Model/Mesh/MeshManager.h"
+#include "CallbackManager.h"
+#include "Observer.h"
+#include "Scene/DefaultScene/HouseObjectGroup.h"
+#include "Model/GameObject/GameObjectBuilder.h"
+#include "Light/Light.h"
 
 class Scene
 {

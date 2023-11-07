@@ -1,6 +1,6 @@
 #pragma once
 #include "GlobalInclude.h"
-#include "Model/GameObject.h"
+#include "Model/GameObject/GameObject.h"
 #include "Observer.h"
 
 #define GET_SET(type, name, member) \

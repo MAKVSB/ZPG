@@ -15,5 +15,19 @@ public:
 	glm::vec3 r_d = glm::vec3(1);
 	glm::vec3 r_s = glm::vec3(1);
 	glm::vec3 objectColor = glm::vec3(0.285, 0.647, 0.812);
+
+	void drawDebugElement() {
+		ImGui::Begin("Object Debugger");
+		if (ImGui::TreeNode(("Material " + std::to_string((uintptr_t)this)).c_str())) {
+			ImGui::DragFloat3("Ambient", glm::value_ptr(r_a), 0.1f, 0, 1);
+			ImGui::DragFloat3("Diffuze", glm::value_ptr(r_d), 0.1f, 0, 1);
+			ImGui::DragFloat3("Specular", glm::value_ptr(r_s), 0.1f, 0, 1);
+			ImGui::DragFloat3("Color", glm::value_ptr(objectColor), 0.1f, 0, 1);
+			ImGui::TreePop();
+		}
+
+		// End the window
+		ImGui::End();
+	}
 };
 

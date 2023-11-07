@@ -17,8 +17,6 @@ extern const float sphere[];
 extern const float suziFlat[];
 extern const float suziSmooth[];
 
-#include "Observer.h"
-
 class SceneC5_4Objects : public Scene
 {
 protected:

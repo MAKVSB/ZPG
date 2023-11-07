@@ -32,34 +32,23 @@ void Light::drawDebugElement() {
 			break;
 		}
 	}
-	objectName += " Light (" + std::to_string((int)this) + ")";
+	objectName += " Light (" + std::to_string((uintptr_t)this) + ")";
 	if (ImGui::TreeNode(objectName.c_str())) {
-		// position
 		if (ImGui::DragFloat3("Position", glm::value_ptr(*position), 0.1f, -100.0f, 100.0f)) {
 			invalidate();
 		}
-
-		// direction
 		if (ImGui::DragFloat3("Direction", glm::value_ptr(lightDirection), 0.1f, -100.0f, 100.0f)) {
 			invalidate();
 		}
-
-		// attenuation
 		if (ImGui::DragFloat3("Attenuation", glm::value_ptr(lightAttenuation), 0.1f, 0.0f, 100.0f)) {
 			invalidate();
 		}
-
-		// Light strength
 		if (ImGui::DragFloat("Strength", &lightStrength, 1, 0.0f, 100.0f)) {
 			invalidate();
 		}
-
-		// Light strength
 		if (ImGui::DragFloat("Cutoff", &cutoff, 10, 0.0f, 360.0f)) {
 			invalidate();
 		}
-
-		//color
 		if (ImGui::ColorEdit3("color", glm::value_ptr(lightColor))) {
 			invalidate();
 		}

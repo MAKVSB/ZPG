@@ -9,8 +9,8 @@
  **/
 
 #pragma once
-#include "Model/GameObject.h"
-#include "Observer.h"
+#include "Model/GameObject/GameObject.h"
+#include "CallbackManager.h"
 #include <map>
 
 class HouseObjectGroup : public GameObject, public Observer

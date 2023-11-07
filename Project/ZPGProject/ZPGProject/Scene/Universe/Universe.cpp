@@ -1,11 +1,5 @@
 #include "Universe.h"
-
-#include "CallbackManager.h"
-
-#include "Scene/DefaultScene/HouseObjectGroup.h"
-#include "Model/GameObjectBuilder.h"
-#include "Light/Light.h"
-#include "OffsetRotator.h"
+#include <Scene/Objects/Skybox.h>
 
 UniverseScene::UniverseScene(GLFWwindow* window) : Scene(window) {
 	createShaders();
@@ -15,7 +9,7 @@ UniverseScene::UniverseScene(GLFWwindow* window) : Scene(window) {
 void UniverseScene::createShaders()
 {
 	shaderPrograms["lightShader"] = ShaderBuilder()
-		.name("lightShader0")
+		.name("lightShader")
 		.addShader(GL_VERTEX_SHADER, "Shaders/lightShader/vertex.glsl")
 		.addShader(GL_FRAGMENT_SHADER, "Shaders/lightShader/constant.glsl")
 		.compileAndCheck()
@@ -24,6 +18,12 @@ void UniverseScene::createShaders()
 		.name("secondShader")
 		.addShader(GL_VERTEX_SHADER, "Shaders/vertex_shader_positional_color.glsl")
 		.addShader(GL_FRAGMENT_SHADER, "Shaders/fragment_shader_color_positional.glsl")
+		.compileAndCheck()
+		->setCamera(camera);
+	shaderPrograms["skyboxShader"] = ShaderBuilder()
+		.name("skyboxShader")
+		.addShader(GL_VERTEX_SHADER, "Shaders/skybox/vertex.glsl")
+		.addShader(GL_FRAGMENT_SHADER, "Shaders/skybox/fragment.glsl")
 		.compileAndCheck()
 		->setCamera(camera);
 }
@@ -48,11 +48,17 @@ glm::vec3 moonRotation = glm::vec3(0);
 glm::vec3 moonRotationInner = glm::vec3(0);
 glm::vec3 moonScale = glm::vec3(.2f);
 
+Skybox* skybox;
 void UniverseScene::createModels()
 {
 
 	meshManager.registerMesh("gift", gift);
 	meshManager.registerMesh("sphere", sphere);
+
+	//skybox
+	skybox = new Skybox();
+	skybox->setShader(shaderPrograms[std::string("skyboxShader")]);
+	models.push_back(skybox);
 
 	//sun
 	models.push_back(GameObjectBuilder<OffsetRotator>()
@@ -125,6 +131,8 @@ void UniverseScene::tick(float deltaTime)
 	moonRotationInner.x += deltaTime * 1.5f;
 	moonRotationInner.y += deltaTime * 1.5f;
 	moonRotationInner.z += deltaTime * 1.5f;
+
+	skybox->setPosition(*camera->getPosition());
 }
 
 void UniverseScene::draw()

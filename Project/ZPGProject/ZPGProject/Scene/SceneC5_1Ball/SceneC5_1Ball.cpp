@@ -1,11 +1,5 @@
 #include "SceneC5_1Ball.h"
 
-#include "CallbackManager.h"
-
-#include "Scene/DefaultScene/HouseObjectGroup.h"
-#include "Model/GameObjectBuilder.h"
-#include "Light/Light.h"
-
 SceneC5_1Ball::SceneC5_1Ball(GLFWwindow* window) : Scene(window) {
 	createShaders();
 	createModels();

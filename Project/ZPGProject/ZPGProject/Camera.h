@@ -15,7 +15,7 @@
 
 #include "Observer.h"
 #include "CallbackManager.h"
-#include "Model/GameObject.h"
+#include "Model/GameObject/GameObject.h"
 
 enum ProjectionEnum {
 	Orthogonal,
@@ -54,6 +54,8 @@ public:
 	void tick(float deltaTime);
 	using GameObject::draw;
 	void draw();
+	using GameObject::drawDebugElement;
+	void drawDebugElement();
 
 	glm::mat4 getViewMatrix();
 	glm::mat4 getProjectionMartix();

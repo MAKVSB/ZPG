@@ -39,7 +39,7 @@
     <ClCompile Include="Application.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
-    <ClCompile Include="Model\Model.cpp">
+    <ClCompile Include="Model\Model\Model.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
     <ClCompile Include="CallbackManager.cpp">
@@ -60,13 +60,13 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
-    <ClCompile Include="Model\ModelLoader.cpp">
+    <ClCompile Include="Model\Model\ModelLoader.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
     <ClCompile Include="ShaderProgram\ShaderBuilder.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
-    <ClCompile Include="Model\GameObject.cpp">
+    <ClCompile Include="Model\GameObject\GameObject.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
     <ClCompile Include="Scene\DefaultScene\HouseObjectGroup.cpp">
@@ -78,7 +78,7 @@
     <ClCompile Include="Light\Light.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
-    <ClCompile Include="Model\GameObjectBuilder.h">
+    <ClCompile Include="Model\GameObject\GameObjectBuilder.h">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneManager.cpp">
@@ -123,13 +123,16 @@
     <ClCompile Include="imgui\backends\imgui_impl_glfw.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
-    <ClCompile Include="Model\Mesh.cpp">
+    <ClCompile Include="Model\Mesh\Mesh.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
-    <ClCompile Include="Model\MeshManager.cpp">
+    <ClCompile Include="Model\Mesh\MeshManager.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
     <ClCompile Include="Scene\ForestScene\ForestScene.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Objects\Skybox.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
   </ItemGroup>
@@ -137,7 +140,7 @@
     <ClInclude Include="Application.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
-    <ClInclude Include="Model\Model.h">
+    <ClInclude Include="Model\Model\Model.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
     <ClInclude Include="GlobalInclude.h">
@@ -191,13 +194,13 @@
     <ClInclude Include="Models\suzi_smooth.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
-    <ClInclude Include="Model\ModelLoader.h">
+    <ClInclude Include="Model\Model\ModelLoader.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
     <ClInclude Include="ShaderProgram\ShaderBuilder.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
-    <ClInclude Include="Model\GameObject.h">
+    <ClInclude Include="Model\GameObject\GameObject.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
     <ClInclude Include="Scene\DefaultScene\HouseObjectGroup.h">
@@ -272,16 +275,19 @@
     <ClInclude Include="imgui\backends\imgui_impl_glfw.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
-    <ClInclude Include="Model\Mesh.h">
+    <ClInclude Include="Model\Mesh\Mesh.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
-    <ClInclude Include="Model\MeshManager.h">
+    <ClInclude Include="Model\Mesh\MeshManager.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
     <ClInclude Include="Scene\ForestScene\ForestScene.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Objects\Skybox.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
   </ItemGroup>
@@ -303,6 +309,8 @@
     <None Include="Shaders\lightShader\phong.glsl" />
     <None Include="Shaders\lightShader\blinn.glsl" />
     <None Include="Shaders\lightShader\constant.glsl" />
+    <None Include="Shaders\skybox\vertex.glsl" />
+    <None Include="Shaders\skybox\fragment.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="imgui\LICENSE.txt" />

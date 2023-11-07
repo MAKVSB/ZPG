@@ -17,10 +17,6 @@ extern const float sphere[];
 extern const float suziFlat[];
 extern const float suziSmooth[];
 
-#include "Observer.h"
-#include "Scene/DefaultScene/HouseObjectGroup.h"
-#include "Model/GameObjectBuilder.h"
-#include "Light/Light.h"
 #include <random>
 
 class ForestScene : public Scene

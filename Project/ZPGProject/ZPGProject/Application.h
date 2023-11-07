@@ -22,7 +22,7 @@
 #include <thread>
 
 #include "ShaderProgram/ShaderProgram.h"
-#include "Model/Model.h"
+#include "Model/Model/Model.h"
 #include "Observer.h"
 
 #include "Scene/SceneManager.h"
@@ -37,7 +37,7 @@ private:
 	void inicializeOpenGL();
 	void inicializeImgui();
 
-	bool imguiEnabled = false;
+	bool imguiEnabled = true;
 
 public:
 	Scene* currentScene;

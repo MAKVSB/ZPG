@@ -10,14 +10,13 @@
 
 #pragma once
 #include "Scene/Scene.h"
+#include "OffsetRotator.h"
 
 extern const float cubeVertexData[];
 extern const float triangleVertexData[];
 extern const float sphere[];
 extern const float suziFlat[];
 extern const float suziSmooth[];
-
-#include "Observer.h"
 
 class UniverseScene : public Scene
 {

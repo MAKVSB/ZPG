@@ -9,7 +9,7 @@
  **/
 
 #pragma once
-#include "Model/GameObject.h"
+#include "Model/GameObject/GameObject.h"
 #include "Observer.h"
 #include <map>
 
