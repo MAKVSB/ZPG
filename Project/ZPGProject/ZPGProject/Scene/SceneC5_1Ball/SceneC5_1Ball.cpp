@@ -39,7 +39,7 @@ void SceneC5_1Ball::createModels()
 		.setShader(shaderPrograms[std::string("lightShader")])
 		.setPosition(glm::vec3(0, 0, distance))
 		.setScale(glm::vec3(.3f))
-		.setMaterial(m)
+		.setMaterial(&m)
 		.setBasicTransforms()
 		.finish());
 

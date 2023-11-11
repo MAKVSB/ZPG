@@ -61,7 +61,7 @@ float calculateAttenuation(LightStruct light) {
     float quadratic = light.attenuation.z;
 
     float dist = length(light.position - vec4toVec3(ex_worldPosition));
-    return clamp(1.0 / (constant + linear * dist + quadratic * dist * dist), 0.0, light.lightStrength);
+    return clamp(1.0 / (constant + linear * dist + quadratic * dist * dist), 0.0, 1);
 }
 
 //

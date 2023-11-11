@@ -6,7 +6,7 @@
 #define GET_SET(type, name, member) \
     void set##name(type value) { \
         member = value; \
-		notify(MessageType::LightChanged, this); \
+		invalidate(); \
     } \
     type get##name() { \
         return member; \
@@ -39,19 +39,6 @@ private:
 	float lightStrength = 64;
 	float cutoff = 60;
 public:
-	using GameObject::setPosition;
-	void setPosition(glm::vec3 pos) {
-		GameObject::setPosition(pos);
-		notify(MessageType::LightChanged, this);
-	}
-	using GameObject::updatePosition;
-	void updatePosition(glm::vec3 pos) {
-		GameObject::updatePosition(pos);
-		notify(MessageType::LightChanged, this);
-	}
-
-
-
 	GET_SET(glm::vec3, LightColor, lightColor)
 	GET_SET(glm::vec3, LightDirection, lightDirection)
 	GET_SET(glm::vec3, LightAttenuation, lightAttenuation)

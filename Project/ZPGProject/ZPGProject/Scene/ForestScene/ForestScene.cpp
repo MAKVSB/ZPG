@@ -13,7 +13,19 @@ void ForestScene::createShaders()
 		.addShader(GL_FRAGMENT_SHADER, "Shaders/lightShader/phong.glsl")
 		.compileAndCheck()
 		->setCamera(camera);
+	shaderPrograms["texturedLightShader"] = ShaderBuilder()
+		.name("lightShader")
+		.addShader(GL_VERTEX_SHADER, "Shaders/texturedLightShader/vertex.glsl")
+		.addShader(GL_FRAGMENT_SHADER, "Shaders/texturedLightShader/phong.glsl")
+		.compileAndCheck()
+		->setCamera(camera);
 	lightManager.attachShader(shaderPrograms["lightShader"]);
+	shaderPrograms["skyboxShader"] = ShaderBuilder()
+		.name("skyboxShader")
+		.addShader(GL_VERTEX_SHADER, "Shaders/skybox/vertex.glsl")
+		.addShader(GL_FRAGMENT_SHADER, "Shaders/skybox/fragment.glsl")
+		.compileAndCheck()
+		->setCamera(camera);
 }
 
 Light* alight;
@@ -23,15 +35,15 @@ void ForestScene::createModels()
 {
 	meshManager.registerMesh("tree", Mesh(tree));
 	meshManager.registerMesh("bushes", Mesh(bushes));
-	meshManager.registerMesh("sphere", Mesh(sphere));
-	meshManager.registerMesh("plain", Mesh(plain));
+	meshManager.registerMesh("gift", Mesh(gift));
+	meshManager.registerMesh("plain", Mesh(plainTextured, POS3_NOR3_TEX2));
 
 	float distance = 0.7f;
 
 	alight = new Light();
 	alight->setLightType(LightType::SPOTLIGHT);
 	alight->setPosition(glm::vec3(0, 7, 0));
-	alight->setLightColor(glm::vec3(1, 0, 0));
+	alight->setLightColor(glm::vec3(1, 1, 1));
 	alight->setLightAttenuation(glm::vec3(0.5, 0.1, 0.1));
 	alight->setLightStrength(32);
 	alight->setCutoff(10);
@@ -45,17 +57,34 @@ void ForestScene::createModels()
 
 	Light* light4 = new Light();
 	light4->setLightType(LightType::AMBIENT);
-	light4->setPosition(glm::vec3(0, 0, 0));
-	light4->setLightColor(glm::vec3(0.2, 0.2, 0.2));
+	light4->setLightColor(glm::vec3(0.3, 0.3, 0.3));
 	models.push_back(light4);
 
-	Material m;
-	m.r_a = glm::vec4(1);
-	m.r_d = glm::vec4(1);
-	m.r_s = glm::vec4(2);
-	m.objectColor = glm::vec3(0.2f, 1, 0.2f);
+	materialManager["default"] = Material();
+	materialManager["default"].r_a = glm::vec4(1);
+	materialManager["default"].r_d = glm::vec4(1);
+	materialManager["default"].r_s = glm::vec4(2);
+	materialManager["default"].objectColor = glm::vec3(0.2f, 1, 0.2f);
+
+	materialManager["gift"] = Material();
+	materialManager["gift"].r_s = glm::vec4(6);
+	materialManager["gift"].objectColor = glm::vec3(0.9f, 0.2f, 0.2f);
+
+	materialManager["skybox"] = Material();
+	materialManager["skybox"].r_a = glm::vec3(.1f);
+	materialManager["skybox"].texture.createCubeMap({ "posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg" }, "C:/Users/mdani/Downloads/cubemap/");
+
+	materialManager["grass"] = Material();
+	materialManager["grass"].texture.loadTexture2D("C:/Users/mdani/Downloads/multipletextures/grass.png");
+
+	// skybox
+	Skybox* skybox = new Skybox();
+	skybox->setShader(shaderPrograms[std::string("skyboxShader")]);
+	skybox->setMaterial(&materialManager["skybox"]);
+	models.push_back(skybox);
 
 	camera->setPosition(glm::vec3(0, 1, 2));
+	camera->invalidate();
 
 	int terrainSize = 10;
 
@@ -63,9 +92,9 @@ void ForestScene::createModels()
 		for (int j = -terrainSize; j < terrainSize;j++) {
 			models.push_back(ModelBuilder()
 				.setMesh(meshManager.getMesh("plain"))
-				.setShader(shaderPrograms[std::string("lightShader")])
+				.setShader(shaderPrograms[std::string("texturedLightShader")])
 				.setPosition(glm::vec3(i * 2, 0, j * 2))
-				.setMaterial(m)
+				.setMaterial(&materialManager["grass"])
 				.setBasicTransforms()
 				.finish());
 		}
@@ -76,13 +105,14 @@ void ForestScene::createModels()
 	std::uniform_real_distribution<float> distribution((2 * -terrainSize)-(1-0.1f), (2 * terrainSize)-(1+0.2f));
 
 	// Generate random trees
-	for (int i = 0; i < 300; i++) {
+	for (int i = 0; i < 100; i++) {
 		models.push_back(ModelBuilder()
 			.setMesh(meshManager.getMesh("tree"))
 			.setShader(shaderPrograms[std::string("lightShader")])
 			.setPosition(glm::vec3(distribution(gen), 0, distribution(gen)))
+			.setRotation(glm::vec3(0, distribution(gen), 0))
 			.setScale(glm::vec3(.8f))
-			.setMaterial(m)
+			.setMaterial(&materialManager["default"])
 			.setBasicTransforms()
 			.finish());
 	}
@@ -93,20 +123,21 @@ void ForestScene::createModels()
 			.setMesh(meshManager.getMesh("bushes"))
 			.setShader(shaderPrograms[std::string("lightShader")])
 			.setPosition(glm::vec3(distribution(gen), 0, distribution(gen)))
+			.setRotation(glm::vec3(0, distribution(gen), 0))
 			.setScale(glm::vec3(.8f))
-			.setMaterial(m)
+			.setMaterial(&materialManager["default"])
 			.setBasicTransforms()
 			.finish());
 	}
 
-	// Generate random spheres
-	for (int i = 0; i < 3; i++) {
+	// Generate random gifts
+	for (int i = 0; i < 100; i++) {
 		models.push_back(ModelBuilder()
-			.setMesh(meshManager.getMesh("sphere"))
+			.setMesh(meshManager.getMesh("gift"))
 			.setShader(shaderPrograms[std::string("lightShader")])
-			.setPosition(glm::vec3(distribution(gen)/ terrainSize, 0.5f, distribution(gen)/ terrainSize))
-			.setScale(glm::vec3(.5f))
-			.setMaterial(m)
+			.setPosition(glm::vec3(distribution(gen), 0, distribution(gen)))
+			.setRotation(glm::vec3(0, distribution(gen), 0))
+			.setMaterial(&materialManager["gift"])
 			.setBasicTransforms()
 			.finish());
 	}

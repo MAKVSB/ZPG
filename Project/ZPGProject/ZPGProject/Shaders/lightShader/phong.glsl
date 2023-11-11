@@ -61,7 +61,7 @@ float calculateAttenuation(LightStruct light) {
     float quadratic = light.attenuation.z;
 
     float dist = length(light.position - vec4toVec3(ex_worldPosition));
-    return clamp(1.0 / (constant + linear * dist + quadratic * dist * dist), 0.0, light.lightStrength);
+    return clamp(1.0 / (constant + linear * dist + quadratic * dist * dist), 0.0, 1);
 }
 
 //
@@ -81,7 +81,7 @@ vec3 pointLight(LightStruct light) {
     float dotProduct = dot(lightVector, ex_worldNormal);
     float attenuation = calculateAttenuation(light);
 
-    float specStrength = pow(max(dot(viewDir, reflectDir), 0.0), 32.0);
+    float specStrength = pow(max(dot(viewDir, reflectDir), 0.0), light.lightStrength);
     // Check if the light is hitting the back side of the surface
     if (dotProduct < 0.0) {
         specStrength = 0.0;
@@ -101,7 +101,7 @@ vec3 directionalLight(LightStruct light){
     vec3 reflectDir = reflect(-lightVector, ex_worldNormal);
     float dotProduct = dot(lightVector, ex_worldNormal);
 
-    float specStrength = pow(max(dot(viewDir, reflectDir), 0.0), 16);
+    float specStrength = pow(max(dot(viewDir, reflectDir), 0.0), light.lightStrength);
     if (dotProduct < 0.0) {
         specStrength = 0.0;
     }

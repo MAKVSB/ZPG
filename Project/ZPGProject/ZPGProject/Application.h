@@ -10,6 +10,8 @@
 #define _CRTDBG_MAP_ALLOC
 
 #pragma once
+#include <IL/il.h>
+
 #include "GlobalInclude.h"
 
 #include <iostream>
@@ -36,6 +38,7 @@ private:
 	GLFWwindow* window;
 	void inicializeOpenGL();
 	void inicializeImgui();
+	void inicializeDevIL();
 
 	bool imguiEnabled = true;
 

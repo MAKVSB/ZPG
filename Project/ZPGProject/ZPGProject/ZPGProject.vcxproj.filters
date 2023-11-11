@@ -135,6 +135,9 @@
     <ClCompile Include="Scene\Objects\Skybox.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
+    <ClCompile Include="Model\Material\Texture.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -239,7 +242,7 @@
     <ClInclude Include="Scene\Universe\OffsetRotator.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
-    <ClInclude Include="Model\Material.h">
+    <ClInclude Include="Model\Material\Material.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
     <ClInclude Include="Models\plain_indiced.h">
@@ -290,6 +293,12 @@
     <ClInclude Include="Scene\Objects\Skybox.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
+    <ClInclude Include="Model\Material\Texture.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\plain_textured.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragment_shader_color_positional.glsl">
@@ -311,6 +320,11 @@
     <None Include="Shaders\lightShader\constant.glsl" />
     <None Include="Shaders\skybox\vertex.glsl" />
     <None Include="Shaders\skybox\fragment.glsl" />
+    <None Include="Shaders\texturedLightShader\blinn.glsl" />
+    <None Include="Shaders\texturedLightShader\constant.glsl" />
+    <None Include="Shaders\texturedLightShader\lambert.glsl" />
+    <None Include="Shaders\texturedLightShader\phong.glsl" />
+    <None Include="Shaders\texturedLightShader\vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="imgui\LICENSE.txt" />

@@ -42,7 +42,7 @@ void Model::setIndices(std::vector<uint32_t> ind)
 	indices = ind;
 }
 
-void Model::setMaterial(Material m)
+void Model::setMaterial(Material* m)
 {
 	this->material = m;
 }
@@ -64,10 +64,19 @@ GLuint Model::getVertexCount()
 
 void Model::draw() {
 	shader->uploadUniformLocation("modelMatrix", tc->transform());
-	shader->uploadUniformLocation("material.r_a", material.r_a);
-	shader->uploadUniformLocation("material.r_d", material.r_d);
-	shader->uploadUniformLocation("material.r_s", material.r_s);
-	shader->uploadUniformLocation("material.objectColor", material.objectColor);
+
+	if (material != nullptr) {
+		shader->uploadUniformLocation("material.r_a", material->r_a);
+		shader->uploadUniformLocation("material.r_d", material->r_d);
+		shader->uploadUniformLocation("material.r_s", material->r_s);
+		shader->uploadUniformLocation("material.objectColor", material->objectColor);
+	} else {
+		Material m = Material();
+		shader->uploadUniformLocation("material.r_a", m.r_a);
+		shader->uploadUniformLocation("material.r_d", m.r_d);
+		shader->uploadUniformLocation("material.r_s", m.r_s);
+		shader->uploadUniformLocation("material.objectColor", m.objectColor);
+	}
 
 	if (mesh == nullptr) {
 		if (indices.empty()) {
@@ -88,6 +97,10 @@ void Model::draw() {
 		}
 	}
 	else {
+		if (material != nullptr) {
+			material->texture.bindTexture();
+			shader->uploadUniformLocation("textureUnitID", 0);
+		}
 		mesh->draw(*shader);
 	}
 
@@ -112,7 +125,9 @@ void Model::drawDebugElement() {
 
 		// scale
 		ImGui::DragFloat3("Scale", glm::value_ptr(*scale), 0.1f, -100.0f, 100.0f);
-		material.drawDebugElement();
+		if (material != nullptr) {
+			material->drawDebugElement();
+		}
 		//// Light strength
 		//if (ImGui::DragFloat("Strength", &lightStrength, 1, 0.0f, 100.0f)) {
 		//	invalidate();

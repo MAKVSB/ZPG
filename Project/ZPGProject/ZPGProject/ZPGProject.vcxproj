@@ -108,14 +108,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ZPGProject;$(SolutionDir)..\Lib\glew-2.1.0\include;$(SolutionDir)..\Lib\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)..\Lib\Assimp\include;$(SolutionDir)..\Lib\glm-master;$(SolutionDir)..\Lib\imgui-1.89.9;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ZPGProject;$(SolutionDir)..\Lib\glew-2.1.0\include;$(SolutionDir)..\Lib\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)..\Lib\Assimp\include;$(SolutionDir)..\Lib\glm-master;$(SolutionDir)..\Lib\imgui-1.89.9;$(SolutionDir)..\Lib\devil\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\Lib\glew-2.1.0\lib\Release\x64;$(SolutionDir)..\Lib\Assimp\lib\x64;$(SolutionDir)..\Lib\glfw-3.3.8.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;glfw3.lib;glew32.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\Lib\glew-2.1.0\lib\Release\x64;$(SolutionDir)..\Lib\Assimp\lib\x64;$(SolutionDir)..\Lib\glfw-3.3.8.bin.WIN64\lib-vc2022;C:\School\5Sem\zpg\Project\Lib\devil\lib\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glfw3.lib;glew32.lib;assimp-vc143-mt.lib;DevIL.lib;ILU.lib;ILUT.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -150,6 +150,7 @@
     <ClCompile Include="Model\GameObject\GameObjectBuilder.h" />
     <ClCompile Include="Model\Mesh\Mesh.cpp" />
     <ClCompile Include="Model\Mesh\MeshManager.cpp" />
+    <ClCompile Include="Model\Material\Texture.cpp" />
     <ClCompile Include="Scene\Objects\Skybox.cpp" />
     <ClCompile Include="Scene\AssimpLoaderScene\AssimpLoaderScene.cpp" />
     <ClCompile Include="Scene\DefaultScene\HouseObjectGroup.cpp" />
@@ -186,12 +187,14 @@
     <ClInclude Include="Light\LightManager.h" />
     <ClInclude Include="Light\Light.h" />
     <ClInclude Include="Models\plain_indiced.h" />
-    <ClInclude Include="Model\Material.h" />
+    <ClInclude Include="Models\plain_textured.h" />
+    <ClInclude Include="Model\Material\Material.h" />
     <ClInclude Include="Models\bushes.h" />
     <ClInclude Include="Models\gift.h" />
     <ClInclude Include="Models\tree.h" />
     <ClInclude Include="Model\Mesh\Mesh.h" />
     <ClInclude Include="Model\Mesh\MeshManager.h" />
+    <ClInclude Include="Model\Material\Texture.h" />
     <ClInclude Include="Scene\Objects\Skybox.h" />
     <ClInclude Include="Scene\AssimpLoaderScene\AssimpLoaderScene.h" />
     <ClInclude Include="Scene\DefaultScene\HouseObjectGroup.h" />
@@ -233,6 +236,11 @@
     <None Include="Shaders\lightShader\vertex.glsl" />
     <None Include="Shaders\skybox\fragment.glsl" />
     <None Include="Shaders\skybox\vertex.glsl" />
+    <None Include="Shaders\texturedLightShader\blinn.glsl" />
+    <None Include="Shaders\texturedLightShader\constant.glsl" />
+    <None Include="Shaders\texturedLightShader\lambert.glsl" />
+    <None Include="Shaders\texturedLightShader\phong.glsl" />
+    <None Include="Shaders\texturedLightShader\vertex.glsl" />
     <None Include="Shaders\vertex_shader_positional_color.glsl" />
     <None Include="Shaders\vertex_shader_transformative.glsl" />
   </ItemGroup>

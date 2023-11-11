@@ -5,6 +5,7 @@ void GameObject::setPosition(glm::vec3 pos)
 	position->x = pos.x;
 	position->y = pos.y;
 	position->z = pos.z;
+	invalidate();
 }
 
 void GameObject::updatePosition(glm::vec3 pos)
@@ -12,14 +13,15 @@ void GameObject::updatePosition(glm::vec3 pos)
 	position->x += pos.x;
 	position->y += pos.y;
 	position->z += pos.z;
+	invalidate();
 }
-
 
 void GameObject::setRotation(glm::vec3 rot)
 {
 	rotation->x = rot.x;
 	rotation->y = rot.y;
 	rotation->z = rot.z;
+	invalidate();
 }
 
 void GameObject::updateRotation(glm::vec3 rot)
@@ -27,6 +29,7 @@ void GameObject::updateRotation(glm::vec3 rot)
 	rotation->x += rot.x;
 	rotation->y += rot.y;
 	rotation->z += rot.z;
+	invalidate();
 }
 
 void GameObject::setScale(glm::vec3 scl)
@@ -34,6 +37,7 @@ void GameObject::setScale(glm::vec3 scl)
 	scale->x = scl.x;
 	scale->y = scl.y;
 	scale->z = scl.z;
+	invalidate();
 }
 
 void GameObject::updateScale(glm::vec3 scl)
@@ -41,6 +45,7 @@ void GameObject::updateScale(glm::vec3 scl)
 	scale->x += scl.x;
 	scale->y += scl.y;
 	scale->z += scl.z;
+	invalidate();
 }
 
 void GameObject::tick(float deltaTime)
@@ -79,6 +84,10 @@ void GameObject::drawDebugElement()
 			child->drawDebugElement();
 		}
 	}
+}
+
+void GameObject::invalidate()
+{
 }
 
 void GameObject::draw()

@@ -9,7 +9,7 @@
 
 class MeshManager {
 private:
-	std::map<std::string, Mesh> meshMap;
+	std::unordered_map<std::string, Mesh> meshMap;
 public:
 	Mesh* registerMesh(std::string modelName, Mesh modelData);
 	Mesh* getMesh(std::string modelName);

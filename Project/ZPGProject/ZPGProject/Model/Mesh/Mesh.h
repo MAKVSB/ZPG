@@ -6,6 +6,7 @@
 #include "Utils.h"
 
 enum VertexDataFormat {
+	POS3,
 	POS3_NOR3,
 	POS3_NOR3_TEX2,
 };
@@ -48,12 +49,12 @@ public:
 template<typename T, std::size_t N>
 inline Mesh::Mesh(const T(&dataArray)[N], VertexDataFormat df)
 {
-	setVertexData(Utils::convertToVector(dataArray));
+	setVertexData(Utils::convertToVector(dataArray), df);
 }
 
 template<typename T, std::size_t N, typename K, std::size_t M>
 inline Mesh::Mesh(const T(&dataArray)[N], const K(&ind)[M], VertexDataFormat df)
 {
-	setVertexData(Utils::convertToVector(dataArray));
+	setVertexData(Utils::convertToVector(dataArray), df);
 	setIndices(Utils::convertToVector(ind));
 }

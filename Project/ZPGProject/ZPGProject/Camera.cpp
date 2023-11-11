@@ -16,6 +16,11 @@ glm::mat4 Camera::getProjectionMartix() {
 	}
 }
 
+void Camera::invalidate()
+{
+	notify(MessageType::CameraChanged, this);
+}
+
 Camera::Camera(GLFWwindow* wndw)
 {
 	window = wndw;

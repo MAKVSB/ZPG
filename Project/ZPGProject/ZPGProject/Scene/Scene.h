@@ -23,6 +23,7 @@ protected:
 	Camera* camera;
 	LightManager lightManager;
 	MeshManager meshManager;
+	std::unordered_map<std::string, Material> materialManager;
 
 	std::map<std::string, ShaderProgram*> shaderPrograms;
 	std::vector<GameObject*> models;

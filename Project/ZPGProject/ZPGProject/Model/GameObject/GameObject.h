@@ -52,5 +52,7 @@ public:
 	virtual void tick(float deltaTime);
 	virtual void draw();
 	virtual void drawDebugElement();
+
+	virtual void invalidate();
 };
 

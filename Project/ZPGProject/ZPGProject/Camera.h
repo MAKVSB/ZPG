@@ -61,4 +61,5 @@ public:
 	glm::mat4 getProjectionMartix();
 
 	virtual bool isCamera() { return true; };
+	void invalidate();
 };

@@ -74,6 +74,11 @@ void Mesh::setVertexData(std::vector<float> vd, VertexDataFormat df)
 		glEnableVertexAttribArray(2);
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, vertexLength * sizeof(float), (GLvoid*)(6 * sizeof(float)));
 		break;
+	case POS3:
+		vertexLength = 3;
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, vertexLength * sizeof(float), (GLvoid*)0);
+		break;
 	}
 	glBindVertexArray(0);
 	calculateBoundingbox();

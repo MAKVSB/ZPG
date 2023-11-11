@@ -15,12 +15,15 @@ in vec3 ex_worldNormal;
 
 out vec4 out_Color;
 
-void main(void){
-    //temporary constants
-    vec3 lightColor = vec3(1, 1, 1);
-    vec3 objectColor = vec3(0.285, 0.647, 0.812);
+struct Material {
+    vec3 r_a;
+    vec3 r_d;
+    vec3 r_s;
+    vec3 objectColor;
+};
+uniform Material material;
 
-    vec3 ambient = vec3(0.5) * lightColor;
-    out_Color = vec4(ambient * objectColor, 1.0);
+void main(void){
+    out_Color = vec4(material.objectColor, 1.0);
 }
 

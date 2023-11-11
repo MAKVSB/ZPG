@@ -10,7 +10,7 @@
 
 #pragma once
 #include "Scene/Scene.h"
-
+#include "Scene/Objects/Skybox.h"
 extern const float cubeVertexData[];
 extern const float triangleVertexData[];
 extern const float sphere[];

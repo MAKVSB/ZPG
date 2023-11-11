@@ -66,6 +66,11 @@ void Application::inicializeImgui()
 	ImGui::StyleColorsDark();
 }
 
+void Application::inicializeDevIL()
+{
+	ilInit();
+}
+
 Application::~Application()
 {
 	delete sm;
@@ -75,6 +80,7 @@ Application::~Application()
 void Application::initialization() {
 	inicializeOpenGL();
 	inicializeImgui();
+	inicializeDevIL();
 }
 
 void Application::run() {
