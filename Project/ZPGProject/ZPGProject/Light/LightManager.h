@@ -4,7 +4,7 @@
 #include "Light.h"
 #include "ShaderProgram/ShaderProgram.h"
 
-constexpr auto MAX_LIGHTS = 10;
+constexpr auto MAX_LIGHTS = 100;
 
 class LightManager : public Observer, public Observable
 {

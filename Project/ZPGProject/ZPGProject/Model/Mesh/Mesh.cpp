@@ -22,7 +22,6 @@ GLuint Mesh::getVertexCount()
 
 void Mesh::calculateBoundingbox()
 {
-	auto test = "testo";
 	for (std::size_t i = 0; i < vertexData.size(); i += vertexLength) {
 		boundingBox.min.x = std::min(boundingBox.min.x, vertexData[i]);
 		boundingBox.min.y = std::min(boundingBox.min.y, vertexData[i+1]);

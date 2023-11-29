@@ -45,6 +45,7 @@ public:
 	GET_SET(LightType, LightType, lightType)
 	GET_SET(float, LightStrength, lightStrength)
 	GET_SET(float, Cutoff, cutoff)
+	bool enabled = true;
 
 	using GameObject::tick;
 	void tick(float deltaTime);
@@ -59,10 +60,14 @@ public:
 	}
 
 	LightStruct getStruct() {
+		if (!enabled) {
+			auto scutoff = cutoff;
+		}
+
 		LightStruct ls;
 		ls.position = glm::vec4(*position, 0);
 		ls.direction = glm::vec4(lightDirection, 0);
-		ls.color = glm::vec4(lightColor, 0);
+		ls.color = enabled ? glm::vec4(lightColor, 0) : glm::vec4(0);
 		ls.attenuation = glm::vec4(lightAttenuation, 0);
 		ls.lightType = static_cast<float>(lightType);
 		ls.lightStrength = lightStrength;

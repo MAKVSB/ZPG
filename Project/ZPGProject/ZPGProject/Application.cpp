@@ -46,6 +46,8 @@ void Application::inicializeOpenGL()
 	//custom
 	glEnable(GL_DEPTH_TEST);
 	glfwSwapInterval(1);
+	glEnable(GL_STENCIL_TEST);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 
 	//init required singletons
 	CallbackManager::init(window);
@@ -69,6 +71,7 @@ void Application::inicializeImgui()
 void Application::inicializeDevIL()
 {
 	ilInit();
+	iluInit();
 }
 
 Application::~Application()

@@ -16,46 +16,12 @@
 #include "Observer.h"
 class CallbackManager : public Observable
 {
-private:
-	static CallbackManager* instance;
-
-	static void cbError(int error, const char* description);
-
-	static void cbKey(GLFWwindow* window, int key, int scancode, int action, int mods);
-
-	static void cbCursor(GLFWwindow* window, double x, double y);
-
-	static void cbButton(GLFWwindow* window, int button, int action, int mode);
-
-	static void cbWindowFocus(GLFWwindow* window, int focused);
-
-	static void cbIconify(GLFWwindow* window, int iconified);
-
-	static void cbResize(GLFWwindow* window, int width, int height);
-
-	static void cbScroll(GLFWwindow* window, double xoffset, double yoffset);
-
-	static void registerCallbacks(GLFWwindow* window);
-	static void unregisterCallbacks(GLFWwindow* window);
-
-	static std::map<int, int> keypressMap;
-
-	CallbackManager(GLFWwindow* window);
-	~CallbackManager();
-
-	static GLFWwindow* window;
-
 public:
 	struct CBKeyData {
 		int key;
 		int state;
 		int mods;
 		std::map<int, int>* map;
-	};
-
-	struct CBButtonData {
-		int button;
-		int mods;
 	};
 
 	struct CBCursorData {
@@ -81,6 +47,12 @@ public:
 		double y;
 	};
 
+	struct CBButtonData {
+		int button;
+		int mods;
+		CBCursorData mousePos;
+	};
+
 	static CallbackManager* init(GLFWwindow* window) {
 		if (instance == nullptr) {
 			instance = new CallbackManager(window);
@@ -95,5 +67,34 @@ public:
 	static void destroy() {
 		delete instance;
 	}
+private:
+	static CallbackManager* instance;
+
+	static void cbError(int error, const char* description);
+
+	static void cbKey(GLFWwindow* window, int key, int scancode, int action, int mods);
+
+	static void cbCursor(GLFWwindow* window, double x, double y);
+
+	static void cbButton(GLFWwindow* window, int button, int action, int mode);
+
+	static void cbWindowFocus(GLFWwindow* window, int focused);
+
+	static void cbIconify(GLFWwindow* window, int iconified);
+
+	static void cbResize(GLFWwindow* window, int width, int height);
+
+	static void cbScroll(GLFWwindow* window, double xoffset, double yoffset);
+
+	static void registerCallbacks(GLFWwindow* window);
+	static void unregisterCallbacks(GLFWwindow* window);
+
+	static std::map<int, int> keypressMap;
+	static CBCursorData lastMousePos;
+
+	CallbackManager(GLFWwindow* window);
+	~CallbackManager();
+
+	static GLFWwindow* window;
 };
 

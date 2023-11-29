@@ -44,12 +44,17 @@ class ModelLoader
 private:
 	VertexDataFormat vertexDataFormat;
 	MeshManager* meshManager;
+	std::unordered_map<std::string, Material>* materialManager;
+	ShaderProgram* shaderToUse = nullptr;
+
 	int namingIndex = 0;
 
 	std::vector<float>* processVertices(aiMesh& mesh);
 	std::vector<uint32_t>* processIndices(aiMesh& mesh);
 public:
-	ModelLoader(MeshManager* mM, VertexDataFormat = POS3_NOR3);
+	ModelLoader(MeshManager* mM, std::unordered_map<std::string, Material>* mm, VertexDataFormat vdf = POS3_NOR3);
+	ModelLoader(MeshManager* meshM, std::unordered_map<std::string, Material>* matM, ShaderProgram* sp, VertexDataFormat vdf);
+	void processMaterials(const aiScene& scene, std::string filePath);
 	GameObject* loadModel(std::string filePath);
 	void processNode(aiNode& node, const aiScene& scene, GameObject* parentModel, std::string filePath);
 	void applyTransformations(aiNode& node, GameObject* gameObject);

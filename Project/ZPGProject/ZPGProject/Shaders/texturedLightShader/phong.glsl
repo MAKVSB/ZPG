@@ -9,7 +9,7 @@
  **/
 
 #version 420
-#define MAX_LIGHTS          10
+#define MAX_LIGHTS          100
 
 struct LightStruct {
     vec3 position;
@@ -44,13 +44,15 @@ layout(std140, binding = 0) uniform LightArray {
 
 in vec2 ex_texturePosition;
 uniform sampler2D textureUnitID;
+uniform vec2 textureScaler;
+uniform int textureSet;
 
 //
 // helper methods
 //
 
 float degreesToFloat(float inputAngle) {
-    return ((360 - inputAngle) / 180) -1;
+    return ((360 - inputAngle) / 180) - 1;
 }
 
 vec3 vec4toVec3(vec4 inputVec) {
@@ -64,7 +66,7 @@ float calculateAttenuation(LightStruct light) {
     float quadratic = light.attenuation.z;
 
     float dist = length(light.position - vec4toVec3(ex_worldPosition));
-    return clamp(1.0 / (constant + linear * dist + quadratic * dist * dist), 0.0, 1);
+    return clamp(1.0 / (constant + linear * dist + quadratic * dist * dist), 0.0, 1.0);
 }
 
 //
@@ -73,7 +75,11 @@ float calculateAttenuation(LightStruct light) {
 
 vec3 ambientLight(LightStruct light) {
     vec3 ambient = material.r_a * light.color * 0.1;
-    return material.objectColor * ambient;
+
+    if (textureSet == 0) {
+        return material.objectColor * ambient;
+    }
+    return vec3(texture(textureUnitID, ex_texturePosition * textureScaler)) * ambient;
 }
 
 vec3 pointLight(LightStruct light) {
@@ -95,7 +101,11 @@ vec3 pointLight(LightStruct light) {
 
     vec3 diffuse = max(dotProduct, 0.0) * material.r_d;
 
-    return (diffuse + specular) * clamp(vec3(texture(textureUnitID, ex_texturePosition)) * light.color, 0, 1) * attenuation;
+
+    if (textureSet == 0) {
+        return (diffuse + specular) * material.objectColor * light.color * attenuation;
+    }
+    return (diffuse + specular) * clamp(vec3(texture(textureUnitID, ex_texturePosition * textureScaler)) * light.color, 0.0, 1.0) * attenuation;
 }
 
 vec3 directionalLight(LightStruct light){
@@ -114,7 +124,10 @@ vec3 directionalLight(LightStruct light){
 
     vec3 diffuse = max(dotProduct, 0.0) * material.r_d;
 
-    return (diffuse + specular) * clamp(vec3(texture(textureUnitID, ex_texturePosition)) * light.color, 0, 1);
+    if (textureSet == 0) {
+        return (diffuse + specular) * material.objectColor * light.color;
+    }
+    return (diffuse + specular) * clamp(vec3(texture(textureUnitID, ex_texturePosition * textureScaler)) * light.color, 0.0, 1.0);
 }
 
 vec3 spotlightLight(LightStruct light) {
@@ -125,7 +138,9 @@ vec3 spotlightLight(LightStruct light) {
     if (theta <= degreesToFloat(light.cutoff)) {
         return vec3(0.0, 0.0, 0.0);
     }
-    return pointLight(light);
+
+    float smoothFactor = 1 - smoothstep(degreesToFloat(light.cutoff - 8.01f), degreesToFloat(light.cutoff), theta);
+    return pointLight(light) * smoothFactor;
 }
 
 void main(void) {

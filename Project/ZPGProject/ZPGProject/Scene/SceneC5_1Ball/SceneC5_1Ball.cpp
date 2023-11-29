@@ -20,26 +20,26 @@ void SceneC5_1Ball::createModels()
 {
 	meshManager.registerMesh("sphere", sphere);
 
+	materialManager["default"] = Material();
+	materialManager["default"].r_a = glm::vec4(0.5, 0.5, 0.5, 0);
+	materialManager["default"].r_d = glm::vec4(0.5, 0.5, 0.5, 0);
+	materialManager["default"].r_s = glm::vec4(10, 10, 10, 0);
+
 	float distance = 0.7f;
 	
 	Light* light = new Light();
 	light->setPosition(glm::vec3(0, 0, -2));
-	//light->setLightAttenuation(glm::vec3(1, 2, 2));
+	light->setLightType(LightType::POINT);
 	models.push_back(light);
 
 	camera->setPosition(glm::vec3(0, 0, 2));
-
-	Material m;
-	m.r_a = glm::vec4(0.5, 0.5, 0.5, 0);
-	m.r_d = glm::vec4(0.5, 0.5, 0.5, 0);
-	m.r_s = glm::vec4(10, 10, 10, 0);
 
 	models.push_back(ModelBuilder()
 		.setMesh(meshManager.getMesh("sphere"))
 		.setShader(shaderPrograms[std::string("lightShader")])
 		.setPosition(glm::vec3(0, 0, distance))
 		.setScale(glm::vec3(.3f))
-		.setMaterial(&m)
+		.setMaterial(&materialManager["default"])
 		.setBasicTransforms()
 		.finish());
 
@@ -59,6 +59,5 @@ void SceneC5_1Ball::tick(float deltaTime)
 void SceneC5_1Ball::draw()
 {
 	// clear color and depth buffer
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	Scene::draw();
 }

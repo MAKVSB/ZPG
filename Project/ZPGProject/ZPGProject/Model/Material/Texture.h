@@ -5,15 +5,15 @@
 #include <vector>
 
 #include <IL/il.h>
-//#include <IL/ilu.h>
+#include <IL/ilu.h>
 //#include <IL/ilut.h>
 class Texture {
 private:
 	GLuint textureID = -1;
 	GLenum textureType = -1;
-	void loadCubeMapFace(GLenum target, std::string path);
+	void loadCubeMapFace(GLenum target, std::string path, bool flip = false);
 public:
-	void loadTexture2D(std::string path);
+	void loadTexture2D(std::string path, bool flip = false);
 	void createCubeMap(std::vector<std::string> faces, std::string basePath = "");
-	void bindTexture();
+	bool bindTexture();
 };

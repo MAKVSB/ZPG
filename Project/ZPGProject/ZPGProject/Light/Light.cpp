@@ -52,6 +52,9 @@ void Light::drawDebugElement() {
 		if (ImGui::ColorEdit3("color", glm::value_ptr(lightColor))) {
 			invalidate();
 		}
+		if (ImGui::Checkbox("enabled", &enabled)) {
+			invalidate();
+		}
 
 		GameObject::drawDebugElement();
 		ImGui::TreePop();

@@ -31,6 +31,7 @@ public:
 	void addChild(GameObject* child);
 
 	TransformComp* tc = new TransformComp();
+	void setBasicTransforms();
 
 	void setPosition(glm::vec3 pos);
 	void updatePosition(glm::vec3 pos);

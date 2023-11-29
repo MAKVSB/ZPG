@@ -1,10 +1,13 @@
 #include "Texture.h"
 
-void Texture::loadCubeMapFace(GLenum target, std::string path) {
+void Texture::loadCubeMapFace(GLenum target, std::string path, bool flip) {
 	ILuint imageID;
 	ilGenImages(1, &imageID);
 	ilBindImage(imageID);
 	if (ilLoadImage((const ILstring)path.c_str())) {
+		if (flip) {
+			iluFlipImage();
+		}
 		ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
 		glTexImage2D(target, 0, GL_RGBA, ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), 0, GL_RGBA, GL_UNSIGNED_BYTE, ilGetData());
 	}
@@ -12,14 +15,22 @@ void Texture::loadCubeMapFace(GLenum target, std::string path) {
 }
 
 
-void Texture::loadTexture2D(std::string path)
+void Texture::loadTexture2D(std::string path, bool flip)
 {
 	if (textureType != -1) return;
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 
-	loadCubeMapFace(GL_TEXTURE_2D, path);
+	loadCubeMapFace(GL_TEXTURE_2D, path, flip);
 	glGenerateMipmap(GL_TEXTURE_2D);
+
+	// should be default parameters but whatever
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
+
 
 	textureType = GL_TEXTURE_2D;
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -48,12 +59,14 @@ void Texture::createCubeMap(std::vector<std::string> faces, std::string basePath
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 }
 
-void Texture::bindTexture()
+bool Texture::bindTexture()
 {
-	if (textureType != -1) {
+	if (textureType != 4294967295) {
 		glBindTexture(textureType, textureID);
+		return true;
 	}
 	else {
 		glBindTexture(textureType, 0);
+		return false;
 	}
 }

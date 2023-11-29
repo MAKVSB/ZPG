@@ -3,6 +3,8 @@
 CallbackManager* CallbackManager::instance = nullptr;
 GLFWwindow* CallbackManager::window = nullptr;
 std::map<int, int> CallbackManager::keypressMap = std::map<int, int>();
+CallbackManager::CBCursorData CallbackManager::lastMousePos = CBCursorData{ 0, 0 };
+
 
 void CallbackManager::cbError(int error, const char* description) {
 	fputs(description, stderr);
@@ -27,7 +29,7 @@ void CallbackManager::cbKey(GLFWwindow* window, int key, int scancode, int actio
 }
 
 void CallbackManager::cbButton(GLFWwindow* window, int button, int action, int mods) {
-	CBButtonData cbData = CBButtonData{ button, mods };
+	CBButtonData cbData = CBButtonData{ button, mods, CallbackManager::lastMousePos };
 	switch (action)
 	{
 	case GLFW_PRESS:
@@ -41,6 +43,7 @@ void CallbackManager::cbButton(GLFWwindow* window, int button, int action, int m
 
 void CallbackManager::cbCursor(GLFWwindow* window, double x, double y) {
 	CBCursorData cbData = CBCursorData{ x, y };
+	CallbackManager::lastMousePos = cbData;
 	instance->notify(MessageType::MouseMove, &cbData);
 }
 

@@ -27,43 +27,21 @@ protected:
 
 	std::map<std::string, ShaderProgram*> shaderPrograms;
 	std::vector<GameObject*> models;
+
+	bool indexUsageMap[255] = { 0 };
 public:
 
-	Scene(GLFWwindow* wndw) {
-		window = wndw;
-		createShaders();
-		createModels();
-		camera = new Camera(window);
-		models.push_back(camera);
-	};
+	Scene(GLFWwindow* wndw);
+	~Scene();
 
-	~Scene() {
-		for (auto sp : shaderPrograms) {
-			delete sp.second;
-		}
-		for (auto model : models) {
-			delete model;
-		}
-	};
+	void createShaders();
+	void createModels();
 
-	void createShaders() {};
-	void createModels() {};
+	virtual void tick(float deltaTime);
+	virtual void draw();
+	virtual void drawDebugElement();
 
-	virtual void tick(float deltaTime) {
-		for (GameObject* element : models) {
-			element->tick(deltaTime);
-		}
-	};
-
-	virtual void draw() {
-		for (GameObject* element : models) {
-			element->draw();
-		}
-	}
-
-	virtual void drawDebugElement() {
-		for (GameObject* element : models) {
-			element->drawDebugElement();
-		}
-	}
+	GameObject* getGameObjectByIndexRecursive(std::vector<GameObject*> mdls, int index);
+	GameObject* getGameObjectByIndex(int index);
+	int getUnusedIndex(int min = 0, int max = 254);
 };

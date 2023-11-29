@@ -107,6 +107,12 @@ void ShaderProgram::uploadUniformLocation(std::string uniformName, glm::vec3 V) 
 		glProgramUniform3f(shaderProgram, dataLocation, V.x, V.y, V.z);
 }
 
+void ShaderProgram::uploadUniformLocation(std::string uniformName, glm::vec2 V) {
+	GLint dataLocation = getUniformLocation(uniformName);
+	if (dataLocation != -1)
+		glProgramUniform2f(shaderProgram, dataLocation, V.x, V.y);
+}
+
 void ShaderProgram::uploadUniformLocation(std::string uniformName, float f)
 {
 	GLint dataLocation = getUniformLocation(uniformName);

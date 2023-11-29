@@ -161,6 +161,7 @@
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Scene\DefaultScene\DefaultScene.cpp" />
     <ClCompile Include="Scene\ForestScene\ForestScene.cpp" />
+    <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Scene\SceneC5_1Ball\SceneC5_1Ball.cpp" />
     <ClCompile Include="Scene\SceneC5_4Balls\SceneC5_4Balls.cpp" />
     <ClCompile Include="Scene\SceneC5_4Objects\SceneC5_4Objects.cpp" />

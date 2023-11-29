@@ -8,20 +8,20 @@ ForestScene::ForestScene(GLFWwindow* window) : Scene(window) {
 void ForestScene::createShaders()
 {
 	shaderPrograms["lightShader"] = ShaderBuilder()
-		.name("lightShader")
+		.name("lightShader1")
 		.addShader(GL_VERTEX_SHADER, "Shaders/lightShader/vertex.glsl")
 		.addShader(GL_FRAGMENT_SHADER, "Shaders/lightShader/phong.glsl")
 		.compileAndCheck()
 		->setCamera(camera);
 	shaderPrograms["texturedLightShader"] = ShaderBuilder()
-		.name("lightShader")
+		.name("lightShader2")
 		.addShader(GL_VERTEX_SHADER, "Shaders/texturedLightShader/vertex.glsl")
 		.addShader(GL_FRAGMENT_SHADER, "Shaders/texturedLightShader/phong.glsl")
 		.compileAndCheck()
 		->setCamera(camera);
 	lightManager.attachShader(shaderPrograms["lightShader"]);
 	shaderPrograms["skyboxShader"] = ShaderBuilder()
-		.name("skyboxShader")
+		.name("skyboxShader3")
 		.addShader(GL_VERTEX_SHADER, "Shaders/skybox/vertex.glsl")
 		.addShader(GL_FRAGMENT_SHADER, "Shaders/skybox/fragment.glsl")
 		.compileAndCheck()
@@ -155,7 +155,5 @@ void ForestScene::tick(float deltaTime)
 
 void ForestScene::draw()
 {
-	// clear color and depth buffer
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	Scene::draw();
 }

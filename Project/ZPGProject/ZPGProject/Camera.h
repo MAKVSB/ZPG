@@ -40,7 +40,7 @@ private:
 	float yaw = -90;
 	float pitch = 0;
 	float camSensitivity = 0.1f;
-	float camSpeed = 1.5f;
+	float camSpeed = 10;
 	bool mouseFree = false;
 
 public:

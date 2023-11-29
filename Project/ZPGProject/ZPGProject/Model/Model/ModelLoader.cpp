@@ -1,9 +1,39 @@
 #include "ModelLoader.h"
 
-ModelLoader::ModelLoader(MeshManager* mM, VertexDataFormat vdf)
+#include <iostream>
+#include <filesystem>
+
+ModelLoader::ModelLoader(MeshManager* meshM, std::unordered_map<std::string, Material>* matM, VertexDataFormat vdf)
 {
-	meshManager = mM;
+	meshManager = meshM;
     vertexDataFormat = vdf;
+    materialManager = matM;
+}
+
+ModelLoader::ModelLoader(MeshManager* meshM, std::unordered_map<std::string, Material>* matM, ShaderProgram* sp, VertexDataFormat vdf)
+{
+    meshManager = meshM;
+    vertexDataFormat = vdf;
+    materialManager = matM;
+    shaderToUse = sp;
+}
+
+void ModelLoader::processMaterials(const aiScene& scene, std::string fp) {
+    std::filesystem::path filePath = fp;
+    std::filesystem::path folderPath = filePath.parent_path();
+
+    for (int i = 0; i < scene.mNumMaterials; i++) {
+        Material materialData = Material();
+
+        GLuint texIndex = 0;
+        aiString path;
+        aiReturn texFound = scene.mMaterials[i]->GetTexture(aiTextureType_DIFFUSE, texIndex, &path);
+        if (texFound == aiReturn_SUCCESS) {
+            materialData.texture.loadTexture2D(folderPath.string() + "/" + path.C_Str(), true);
+        }
+        (*materialManager)[fp + std::to_string(i)] = materialData;
+        auto test = "test";
+    }
 }
 
 GameObject* ModelLoader::loadModel(std::string filePath)
@@ -19,6 +49,11 @@ GameObject* ModelLoader::loadModel(std::string filePath)
     if (scene.mFlags bitand AI_SCENE_FLAGS_INCOMPLETE or not scene.mRootNode) {
         throw std::runtime_error("Error loading model");
     }
+    GLuint texIndex = 0;
+    aiString path;
+    aiReturn texFound = scene.mMaterials[1]->GetTexture(aiTextureType_DIFFUSE, texIndex, &path);
+
+    processMaterials(scene, filePath);
 
     GameObject* model = new GameObject(); //TODO memory leak 100% find a better way of assigning vertex data from Assimploader
     applyTransformations(*scene.mRootNode, model);
@@ -47,9 +82,10 @@ void ModelLoader::applyTransformations(aiNode& node, GameObject* gameObject) {
     aiQuaternion rotation;
     transformationMatrix.Decompose(scaling, rotation, position);
 
-    gameObject->setPosition(glm::vec3(0, 0, 0));
+    gameObject->setPosition(glm::vec3(position.x, position.y, position.z));
     gameObject->setScale(glm::vec3(scaling.x, scaling.y, scaling.z));
-    //gameObject->setRotation(convertQuaternionToAxisRotations(rotation));
+
+    gameObject->setBasicTransforms();
 }
 
 
@@ -62,9 +98,15 @@ Model* ModelLoader::processMesh(aiMesh& mesh, aiNode& node, const aiScene& scene
     std::vector<float>* vertexData = processVertices(mesh);
     std::vector<uint32_t>* indices = processIndices(mesh);
 
-    model->setMesh(meshManager->registerMesh(filePath + std::to_string(++namingIndex), Mesh(*vertexData, *indices)));
+    if (mesh.mMaterialIndex != 0) {
+        model->setMaterial(&(*materialManager)[filePath + std::to_string(mesh.mMaterialIndex)]);
+    }
 
-    //const Material& mat = model.materials[mesh.mMaterialIndex];
+    if (shaderToUse) {
+        model->setShader(shaderToUse);
+    }
+
+    model->setMesh(meshManager->registerMesh(filePath + std::to_string(++namingIndex), Mesh(*vertexData, *indices, vertexDataFormat)));
 
     return model;
 }
@@ -79,17 +121,16 @@ std::vector<float>* ModelLoader::processVertices(aiMesh& mesh) {
         vertexData->push_back(mesh.mNormals[i].x);
         vertexData->push_back(mesh.mNormals[i].y);
         vertexData->push_back(mesh.mNormals[i].z);
-        //if (mesh.mTextureCoords[0]) {
-        //    vertexData->push_back(mesh.mTextureCoords[0][i].x);
-        //    vertexData->push_back(mesh.mTextureCoords[0][i].y);
-        //}
-        //else {
-        //    vertexData->push_back(0);
-        //    vertexData->push_back(0);
-        //}
-        //vertexData->push_back(mesh.mTangents[i].x);
-        //vertexData->push_back(mesh.mTangents[i].y);
-        //vertexData->push_back(mesh.mTangents[i].z);
+
+        if (vertexDataFormat == POS3_NOR3_TEX2) {
+            if (mesh.HasTextureCoords(0)) {
+                vertexData->push_back(mesh.mTextureCoords[0][i].x);
+                vertexData->push_back(mesh.mTextureCoords[0][i].y);
+            } else {
+                vertexData->push_back(0);
+                vertexData->push_back(0);
+            }
+        }
     }
     return vertexData;
 }

@@ -40,4 +40,5 @@ public:
 	Skybox();
 	using Model::draw;
 	void draw();
+	void drawDebugElement();
 };

@@ -17,7 +17,13 @@ out vec4 out_Color;
 
 in vec2 ex_texturePosition;
 uniform sampler2D textureUnitID;
+uniform vec2 textureScaler;
+uniform int textureSet;
 
-void main(void){
-    out_Color = texture(textureUnitID, ex_texturePosition);
+void main(void) {
+    if (textureSet == 0){
+        out_Color = vec4(material.objectColor, 1.0);
+        return;
+    }
+    out_Color = texture(textureUnitID, ex_texturePosition * textureScaler);
 }

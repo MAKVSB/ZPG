@@ -48,6 +48,12 @@ void GameObject::updateScale(glm::vec3 scl)
 	invalidate();
 }
 
+void GameObject::setBasicTransforms() {
+	tc->addScaleTransform(getScale());
+	tc->addRotationTransform(getRotation());
+	tc->addTranlateTransform(getPosition());
+};
+
 void GameObject::tick(float deltaTime)
 {
 	for (GameObject* child : childs) {

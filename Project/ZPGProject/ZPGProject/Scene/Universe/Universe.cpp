@@ -170,7 +170,5 @@ void UniverseScene::tick(float deltaTime)
 
 void UniverseScene::draw()
 {
-	// clear color and depth buffer
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	Scene::draw();
 }

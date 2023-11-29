@@ -9,7 +9,7 @@
  **/
 
 #version 420
-#define MAX_LIGHTS          10
+#define MAX_LIGHTS          100
 
 struct LightStruct {
     vec3 position;
@@ -61,7 +61,7 @@ float calculateAttenuation(LightStruct light) {
     float quadratic = light.attenuation.z;
 
     float dist = length(light.position - vec4toVec3(ex_worldPosition));
-    return clamp(1.0 / (constant + linear * dist + quadratic * dist * dist), 0.0, 1);
+    return clamp(1.0 / (constant + linear * dist + quadratic * dist * dist), 0.0, 1.0);
 }
 
 //
@@ -122,7 +122,10 @@ vec3 spotlightLight(LightStruct light) {
     if (theta <= degreesToFloat(light.cutoff)) {
         return vec3(0.0, 0.0, 0.0);
     }
-    return pointLight(light);
+
+    float smoothFactor = 1 - smoothstep(degreesToFloat(light.cutoff - 8.01f), degreesToFloat(light.cutoff), theta);
+
+    return pointLight(light) * smoothFactor;
 }
 
 void main(void) {

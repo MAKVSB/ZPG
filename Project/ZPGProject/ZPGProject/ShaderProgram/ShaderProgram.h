@@ -61,6 +61,7 @@ public:
 
 	void uploadUniformLocation(std::string uniformName, glm::mat4 M);
 	void uploadUniformLocation(std::string uniformName, glm::vec3 V);
+	void uploadUniformLocation(std::string uniformName, glm::vec2 V);
 	void uploadUniformLocation(std::string uniformName, float f);
 	void uploadUniformLocation(std::string uniformName, int i);
 	void bindUniformObject(std::string uniformName, int bufferId, int bufferSize);

@@ -23,29 +23,23 @@
 class Model : public GameObject
 {
 private:
-	GLuint VBO = -1;
 	GLuint materialUBO = -1;
-	VertexDataFormat dataFormat = VertexDataFormat::POS3_NOR3;
-	int vertexLength = -1;
-
+	glm::vec2 textureScale = glm::vec2(1, 1);
+	GLuint objectId = 0;
 public:
-	GLuint VAO = -1;
 	ShaderProgram* shader = nullptr;
 	Mesh* mesh = nullptr;
-
-	std::vector<float>* vertexData;
-	std::vector<uint32_t> indices;
 	Material* material = nullptr;
 
 	void setMesh(Mesh* mesh);
-	void setVertexData(std::vector<float>* vd, VertexDataFormat df = VertexDataFormat::POS3_NOR3);
-	void setIndices(std::vector<uint32_t> ind);
 	void setMaterial(Material* m);
 	void setShader(ShaderProgram* sp);
+	void setTextureScale(glm::vec2 ts);
+	void setId(GLuint id);
+	GLuint getId();
 
 	virtual ~Model();
 
-	GLuint getVertexCount();
 	using GameObject::draw;
 	void draw() override;
 	using GameObject::tick;

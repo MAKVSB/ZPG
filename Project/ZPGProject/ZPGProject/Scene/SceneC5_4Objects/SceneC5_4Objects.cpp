@@ -124,7 +124,5 @@ void SceneC5_4Objects::tick(float deltaTime)
 
 void SceneC5_4Objects::draw()
 {
-	// clear color and depth buffer
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	Scene::draw();
 }
