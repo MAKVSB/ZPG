@@ -22,7 +22,7 @@ void ModelLoader::processMaterials(const aiScene& scene, std::string fp) {
     std::filesystem::path filePath = fp;
     std::filesystem::path folderPath = filePath.parent_path();
 
-    for (int i = 0; i < scene.mNumMaterials; i++) {
+    for (unsigned int i = 0; i < scene.mNumMaterials; i++) {
         Material materialData = Material();
 
         GLuint texIndex = 0;

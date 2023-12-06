@@ -53,7 +53,7 @@ void SceneC5_4Balls::createModels()
 	Light* light2 = new Light();
 	light2->setLightType(LightType::DIRECTIONAL);
 	light2->setPosition(glm::vec3(0, 0, 0));
-	light2->setLightDirection(glm::vec3(1, 0, 0));
+	light2->setRotation(glm::vec3(1, 0, 0));
 	light2->setLightColor(glm::vec3(1, 1, 1));
 	light2->setLightAttenuation(glm::vec3(1, 0.36f, 0.256f));
 	light2->setLightStrength(32.0f);
@@ -62,7 +62,7 @@ void SceneC5_4Balls::createModels()
 	Light* light3 = new Light();
 	light3->setLightType(LightType::SPOTLIGHT);
 	light3->setPosition(glm::vec3(0, 0, 0));
-	light3->setLightDirection(glm::vec3(1, 0, 0));
+	light3->setRotation(glm::vec3(1, 0, 0));
 	light3->setLightColor(glm::vec3(1, 1, 1));
 	light3->setLightAttenuation(glm::vec3(1, 0.36f, 0.256f));
 	light3->setLightStrength(32.0f);
@@ -71,7 +71,7 @@ void SceneC5_4Balls::createModels()
 	Light* light4 = new Light();
 	light4->setLightType(LightType::POINT);
 	light4->setPosition(glm::vec3(0, 0, 0));
-	light4->setLightDirection(glm::vec3(1, 0, 0));
+	light4->setRotation(glm::vec3(1, 0, 0));
 	light4->setLightColor(glm::vec3(1, 1, 1));
 	light4->setLightAttenuation(glm::vec3(1, 0.36f, 0.256f));
 	light4->setLightStrength(32.0f);

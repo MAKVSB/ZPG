@@ -151,6 +151,7 @@
     <ClCompile Include="Model\Mesh\Mesh.cpp" />
     <ClCompile Include="Model\Mesh\MeshManager.cpp" />
     <ClCompile Include="Model\Material\Texture.cpp" />
+    <ClCompile Include="Scene\MoveScene\MoveScene.cpp" />
     <ClCompile Include="Scene\Objects\Skybox.cpp" />
     <ClCompile Include="Scene\AssimpLoaderScene\AssimpLoaderScene.cpp" />
     <ClCompile Include="Scene\DefaultScene\HouseObjectGroup.cpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="ShaderProgram\ShaderBuilder.cpp" />
     <ClCompile Include="ShaderProgram\Shader.cpp" />
     <ClCompile Include="ShaderProgram\ShaderProgram.cpp" />
+    <ClCompile Include="Transforms\LineTransform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -196,6 +198,7 @@
     <ClInclude Include="Model\Mesh\Mesh.h" />
     <ClInclude Include="Model\Mesh\MeshManager.h" />
     <ClInclude Include="Model\Material\Texture.h" />
+    <ClInclude Include="Scene\MoveScene\MoveScene.h" />
     <ClInclude Include="Scene\Objects\Skybox.h" />
     <ClInclude Include="Scene\AssimpLoaderScene\AssimpLoaderScene.h" />
     <ClInclude Include="Scene\DefaultScene\HouseObjectGroup.h" />
@@ -220,6 +223,9 @@
     <ClInclude Include="ShaderProgram\Shader.h" />
     <ClInclude Include="ShaderProgram\ShaderProgram.h" />
     <ClInclude Include="Model\Model\Model.h" />
+    <ClInclude Include="Transforms\BezierTransform.h" />
+    <ClInclude Include="Transforms\PolyBezierTransform.h" />
+    <ClInclude Include="Transforms\PolyLineTransform.h" />
     <ClInclude Include="Transforms\RotationTransform.h" />
     <ClInclude Include="Transforms\ScaleTransform.h" />
     <ClInclude Include="Transforms\Transform.h" />

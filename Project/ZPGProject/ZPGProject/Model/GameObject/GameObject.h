@@ -21,11 +21,14 @@ protected:
 	glm::vec3* position;
 	glm::vec3* rotation;
 	glm::vec3* scale;
+
+	GLuint objectId = 0;
 public:
 	GameObject();
 	virtual ~GameObject();
 
 	std::string name;
+	GameObject* parent = nullptr;
 
 	std::vector<GameObject*> childs;
 	void addChild(GameObject* child);
@@ -44,6 +47,9 @@ public:
 	void setScale(glm::vec3 scl);
 	void updateScale(glm::vec3 pos);
 	glm::vec3* getScale() { return scale; };
+
+	void setId(GLuint id);
+	GLuint getId();
 
 	virtual bool isCamera() { return false; };
 	virtual bool isModel() { return false; };

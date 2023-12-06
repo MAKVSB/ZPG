@@ -66,17 +66,20 @@ void GameObject::drawDebugElement()
 	if (isGroup()) {
 		ImGui::Begin("Object Debugger");
 		std::string objectName(name);
-		objectName += "GameObject(" + std::to_string((int)this) + ")";
+		objectName += "GameObject (" + std::to_string((uintptr_t)this) + ")";
 		if (ImGui::TreeNode(objectName.c_str())) {
 			// position
-			ImGui::DragFloat3("Position", glm::value_ptr(*position), 0.1f, -100.0f, 100.0f);
-
+			if (ImGui::DragFloat3("Position", glm::value_ptr(*position), 1, -100.0f, 100.0f)) {
+				invalidate();
+			}
 			// rotation
-			ImGui::DragFloat3("Rotation", glm::value_ptr(*rotation), 0.1f, -100.0f, 100.0f);
-
+			if (ImGui::DragFloat3("Rotation", glm::value_ptr(*rotation), 1, -100.0f, 100.0f)) {
+				invalidate();
+			}
 			// scale
-			ImGui::DragFloat3("Scale", glm::value_ptr(*scale), 0.1f, 0.0f, 100.0f);
-
+			if (ImGui::DragFloat3("Scale", glm::value_ptr(*scale), 1, -100.0f, 100.0f)) {
+				invalidate();
+			}
 			for (GameObject* child : childs) {
 				child->drawDebugElement();
 			}
@@ -92,8 +95,21 @@ void GameObject::drawDebugElement()
 	}
 }
 
+void GameObject::setId(GLuint id)
+{
+	objectId = id;
+}
+
+GLuint GameObject::getId()
+{
+	return objectId;
+}
+
 void GameObject::invalidate()
 {
+	for (GameObject* child : childs) {
+		child->invalidate();
+	}
 }
 
 void GameObject::draw()
@@ -124,6 +140,7 @@ GameObject::~GameObject()
 
 void GameObject::addChild(GameObject* child)
 {
+	child->parent = this;
 	childs.emplace_back(child);
 	child->tc->add(tc);
 }

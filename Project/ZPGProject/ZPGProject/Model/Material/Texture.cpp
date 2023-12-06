@@ -43,7 +43,7 @@ void Texture::createCubeMap(std::vector<std::string> faces, std::string basePath
 	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
 
 	// Specify each face of the cube map and load the respective image
-	for (size_t i = 0; i < 6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		loadCubeMapFace(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, basePath + faces[i]);
 	}

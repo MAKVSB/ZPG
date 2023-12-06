@@ -20,16 +20,6 @@ void Model::setTextureScale(glm::vec2 ts)
 	textureScale = ts;
 }
 
-void Model::setId(GLuint id)
-{
-	objectId = id;
-}
-
-GLuint Model::getId()
-{
-	return objectId;
-}
-
 Model::~Model()
 {
 }
@@ -78,13 +68,17 @@ void Model::drawDebugElement() {
 	objectName += "Model (" + std::to_string((uintptr_t)this) + ")";
 	if (ImGui::TreeNode(objectName.c_str())) {
 		// position
-		ImGui::DragFloat3("Position", glm::value_ptr(*position), 1, -100.0f, 100.0f);
-
+		if (ImGui::DragFloat3("Position", glm::value_ptr(*position), 1, -100.0f, 100.0f)) {
+			invalidate();
+		}
 		// rotation
-		ImGui::DragFloat3("Rotation", glm::value_ptr(*rotation), 1, -100.0f, 100.0f);
-
+		if (ImGui::DragFloat3("Rotation", glm::value_ptr(*rotation), 1, -100.0f, 100.0f)) {
+			invalidate();
+		}
 		// scale
-		ImGui::DragFloat3("Scale", glm::value_ptr(*scale), 1, -100.0f, 100.0f);
+		if (ImGui::DragFloat3("Scale", glm::value_ptr(*scale), 1, -100.0f, 100.0f)) {
+			invalidate();
+		}
 		if (material != nullptr) {
 			material->drawDebugElement();
 		}

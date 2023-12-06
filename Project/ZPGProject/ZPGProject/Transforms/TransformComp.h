@@ -51,4 +51,8 @@ public:
 	void addScaleTransform(glm::vec3* vec) {
 		transformList.emplace_back(new ScaleTransform(vec));
 	}
+
+	size_t size() {
+		return transformList.size();
+	}
 };

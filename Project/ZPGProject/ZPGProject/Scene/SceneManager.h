@@ -11,6 +11,7 @@
 #include "Scene/ForestScene/ForestScene.h"
 #include "Scene/Universe/Universe.h"
 #include "Scene/AssimpLoaderScene/AssimpLoaderScene.h"
+#include "Scene/MoveScene/MoveScene.h"
 
 class SceneManager: public Observer {
 private:

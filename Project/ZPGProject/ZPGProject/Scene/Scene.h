@@ -1,6 +1,7 @@
 #pragma once
 #include "GlobalInclude.h"
 #include <map>
+#include <regex>
 #include "ShaderProgram/ShaderProgram.h"
 #include "ShaderProgram/ShaderBuilder.h"
 #include "Model/Model/Model.h"
@@ -32,7 +33,7 @@ protected:
 public:
 
 	Scene(GLFWwindow* wndw);
-	~Scene();
+	virtual ~Scene();
 
 	void createShaders();
 	void createModels();
@@ -41,7 +42,8 @@ public:
 	virtual void draw();
 	virtual void drawDebugElement();
 
-	GameObject* getGameObjectByIndexRecursive(std::vector<GameObject*> mdls, int index);
-	GameObject* getGameObjectByIndex(int index);
-	int getUnusedIndex(int min = 0, int max = 254);
+	bool matchWithWildcard(const std::string& pattern, const std::string& text);
+	GameObject* getGameObjectByIndexRecursive(std::vector<GameObject*> mdls, int index, std::string nameFilterPattern);
+	GameObject* getGameObjectByIndex(int index, std::string nameFilterPattern = "");
+	int getUnusedIndex(int min = 1, int max = 254);
 };

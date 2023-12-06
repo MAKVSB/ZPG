@@ -11,6 +11,10 @@ void CallbackManager::cbError(int error, const char* description) {
 }
 
 void CallbackManager::cbKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
+	auto& io = ImGui::GetIO();
+	if (io.WantCaptureKeyboard) {
+		return;
+	}
 	keypressMap[key] = action;
 	CBKeyData cbData = CBKeyData{ key, action, mods, &keypressMap };
 	switch (action)
@@ -29,6 +33,10 @@ void CallbackManager::cbKey(GLFWwindow* window, int key, int scancode, int actio
 }
 
 void CallbackManager::cbButton(GLFWwindow* window, int button, int action, int mods) {
+	auto& io = ImGui::GetIO();
+	if (io.WantCaptureMouse) {
+		return;
+	}
 	CBButtonData cbData = CBButtonData{ button, mods, CallbackManager::lastMousePos };
 	switch (action)
 	{

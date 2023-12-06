@@ -49,6 +49,8 @@ public:
 		return static_cast<BT&>(*this);
 	};
 
+	BT& setId(GLuint id) { model->setId(id); return static_cast<BT&>(*this); };
+
 	T* finish() { return model; };
 };
 
@@ -63,7 +65,6 @@ public:
 	BT& setMaterial(Material* m) { model->setMaterial(m); return static_cast<BT&>(*this); };
 	BT& setMesh(Mesh* mesh) { model->setMesh(mesh); return static_cast<BT&>(*this); };
 	BT& setTextureScale(glm::vec2 ts) { model->setTextureScale(ts); return static_cast<BT&>(*this); };
-	BT& setId(GLuint id) { model->setId(id); return static_cast<BT&>(*this); };
 };
 
 class ModelBuilder : public ModelBuilderSpec<ModelBuilder> {};

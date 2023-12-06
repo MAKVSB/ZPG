@@ -25,7 +25,6 @@ class Model : public GameObject
 private:
 	GLuint materialUBO = -1;
 	glm::vec2 textureScale = glm::vec2(1, 1);
-	GLuint objectId = 0;
 public:
 	ShaderProgram* shader = nullptr;
 	Mesh* mesh = nullptr;
@@ -35,8 +34,6 @@ public:
 	void setMaterial(Material* m);
 	void setShader(ShaderProgram* sp);
 	void setTextureScale(glm::vec2 ts);
-	void setId(GLuint id);
-	GLuint getId();
 
 	virtual ~Model();
 

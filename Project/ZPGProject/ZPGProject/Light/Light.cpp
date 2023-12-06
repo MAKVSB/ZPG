@@ -37,7 +37,7 @@ void Light::drawDebugElement() {
 		if (ImGui::DragFloat3("Position", glm::value_ptr(*position), 0.1f, -100.0f, 100.0f)) {
 			invalidate();
 		}
-		if (ImGui::DragFloat3("Direction", glm::value_ptr(lightDirection), 0.1f, -100.0f, 100.0f)) {
+		if (ImGui::DragFloat3("Direction", glm::value_ptr(*rotation), 0.1f, -100.0f, 100.0f)) {
 			invalidate();
 		}
 		if (ImGui::DragFloat3("Attenuation", glm::value_ptr(lightAttenuation), 0.1f, 0.0f, 100.0f)) {
@@ -62,4 +62,28 @@ void Light::drawDebugElement() {
 
 	// End the window
 	ImGui::End();
+}
+
+void Light::invalidate() {
+	notify(MessageType::LightChanged, this);
+	GameObject::invalidate();
+}
+
+LightStruct Light::getStruct() {
+	LightStruct ls;
+	ls.position = glm::vec4(*position, 0);
+	ls.direction = glm::vec4(*rotation, 0);
+	ls.color = enabled ? glm::vec4(lightColor, 0) : glm::vec4(0);
+	ls.attenuation = glm::vec4(lightAttenuation, 0);
+	ls.lightType = static_cast<float>(lightType);
+	ls.lightStrength = lightStrength;
+	ls.cutoff = cutoff;
+
+	if (parent != nullptr) {
+		glm::mat4 translatedMatrix = glm::translate(parent->tc->transform(), *position);
+		ls.position = glm::vec4(glm::vec3(translatedMatrix[3]) / translatedMatrix[3][3], 0);
+		ls.direction = glm::vec4(glm::mat3(translatedMatrix) * *rotation, 0);
+	}
+
+	return ls;
 }

@@ -150,7 +150,7 @@ void ForestScene::tick(float deltaTime)
 	Scene::tick(deltaTime);
 	alight->setPosition(*camera->getPosition());
 	alight2->setPosition(*camera->getPosition());
-	alight->setLightDirection(*camera->getRotation());
+	alight->setRotation(*camera->getRotation());
 }
 
 void ForestScene::draw()

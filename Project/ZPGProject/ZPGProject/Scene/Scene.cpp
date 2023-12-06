@@ -44,20 +44,31 @@ void Scene::drawDebugElement() {
 	}
 }
 
-GameObject* Scene::getGameObjectByIndexRecursive(std::vector<GameObject*> mdls, int index)
+bool Scene::matchWithWildcard(const std::string& pattern, const std::string& text) {
+	std::string regexPattern = std::regex_replace(pattern, std::regex("\\*"), ".*");
+	return std::regex_match(text, std::regex(regexPattern));
+}
+
+GameObject* Scene::getGameObjectByIndexRecursive(std::vector<GameObject*> mdls, int index, std::string nameFilterPattern)
 {
 	for (GameObject* object : mdls) {
-		if (!object->childs.empty()) getGameObjectByIndexRecursive(object->childs, index);
-		if (object->isModel() && ((Model*)object)->getId() == index) {
+		if (!object->childs.empty()) {
+			GameObject* retObj = getGameObjectByIndexRecursive(object->childs, index, nameFilterPattern);
+			if (retObj != nullptr) {
+				return retObj;
+			}
+		}
+			
+		if (object->getId() == index && (nameFilterPattern == "" || matchWithWildcard(nameFilterPattern, object->name))) {
 			return object;
 		}
 	}
 	return nullptr;
 }
 
-GameObject* Scene::getGameObjectByIndex(int index)
+GameObject* Scene::getGameObjectByIndex(int index, std::string nameFilterPattern)
 {
-	return getGameObjectByIndexRecursive(models, index);
+	return getGameObjectByIndexRecursive(models, index, nameFilterPattern);
 }
 
 int Scene::getUnusedIndex(int min, int max)

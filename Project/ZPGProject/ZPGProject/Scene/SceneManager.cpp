@@ -21,11 +21,12 @@ void SceneManager::registerScenes()
 	registerScene(std::type_index(typeid(ForestScene)), "Forest scene", "");
 	registerScene(std::type_index(typeid(UniverseScene)), "Universe", "");
 	registerScene(std::type_index(typeid(AssimpLoaderScene)), "AssimpLoaderScene", "");
+	registerScene(std::type_index(typeid(MoveScene)), "MoveScene", "");
 }
 
 void SceneManager::printSceneMenu() {
 	int i = 1;
-	for (auto scn : scenes) {
+	for (SceneStruct& scn : scenes) {
 		printf("%d: %s (%s)\n", i, scn.name.c_str(), scn.desc.c_str());
 		i++;
 	}
@@ -72,7 +73,9 @@ Scene* SceneManager::sceneSelector()
 		return new UniverseScene(window);
 	} else if (scenes[value].type == std::type_index(typeid(AssimpLoaderScene))) {
 		return new AssimpLoaderScene(window);
-	} else {
+	} else if (scenes[value].type == std::type_index(typeid(MoveScene))) {
+		return new MoveScene(window);
+	}else {
 		return new DefaultScene(window);
 	}
 }
