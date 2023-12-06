@@ -69,14 +69,15 @@ public:
 		}
 
 		// Limit t to prevent going beyond the last cubic
-		if (t > static_cast<float>(pointsVector.size() - 1) / 3) {
-			t = static_cast<float>(pointsVector.size() - 1) / 3;
+		if (t > static_cast<int>(pointsVector.size() - 1) / 3) {
+			t = (static_cast<int>(pointsVector.size() - 1) / 3) - 0.01f;
 		}
 
 		while (t > 1) {
 			i += 3;
 			t -= 1;
 		}
+
 		glm::mat4x3 points = glm::mat4x3(
 			pointsVector[i + 0],
 			pointsVector[i + 1],
@@ -121,7 +122,7 @@ public:
 
 	glm::mat4 transform(glm::mat4 m = glm::mat4(1)) {
 		m = m * glm::translate(m, PolyBezierTransformStatic::transformPartial(*coefs, *pointsVector, *parameterPointer, smooth));
-		//m = m * PolyBezierTransformStatic::calculateRotation(*coefs, *pointsVector, *parameterPointer, 0);
+		m = m * PolyBezierTransformStatic::calculateRotation(*coefs, *pointsVector, *parameterPointer, 0);
 		return m;
 	}
 };

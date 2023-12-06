@@ -403,7 +403,7 @@ void AssimpLoaderScene::tick(float deltaTime)
 			if (seaHawkPoints.size() == 1) {
 				moveTimeBezier = 1;
 			}
-			else if (moveTimeBezier >= static_cast<float>(seaHawkPoints.size() - 1) / 3 || moveTimeBezier <= 0) {
+			else if (moveTimeBezier >= static_cast<int>(seaHawkPoints.size() - 1) / 3 || moveTimeBezier <= 0) {
 				moveDelta *= -1;
 			}
 			break;
