@@ -56,9 +56,9 @@ public:
 	float moveTimeBezier = 0.1f;
 	float moveDelta = 0.1f;
 	glm::mat4 coefs = glm::mat4(
-		glm::vec4(-1.0, 3.0, -3.0, 1.0),
-		glm::vec4(3.0, -6.0, 3.0, 0),
-		glm::vec4(-3.0, 3.0, 0, 0),
+		glm::vec4(-1, 3, -3, 1),
+		glm::vec4(3, -6, 3, 0),
+		glm::vec4(-3, 3, 0, 0),
 		glm::vec4(1, 0, 0, 0)
 	);
 	std::vector<glm::vec3> seaHawkPoints;

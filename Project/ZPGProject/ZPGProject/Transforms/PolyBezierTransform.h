@@ -122,7 +122,7 @@ public:
 
 	glm::mat4 transform(glm::mat4 m = glm::mat4(1)) {
 		m = m * glm::translate(m, PolyBezierTransformStatic::transformPartial(*coefs, *pointsVector, *parameterPointer, smooth));
-		m = m * PolyBezierTransformStatic::calculateRotation(*coefs, *pointsVector, *parameterPointer, 0);
+		//m = m * PolyBezierTransformStatic::calculateRotation(*coefs, *pointsVector, *parameterPointer, 0);
 		return m;
 	}
 };
