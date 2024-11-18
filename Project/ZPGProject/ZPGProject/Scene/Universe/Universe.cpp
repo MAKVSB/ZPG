@@ -66,10 +66,10 @@ void UniverseScene::createModels()
 	models.push_back(light);
 
 	materialManager["grass"] = Material();
-	materialManager["grass"].texture.loadTexture2D("C:/Users/mdani/Downloads/multipletextures/grass.png");
+	materialManager["grass"].texture.loadTexture2D("Models/grass.png");
 	materialManager["skybox"] = Material();
 	materialManager["skybox"].r_a = glm::vec3(.1f);
-	materialManager["skybox"].texture.createCubeMap({ "posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg" }, "C:/Users/mdani/Downloads/cubemap/");
+	materialManager["skybox"].texture.createCubeMap({ "posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg" }, "Models/Cubemap/");
 	
 	// skybox
 	skybox = new Skybox();
@@ -93,12 +93,12 @@ void UniverseScene::createModels()
 		.finish());
 
 	//sun
-	/*models.push_back(GameObjectBuilder<OffsetRotator>()
+	models.push_back(GameObjectBuilder<OffsetRotator>()
 		.addTransform(new ScaleTransform(&globalscale))
 		.addChild(ModelBuilder()
 			.name("sun")
 			.setMesh(meshManager.getMesh("plainTextured"))
-			.setMaterial(mat)
+			//.setMaterial(mat)
 			.addTransform(new ScaleTransform(&sunScale))
 			.addTransform(new RotationTransform(&sunRotationInner))
 			.setShader(shaderPrograms[std::string("lightShader")])
@@ -138,7 +138,7 @@ void UniverseScene::createModels()
 				.finish())
 			.finish())
 		.finish()
-	);*/
+	);
 
 	models[0]->getPosition()->z = 4;
 	camera->invalidate();
@@ -147,25 +147,25 @@ void UniverseScene::createModels()
 
 void UniverseScene::tick(float deltaTime)
 {
-	//deltaTime = deltaTime * .5f;
+	deltaTime = deltaTime * .5f;
 	Scene::tick(deltaTime);
 
-	//sunRotationInner.x += deltaTime * 1.5f;
-	//sunRotationInner.z += deltaTime * 1.5f;
+	sunRotationInner.x += deltaTime * 1.5f;
+	sunRotationInner.z += deltaTime * 1.5f;
 
-	//mercurRotation.z += deltaTime;
-	//mercurRotationInner.x += deltaTime * 1.5f;
-	//mercurRotationInner.z += deltaTime * 1.5f;
+	mercurRotation.z += deltaTime;
+	mercurRotationInner.x += deltaTime * 1.5f;
+	mercurRotationInner.z += deltaTime * 1.5f;
 
-	//earthRotation.z += deltaTime * -.5f;
-	//earthRotationInner.x += deltaTime * 1.5f;
-	//earthRotationInner.y += deltaTime * 15;
-	//earthRotationInner.z += deltaTime * 1.5f;
+	earthRotation.z += deltaTime * -.5f;
+	earthRotationInner.x += deltaTime * 1.5f;
+	earthRotationInner.y += deltaTime * 15;
+	earthRotationInner.z += deltaTime * 1.5f;
 
-	//moonRotation.z += deltaTime * 2;
-	//moonRotationInner.x += deltaTime * 1.5f;
-	//moonRotationInner.y += deltaTime * 1.5f;
-	//moonRotationInner.z += deltaTime * 1.5f;
+	moonRotation.z += deltaTime * 2;
+	moonRotationInner.x += deltaTime * 1.5f;
+	moonRotationInner.y += deltaTime * 1.5f;
+	moonRotationInner.z += deltaTime * 1.5f;
 }
 
 void UniverseScene::draw()

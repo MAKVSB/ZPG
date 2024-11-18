@@ -47,10 +47,10 @@ void AssimpLoaderScene::createModels()
 	meshManager.registerMesh("tree", Mesh(tree));
 
 	materialManager["grass"] = Material();
-	materialManager["grass"].texture.loadTexture2D("C:/School/5Sem/zpg/nemcovy_scripty/grass.png");
+	materialManager["grass"].texture.loadTexture2D("Models/grass.png");
 	materialManager["skybox"] = Material();
 	materialManager["skybox"].r_a = glm::vec3(.05f);
-	materialManager["skybox"].texture.createCubeMap({ "posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg" }, "C:/Users/mdani/Downloads/cubemap/");
+	materialManager["skybox"].texture.createCubeMap({ "posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg" }, "Models/Cubemap/");
 	materialManager["gift0"] = Material();
 	materialManager["gift0"].r_s = glm::vec4(6);
 	materialManager["gift0"].objectColor = glm::vec3(0.9f, 0.9f, 0.2f);
