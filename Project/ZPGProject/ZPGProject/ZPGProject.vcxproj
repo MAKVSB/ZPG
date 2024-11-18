@@ -114,7 +114,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\Lib\glew-2.1.0\lib\Release\x64;$(SolutionDir)..\Lib\Assimp\lib\x64;$(SolutionDir)..\Lib\glfw-3.3.8.bin.WIN64\lib-vc2022;C:\School\5Sem\zpg\Project\Lib\devil\lib\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\Lib\glew-2.1.0\lib\Release\x64;$(SolutionDir)..\Lib\Assimp\lib\x64;$(SolutionDir)..\Lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)..\Lib\devil\lib\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glu32.lib;glfw3.lib;glew32.lib;assimp-vc143-mt.lib;DevIL.lib;ILU.lib;ILUT.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
