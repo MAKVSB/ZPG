@@ -17,8 +17,8 @@ This repository contains materials and examples for the course **Fundamentals of
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/MAKVSB/MGA.git MGA
-cd MGA
+git clone https://github.com/MAKVSB/ZPG.git ZPG
+cd ZPG
 ```
 
 2. Everyching else should be set up. 
