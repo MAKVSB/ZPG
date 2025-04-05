@@ -21,5 +21,5 @@ git clone https://github.com/MAKVSB/ZPG.git ZPG
 cd ZPG
 ```
 
-2. Everyching else should be set up. 
+2. Everything else should be set up. 
 WARNING: This project was build only on Windows with no intention ever to modify it fo Linux. YOYO.
